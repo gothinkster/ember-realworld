@@ -12,6 +12,10 @@ Router.map(function() {
   this.route('register');
   this.route('profile', { path: '/profile/:username' });
   this.route('settings');
+  this.route('editor', function() {
+    this.route('new', { path: '/' });
+    this.route('article', { path: '/:slug' });
+  });
 });
 
 export default Router;
