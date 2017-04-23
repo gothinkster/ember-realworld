@@ -10,6 +10,7 @@ Router.map(function() {
   this.route('home', { path: '/' });
   this.route('login');
   this.route('register');
+  this.route('profile', { path: '/profile/:username' });
 });
 
 export default Router;
