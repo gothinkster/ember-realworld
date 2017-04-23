@@ -2,28 +2,31 @@
   <div class="container page">
     <div class="row">
 
-      <div class="col-md-6 col-md-offset-3 col-xs-12">
-        <h1 class="text-xs-center">Sign up</h1>
+      <div class="col-md-6 offset-md-3 col-xs-12">
+        <h1 class="text-xs-center">Sign In</h1>
         <p class="text-xs-center">
-          <a href="">Have an account?</a>
+          {{#link-to 'register'}}
+            Need an account?
+          {{/link-to}}
         </p>
 
-        <ul class="error-messages">
-          <li>That email is already taken</li>
-        </ul>
+        {{#if errors}}
+          <ul class="error-messages">
+            {{#each errors as |error|}}
+              <li>{{error}}</li>
+            {{/each}}
+          </ul>
+        {{/if}}
 
         <form>
           <fieldset class="form-group">
-            <input class="form-control form-control-lg" type="text" placeholder="Your Name">
+            {{input class="form-control form-control-lg" placeholder="Email"}}
           </fieldset>
           <fieldset class="form-group">
-            <input class="form-control form-control-lg" type="text" placeholder="Email">
-          </fieldset>
-          <fieldset class="form-group">
-            <input class="form-control form-control-lg" type="password" placeholder="Password">
+            {{input type='password' class='form-control form-control-lg' placeholder='Password'}}
           </fieldset>
           <button class="btn btn-lg btn-primary pull-xs-right">
-            Sign up
+            Sign In
           </button>
         </form>
       </div>
