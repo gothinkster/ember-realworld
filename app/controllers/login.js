@@ -1,11 +1,6 @@
 import Ember from 'ember';
 
-const {
-  get,
-  getProperties,
-  inject,
-  set
-} = Ember;
+const { get, getProperties, inject, set } = Ember;
 
 export default Ember.Controller.extend({
   session: inject.service(),
@@ -30,7 +25,7 @@ export default Ember.Controller.extend({
         .then(() => {
           this.transitionToRoute('home');
         })
-        .catch((normalizedErrors) => {
+        .catch(normalizedErrors => {
           set(this, 'errors', normalizedErrors);
         });
     }

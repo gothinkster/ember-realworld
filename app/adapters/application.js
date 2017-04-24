@@ -9,7 +9,7 @@ export default DS.RESTAdapter.extend({
   namespace: 'api',
 
   headers: {
-    'Accept': 'application/json',
+    Accept: 'application/json',
     'Content-Type': 'application/json'
   },
 
@@ -20,5 +20,4 @@ export default DS.RESTAdapter.extend({
 
     return this._super(...arguments);
   }
-})
-
+});

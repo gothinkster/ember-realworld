@@ -4,16 +4,10 @@ import BaseAuthenticator from 'ember-simple-auth/authenticators/base';
 import fetch from 'ember-network/fetch';
 import config from '../config/environment';
 
-const {
-  RSVP,
-  String: { capitalize },
-  get,
-  getProperties,
-  inject
-} = Ember;
+const { RSVP, String: { capitalize }, get, getProperties, inject } = Ember;
 
-const headers ={
-  'Accept': 'application/json',
+const headers = {
+  Accept: 'application/json',
   'Content-Type': 'application/json'
 };
 
@@ -25,7 +19,7 @@ const headers ={
  * @return {Array<String>}
  */
 function normalizeErrors(errors) {
-  return Object.keys(errors).map((key) => {
+  return Object.keys(errors).map(key => {
     const value = errors[key];
     return `${capitalize(key)} ${value}`;
   });
@@ -44,9 +38,7 @@ export default BaseAuthenticator.extend({
    * and log them in.
    */
   authenticate(user) {
-    const { token, email, password } = getProperties(
-      user, 'token', 'email', 'password'
-    );
+    const { token, email, password } = getProperties(user, 'token', 'email', 'password');
 
     // If the user is already logged in, store their serialized state
     if (token) {
@@ -59,7 +51,7 @@ export default BaseAuthenticator.extend({
     });
 
     return fetch(`${config.API.host}/api/users/login`, { body, headers, method: 'POST' })
-      .then((response) => response.json())
+      .then(response => response.json())
       .then(this._handleApiResponse.bind(this));
   },
 
@@ -70,10 +62,10 @@ export default BaseAuthenticator.extend({
 
     const fullHeaders = Object.assign({}, headers, {
       authorization: `Token ${token}`
-    })
+    });
 
     return fetch(`${config.API.host}/api/user`, { headers: fullHeaders, method: 'GET' })
-      .then((response) => response.json())
+      .then(response => response.json())
       .then(this._handleApiResponse.bind(this));
   },
 
@@ -96,6 +88,5 @@ export default BaseAuthenticator.extend({
     store.pushPayload(userPayload);
 
     return store.peekRecord('user', userPayload.user.id);
-  },
-
+  }
 });
