@@ -43,6 +43,24 @@ You will need the following things properly installed on your computer.
 
 Make use of the many generators for code, try `ember help generate` for more details
 
+### Linting
+
+This project uses a combination of [ESLint][eslint] and [Prettier][prettier] to maintain uniform style for our JavaScript code.
+
+To run verification of the code, but not fix anything automatically, you can run
+
+```bash
+yarn lint
+```
+
+However, thanks to the power of the tools we use, many problems can be fixed automatically.  That can be done by running
+
+```bash
+yarn lint:fix
+```
+
+Which will detect which problems can be fixed automatically and write the correct version back to the files in question.
+
 ### Running Tests
 
 * `ember test`
@@ -65,3 +83,5 @@ TODO
   * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
   * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
 
+[eslint]: http://eslint.org/
+[prettier]: https://github.com/prettier/prettier
