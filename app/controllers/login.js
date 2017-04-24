@@ -30,8 +30,8 @@ export default Ember.Controller.extend({
         .then(() => {
           this.transitionToRoute('home');
         })
-        .catch((errors) => {
-          debugger;
+        .catch((normalizedErrors) => {
+          set(this, 'errors', normalizedErrors);
         });
     }
   }

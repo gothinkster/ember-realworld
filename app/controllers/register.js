@@ -1,15 +1,7 @@
 import Ember from 'ember';
-import fetch from 'ember-network/fetch';
-
-import config from '../config/environment';
-
-const headers ={
-  'Accept': 'application/json',
-  'Content-Type': 'application/json'
-};
 
 const {
-  RSVP,
+  String: { capitalize },
   get,
   getProperties,
   inject,
@@ -18,6 +10,7 @@ const {
 
 export default Ember.Controller.extend({
   session: inject.service(),
+  store: inject.service(),
 
   init() {
     this._super();
@@ -31,27 +24,25 @@ export default Ember.Controller.extend({
   email: '',
   password: '',
 
+  _displayErrors(user) {
+    const formattedErrors = user
+      .get('errors')
+      .toArray()
+      .map(({ attribute, message }) => `${capitalize(attribute)} ${message}`);
+
+    set(this, 'errors', formattedErrors);
+  },
+
   actions: {
     'sign-up'() {
-      const body = JSON.stringify({
-        user: getProperties(this, 'username', 'email', 'password')
-      });
+      const userData = getProperties(this, 'username', 'email', 'password');
+      const user = get(this, 'store').createRecord('user', userData);
 
-      return fetch(`${config.API.host}/api/users`, { body, headers, method: 'POST' })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.user) {
-            return get(this, 'session').authenticate('authenticator:conduit', data.user)
-          } else {
-            return RSVP.reject(data.errors);
-          }
-        })
-        .then(() => {
-          this.transitionToRoute('home');
-        })
-        .catch((errors) => {
-          debugger;
-        });
+      return user
+        .save()
+        .then(() => get(this, 'session').authenticate('authenticator:conduit', user))
+        .then(() => this.transitionToRoute('home'))
+        .catch(() => this._displayErrors(user));
     }
   }
 });
