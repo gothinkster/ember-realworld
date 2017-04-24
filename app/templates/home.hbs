@@ -20,6 +20,10 @@
                         </li>
                     </ul>
                 </div>
+                {{#each model.articles as |article|}}
+                    {{feed-item imageSrc=article.author.image author=article.author.username date=article.createdAt
+                    hearts=article.favoritesCount content=article.body}}
+                {{/each}}
                 {{feed-item imageSrc="https://static.productionready.io/images/smiley-cyrus.jpg" author="Alon Bukai" date="January 20th"
                     hearts=9000 content=model.articleContent}}
                 {{feed-item imageSrc="https://static.productionready.io/images/smiley-cyrus.jpg" author="Alex LaFroscia" date="January 20th"
