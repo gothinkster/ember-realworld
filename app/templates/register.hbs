@@ -2,28 +2,45 @@
   <div class="container page">
     <div class="row">
 
-      <div class="col-md-6 col-md-offset-3 col-xs-12">
-        <h1 class="text-xs-center">Sign up</h1>
+      <div class="col-md-6 offset-md-3 col-xs-12">
+        <h1 class="text-xs-center">Sign Up</h1>
         <p class="text-xs-center">
-          <a href="">Have an account?</a>
+          {{#link-to 'login'}}
+            Have an account?
+          {{/link-to}}
         </p>
 
-        <ul class="error-messages">
-          <li>That email is already taken</li>
-        </ul>
+        {{#if errors}}
+          <ul class="error-messages">
+            {{#each errors as |error|}}
+              <li>{{error}}</li>
+            {{/each}}
+          </ul>
+        {{/if}}
 
         <form>
           <fieldset class="form-group">
-            <input class="form-control form-control-lg" type="text" placeholder="Your Name">
+            {{input
+                class='form-control form-control-lg'
+                placeholder='Username'
+                value=username}}
           </fieldset>
           <fieldset class="form-group">
-            <input class="form-control form-control-lg" type="text" placeholder="Email">
+            {{input
+                class='form-control form-control-lg'
+                type='email'
+                placeholder='Email'
+                value=email}}
           </fieldset>
           <fieldset class="form-group">
-            <input class="form-control form-control-lg" type="password" placeholder="Password">
+            {{input
+                class='form-control form-control-lg'
+                type='password'
+                placeholder='Password'
+                value=password}}
           </fieldset>
-          <button class="btn btn-lg btn-primary pull-xs-right">
-            Sign up
+          <button class="btn btn-lg btn-primary pull-xs-right" {{action 'sign-up'}}>
+            Sign Up
           </button>
         </form>
       </div>

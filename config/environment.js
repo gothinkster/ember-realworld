@@ -20,6 +20,15 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+    },
+
+    API: {
+      host: 'https://conduit.productionready.io'
+    },
+
+    'ember-simple-auth': {
+      // Override the default `index` value
+      routeIfAlreadyAuthenticated: 'home'
     }
   };
 
@@ -40,10 +49,13 @@ module.exports = function(environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
     ENV.APP.rootElement = '#ember-testing';
+
+    // Enable mocking by removing the host
+    ENV.API.host = '';
   }
 
   if (environment === 'production') {
-
+    // Some prod-only config
   }
 
   return ENV;
