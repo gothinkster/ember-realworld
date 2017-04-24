@@ -10,9 +10,11 @@
             <div class="col-md-9">
                 <div class="feed-toggle">
                     <ul class="nav nav-pills outline-active">
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="">Your Feed</a>
-                        </li>
+                        {{#if isAuthenticated}}
+                            <li class="nav-item">
+                                <a class="nav-link disabled" href="">Your Feed</a>
+                            </li>
+                        {{/if}}
                         <li class="nav-item">
                             <a class="nav-link active" href="">Global Feed</a>
                         </li>
