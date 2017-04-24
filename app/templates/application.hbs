@@ -7,26 +7,34 @@
           Home
         {{/link-to}}
       </li>
-      <li class="nav-item">
-        {{#link-to 'editor.new' class='nav-link'}}
-          <i class="ion-compose"></i>&nbsp;New Post
-        {{/link-to}}
-      </li>
-      <li class="nav-item">
-        {{#link-to 'login' class="nav-link"}}
-          Sign In
-        {{/link-to}}
-      </li>
-      <li class="nav-item">
-        {{#link-to 'register' class="nav-link"}}
-          Sign Up
-        {{/link-to}}
-      </li>
-      <li class="nav-item">
-        {{#link-to 'settings' class='nav-link'}}
-          Settings
-        {{/link-to}}
-      </li>
+      {{#if isAuthenticated}}
+        <li class="nav-item">
+          {{#link-to 'editor.new' class='nav-link'}}
+            <i class="ion-compose"></i>&nbsp;New Post
+          {{/link-to}}
+        </li>
+        <li class="nav-item">
+          {{#link-to 'settings' class='nav-link'}}
+            Settings
+          {{/link-to}}
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link" {{action 'sign-out'}}>
+            Sign Out
+          </a>
+        </li>
+      {{else}}
+        <li class="nav-item">
+          {{#link-to 'login' class="nav-link"}}
+            Sign In
+          {{/link-to}}
+        </li>
+        <li class="nav-item">
+          {{#link-to 'register' class="nav-link"}}
+            Sign Up
+          {{/link-to}}
+        </li>
+      {{/if}}
     </ul>
   </div>
 </nav>

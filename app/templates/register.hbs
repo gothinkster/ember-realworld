@@ -20,15 +20,26 @@
 
         <form>
           <fieldset class="form-group">
-            {{input class='form-control form-control-lg' placeholder='Your Name'}}
+            {{input
+                class='form-control form-control-lg'
+                placeholder='Your Name'
+                value=username}}
           </fieldset>
           <fieldset class="form-group">
-            {{input class='form-control form-control-lg' placeholder='Email'}}
+            {{input
+                class='form-control form-control-lg'
+                type='email'
+                placeholder='Email'
+                value=email}}
           </fieldset>
           <fieldset class="form-group">
-            {{input class='form-control form-control-lg' type='password' placeholder='Password'}}
+            {{input
+                class='form-control form-control-lg'
+                type='password'
+                placeholder='Password'
+                value=password}}
           </fieldset>
-          <button class="btn btn-lg btn-primary pull-xs-right">
+          <button class="btn btn-lg btn-primary pull-xs-right" {{action 'sign-up'}}>
             Sign Up
           </button>
         </form>
