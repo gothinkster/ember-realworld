@@ -1,12 +1,6 @@
 import Ember from 'ember';
 
-const {
-  String: { capitalize },
-  get,
-  getProperties,
-  inject,
-  set
-} = Ember;
+const { String: { capitalize }, get, getProperties, inject, set } = Ember;
 
 export default Ember.Controller.extend({
   session: inject.service(),
