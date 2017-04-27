@@ -85,3 +85,20 @@ TODO
 
 [eslint]: http://eslint.org/
 [prettier]: https://github.com/prettier/prettier
+
+
+# Who made this?
+
+RealWorld Ember has a core project team composed of:
+
+#### [Alon Bukai](https://alonbukai.com)
+
+<img align="left" width="40" height="40" src="https://avatars1.githubusercontent.com/u/452199?v=3&s=100">
+
+Alon is a Full Stack Software Engineer who has been coding since he was 13. Today he is a Software Engineer working in Ember.js on the frontend and C# .Net on the backend. At night he is studying for his Software Engineering Degree. In the middle of the night he is working on this repo.
+
+#### [Alex LaFroscia](http://alexlafroscia.com)
+
+<img align="left" width="40" height="40" src="https://avatars0.githubusercontent.com/u/1645881?v=3&s=100">
+
+TODO
