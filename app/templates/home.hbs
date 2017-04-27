@@ -1,61 +1,49 @@
 <div class="home-page">
-    <div class="banner">
-        <div class="container">
-            <h1 class="logo-font">conduit</h1>
-            <p>A place to share your knowledge.</p>
-        </div>
+  <div class="banner">
+    <div class="container">
+      <h1 class="logo-font">conduit</h1>
+      <p>A place to share your knowledge.</p>
     </div>
-    <div class="container page">
-        <div class="row">
-            <div class="col-md-9">
-                <div class="feed-toggle">
-                    <ul class="nav nav-pills outline-active">
-                        {{#if isAuthenticated}}
-                            <li class="nav-item">
-                                <a class="nav-link disabled" href="">Your Feed</a>
-                            </li>
-                        {{/if}}
-                        <li class="nav-item">
-                            <a class="nav-link active" href="">Global Feed</a>
-                        </li>
-                    </ul>
-                </div>
-                {{#each model.articles as |article|}}
-                    {{feed-item 
-                        imageSrc=article.author.image 
-                        author=article.author.username 
-                        date=article.createdAt
-                        hearts=article.favoritesCount 
-                        content=article.body}}
-                {{/each}}
-                {{feed-item 
-                    imageSrc="https://static.productionready.io/images/smiley-cyrus.jpg" 
-                    author="Alon Bukai" 
-                    date="January 20th"
-                    hearts=9000 
-                    content=model.articleContent}}
-                {{feed-item 
-                    imageSrc="https://static.productionready.io/images/smiley-cyrus.jpg" 
-                    author="Alex LaFroscia" 
-                    date="January 20th"
-                    hearts=9000 
-                    content=model.articleContent}}
-            </div>
-            <div class="col-md-3">
-                <div class="sidebar">
-                    <p>Popular Tags</p>
-                    <div class="tag-list">
-                        <a href="" class="tag-pill tag-default">programming</a>
-                        <a href="" class="tag-pill tag-default">javascript</a>
-                        <a href="" class="tag-pill tag-default">emberjs</a>
-                        <a href="" class="tag-pill tag-default">angularjs</a>
-                        <a href="" class="tag-pill tag-default">react</a>
-                        <a href="" class="tag-pill tag-default">mean</a>
-                        <a href="" class="tag-pill tag-default">node</a>
-                        <a href="" class="tag-pill tag-default">rails</a>
-                    </div>
-                </div>
-            </div>
+  </div>
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="feed-toggle">
+          <ul class="nav nav-pills outline-active">
+            {{#if isAuthenticated}}
+              <li class="nav-item">
+                <a class="nav-link disabled" href="">Your Feed</a>
+              </li>
+            {{/if}}
+            <li class="nav-item">
+              <a class="nav-link active" href="">Global Feed</a>
+            </li>
+          </ul>
         </div>
+        {{#each model.articles as |article|}}
+          {{feed-item 
+            imageSrc=article.author.image 
+            author=article.author.username 
+            date=article.createdAt
+            hearts=article.favoritesCount 
+            content=article.body}}
+        {{/each}}
+      </div>
+      <div class="col-md-3">
+        <div class="sidebar">
+          <p>Popular Tags</p>
+          <div class="tag-list">
+            <a href="" class="tag-pill tag-default">programming</a>
+            <a href="" class="tag-pill tag-default">javascript</a>
+            <a href="" class="tag-pill tag-default">emberjs</a>
+            <a href="" class="tag-pill tag-default">angularjs</a>
+            <a href="" class="tag-pill tag-default">react</a>
+            <a href="" class="tag-pill tag-default">mean</a>
+            <a href="" class="tag-pill tag-default">node</a>
+            <a href="" class="tag-pill tag-default">rails</a>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

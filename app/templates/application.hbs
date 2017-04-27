@@ -3,18 +3,18 @@
     <a class="navbar-brand" href="index.html">conduit</a>
     <ul class="nav navbar-nav pull-xs-right">
       <li class="nav-item">
-        {{#link-to 'home' class='nav-link'}}
+        {{#link-to 'home' class='nav-link' }}
           Home
         {{/link-to}}
       </li>
       {{#if isAuthenticated}}
         <li class="nav-item">
-          {{#link-to 'editor.new' class='nav-link'}}
+          {{#link-to 'editor.new' class='nav-link' }}
             <i class="ion-compose"></i>&nbsp;New Post
           {{/link-to}}
         </li>
         <li class="nav-item">
-          {{#link-to 'settings' class='nav-link'}}
+          {{#link-to 'settings' class='nav-link' }}
             Settings
           {{/link-to}}
         </li>
@@ -25,12 +25,12 @@
         </li>
       {{else}}
         <li class="nav-item">
-          {{#link-to 'login' class="nav-link"}}
+          {{#link-to 'login' class="nav-link" }}
             Sign In
           {{/link-to}}
         </li>
         <li class="nav-item">
-          {{#link-to 'register' class="nav-link"}}
+          {{#link-to 'register' class="nav-link" }}
             Sign Up
           {{/link-to}}
         </li>
@@ -38,16 +38,15 @@
     </ul>
   </div>
 </nav>
-
 {{outlet}}
-
 <footer>
   <div class="container">
-    {{#link-to 'home' class='logo-font'}}
+    {{#link-to 'home' class='logo-font' }}
       conduit
     {{/link-to}}
     <span class="attribution">
-      An interactive learning project from <a href="https://thinkster.io">Thinkster</a>. Code &amp; design licensed under MIT.
+      An interactive learning project from <a href="https://thinkster.io">Thinkster</a>. Code &amp; design licensed under
+      MIT.
     </span>
   </div>
 </footer>
