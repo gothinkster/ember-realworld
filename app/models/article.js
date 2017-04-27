@@ -52,9 +52,9 @@ export default DS.Model.extend({
   author: belongsTo('user'),
 
   /**
-   * @property {bool} favorited
+   * @property {boolean} favorited
    */
-  favorited: attr('bool'),
+  favorited: attr('boolean'),
 
   /**
    * @property {number} favoritesCount
