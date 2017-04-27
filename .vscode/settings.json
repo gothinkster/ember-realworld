@@ -1,6 +1,5 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-  "prettier.bracketSpacing": true,
   "prettier.printWidth": 120,
   "prettier.singleQuote": true,
   "search.exclude": {
@@ -11,9 +10,6 @@
     "**/dist": true,
     "**/tests": true
   },
-  "editor.snippetSuggestions": "top",
-  "vsicons.presets.angular": false,
-  "workbench.colorTheme": "Ember Frost",
   "editor.formatOnSave": true,
   "html.format.enable": true,
   "html.format.indentHandlebars": true,
@@ -31,5 +27,6 @@
   "css.validate": false,
   "scss.validate": false,
   "stylefmt.useStylelintConfigOverrides": true,
-  "html.format.unformatted": "a, abbr, acronym, b, bdo, big, br, cite, code, dfn, em, i, img, input, kbd, map, object, q, samp, select, small, strong, sub, sup, textarea, tt, var"
+  "html.format.unformatted": "a, abbr, acronym, b, bdo, big, br, cite, code, dfn, em, i, img, input, kbd, map, object, q, samp, select, small, strong, sub, sup, textarea, tt, var",
+  "editor.tabSize": 2
 }
