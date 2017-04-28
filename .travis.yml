@@ -23,3 +23,17 @@ install:
 
 script:
   - yarn test
+
+before_deploy:
+  - npm run build
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: dist
+  repo: "gothinkster/ember-realworld-example-app"
+  project_name: ember-realworld-example-app
+  target_branch: gh-pages
+  on:
+    branch: master
