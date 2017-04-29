@@ -7,8 +7,7 @@
     "**/bower_components": true,
     "**/tmp": true,
     "**/assets": true,
-    "**/dist": true,
-    "**/tests": true
+    "**/dist": true
   },
   "editor.formatOnSave": true,
   "html.format.enable": true,
