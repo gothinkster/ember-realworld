@@ -35,6 +35,8 @@
     "ember-export-application-global": "^2.0.0",
     "ember-load-initializers": "^1.0.0",
     "ember-resolver": "^4.1.0",
+    "ember-cli-moment-shim": "^3.1.0",
+    "ember-moment": "^7.3.0",
     "ember-simple-auth": "^1.2.2",
     "ember-source": "^2.13.0",
     "ember-test-selectors": "^0.3.3",
