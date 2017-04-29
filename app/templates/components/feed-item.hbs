@@ -4,7 +4,7 @@
       <img src= {{imageSrc}} alt="profile image for {{author}}">
     {{/link-to}}
     <div class="info">
-      {{#link-to "profile" author}}
+      {{#link-to "profile" author class="author" }}
         {{author}}
       {{/link-to}}
       <span class="date">{{moment-format date 'ddd MMM DD YYYY'}}</span>
@@ -13,7 +13,9 @@
       <i class="ion-heart"></i> {{hearts}}
     </button>
   </div>
-  <a href="" class="preview-link">
-    {{content}}
-  </a>
+  {{#link-to "article" slug class="preview-link" }}
+    <h1>{{title}}</h1>
+    <p>{{content}}</p>
+    <span>Read more...</span>
+  {{/link-to}}
 </div>
