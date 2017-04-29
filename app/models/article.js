@@ -37,9 +37,9 @@ export default DS.Model.extend({
   }),
 
   /**
-   * @property {string} tagList Not Implemented
+   * @property {string} tagList 
    */
-  // tagList: attr(),
+  tagList: attr(),
 
   /**
    * @property {string} description
