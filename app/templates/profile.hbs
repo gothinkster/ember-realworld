@@ -3,14 +3,13 @@
     <div class="container">
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
-          <img src="http://i.imgur.com/Qr71crq.jpg" class="user-img" alt="user image">
-          <h4>Eric Simons</h4>
+          <img src= {{model.image}} class="user-img" alt="user image">
+          <h4>{{model.username}}</h4>
           <p>
-            Cofounder @GoThinkster, lived in Aol's HQ for a few months, kinda looks like Peeta from the Hunger Games
+            {{model.bio}}
           </p>
           <button class="btn btn-sm btn-outline-secondary action-btn">
-            <i class="ion-plus-round"></i> &nbsp; Follow Eric Simons
-            <span class="counter">(10)</span>
+            <i class="ion-plus-round"></i> &nbsp; Follow {{model.username}}
           </button>
         </div>
       </div>
@@ -22,10 +21,10 @@
         <div class="posts-toggle">
           <ul class="nav nav-pills outline-active">
             <li class="nav-item">
-              <a class="nav-link active" href="">My Posts</a>
+              <a class="nav-link active" href="">My Articles</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="">Favorited Posts</a>
+              <a class="nav-link" href="">Favorited Articles</a>
             </li>
           </ul>
         </div>
