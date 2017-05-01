@@ -5,8 +5,8 @@
       <a href="" class="author">{{author}}</a>
       <span class="date">{{date}}</span>
     </div>
-    <button class="btn btn-outline-primary btn-sm pull-xs-right">
-      <i class="ion-heart"></i> {{hearts}}
+    <button {{action onFavorited}} class="btn btn-sm pull-xs-right {{if favorited 'btn-outline-primary' 'btn-outline-primary'}}">
+      <i class="ion-heart"></i> {{favoritesCount}}
     </button>
   </div>
   <a href="" class="preview-link">

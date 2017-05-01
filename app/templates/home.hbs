@@ -25,7 +25,9 @@
             imageSrc=article.author.image 
             author=article.author.username 
             date=article.createdAt
-            hearts=article.favoritesCount 
+            favoritesCount=article.favoritesCount
+            favorited=article.favorited 
+            onFavorited=(action 'favorite' article)
             content=article.body}}
         {{/each}}
       </div>
