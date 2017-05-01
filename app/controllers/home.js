@@ -3,12 +3,13 @@ const { computed, inject } = Ember;
 
 export default Ember.Controller.extend({
   session: inject.service(),
+  articles: inject.service(),
 
   isAuthenticated: computed.oneWay('session.isAuthenticated'),
 
   actions: {
-    favorite(article) {
-      console.log(article);
+    favorite(slug) {
+      this.get('articles').addFavorite(slug);
     }
   }
 });
