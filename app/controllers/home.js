@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { task } from 'ember-concurrency';
 const { computed, inject } = Ember;
 
 export default Ember.Controller.extend({
@@ -7,9 +8,7 @@ export default Ember.Controller.extend({
 
   isAuthenticated: computed.oneWay('session.isAuthenticated'),
 
-  actions: {
-    favorite(slug) {
-      this.get('articles').addFavorite(slug);
-    }
-  }
+  favorite: task(function*(slug) {
+    yield this.get('articles').addFavorite(slug);
+  }).drop()
 });

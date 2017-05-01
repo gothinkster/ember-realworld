@@ -27,7 +27,7 @@
             date=article.createdAt
             favoritesCount=article.favoritesCount
             favorited=article.favorited 
-            onFavorited=(action 'favorite' article.slug)
+            onFavorited=(perform favorite article.slug)
             content=article.body}}
         {{/each}}
       </div>
