@@ -87,6 +87,6 @@ export default BaseAuthenticator.extend({
     const store = get(this, 'store');
     store.pushPayload(userPayload);
 
-    return store.peekRecord('user', userPayload.user.id);
+    return store.peekRecord('user', userPayload.user.username);
   }
 });
