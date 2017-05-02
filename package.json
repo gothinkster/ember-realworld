@@ -49,5 +49,9 @@
   "engines": {
     "node": ">= 4"
   },
-  "private": true
+  "private": true,
+  "dependencies": {
+    "tslint": "4.0.2",
+    "typescript": "2.0.0"
+  }
 }
