@@ -29,7 +29,16 @@
             content=article.body}}
         {{/each}}
       </div>
-      {{popular-tags tags=model.popularTags}}
+      <div class="col-md-3">
+        <div class="sidebar">
+          <p>Popular Tags</p>
+          <div class="tag-list">
+            {{#each model.popularTags as |tag|}}
+              <a href="" class="tag-pill tag-default">{{tag.value}}</a>
+            {{/each}}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
