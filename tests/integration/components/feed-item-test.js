@@ -23,16 +23,7 @@ test('it renders', function(assert) {
   };
 
   this.set('article', article);
-  this.render(
-    hbs`{{feed-item 
-            imageSrc=article.author.image 
-            author=article.author.username 
-            date=article.createdAt
-            hearts=article.favoritesCount 
-            content=article.body
-            slug=article.slug
-            title=article.title}}`
-  );
+  this.render(hbs`{{feed-item article=article }}`);
 
   assert.equal(
     this.$('img').attr('src'),
@@ -44,7 +35,7 @@ test('it renders', function(assert) {
 
   assert.equal(this.$('span.date').text().trim(), 'Mon Dec 25 1995', 'Date is correct');
 
-  assert.equal(this.$('button.btn').text().trim(), '9000', 'Number of hearts is correct');
+  assert.equal(this.$('button.btn').text().trim(), '9000', 'Number of favorites is correct');
 
   assert.equal(this.$('a.preview-link h1').text().trim(), 'Feed Item Title', 'Title is correct');
 

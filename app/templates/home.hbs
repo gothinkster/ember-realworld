@@ -21,14 +21,7 @@
           </ul>
         </div>
         {{#each model.articles as |article|}}
-          {{feed-item 
-            imageSrc=article.author.image 
-            author=article.author.username 
-            date=article.createdAt
-            hearts=article.favoritesCount 
-            content=article.body
-            slug=article.slug
-            title=article.title}}
+          {{feed-item article=article}}
         {{/each}}
       </div>
       <div class="col-md-3">
