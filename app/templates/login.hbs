@@ -32,7 +32,7 @@
                 placeholder='Password'
                 value=password}}
           </fieldset>
-          <button class="btn btn-lg btn-primary pull-xs-right" {{action 'login' email password}}>
+          <button data-test-login class="btn btn-lg btn-primary pull-xs-right" {{action 'login' email password}}>
             Sign In
           </button>
         </form>

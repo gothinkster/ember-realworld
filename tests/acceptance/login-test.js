@@ -12,7 +12,9 @@ test('visiting /login', function(assert) {
   fillIn(testSelector('email'), user.email);
   fillIn(testSelector('password'), user.password);
 
+  click(testSelector('login'));
+
   andThen(function() {
-    assert.equal(currentURL(), '/home');
+    assert.equal(currentURL(), '/');
   });
 });
