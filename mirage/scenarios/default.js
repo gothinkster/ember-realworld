@@ -5,7 +5,6 @@ export default function(server) {
 
     Make sure to define a factory for each model you want to create.
   */
-  // server.createList('post', 10);
 
   server.create('user', { email: 'bob@example.com', password: 'password123' });
 }
