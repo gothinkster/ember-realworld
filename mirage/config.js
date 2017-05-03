@@ -20,4 +20,5 @@ export default function() {
   });
 
   this.get('/articles');
+  this.get('/tags');
 }

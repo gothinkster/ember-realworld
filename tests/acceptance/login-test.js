@@ -4,7 +4,7 @@ import moduleForAcceptance from 'realworld-ember/tests/helpers/module-for-accept
 
 moduleForAcceptance('Acceptance | login');
 
-test('visiting /login', function(assert) {
+test('visiting /login', assert => {
   let user = server.create('user', { email: 'bob@example.com', password: 'password123' });
 
   visit('/login');
@@ -14,9 +14,8 @@ test('visiting /login', function(assert) {
 
   click(testSelector('login'));
 
-  andThen(function() {
+  andThen(() => {
     assert.equal(currentURL(), '/');
-
-    // assert logged in etc..
+    assert.ok(find(testSelector('sign-out')).length, 'Could not find sign-out link');
   });
 });
