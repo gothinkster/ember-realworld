@@ -5,7 +5,7 @@ import moduleForAcceptance from 'realworld-ember/tests/helpers/module-for-accept
 moduleForAcceptance('Acceptance | login');
 
 test('visiting /login', assert => {
-  let user = server.create('user', { email: 'bob@example.com', password: 'password123' });
+  const user = server.create('user', { email: 'bob@example.com', password: 'password123' });
 
   visit('/login');
 
