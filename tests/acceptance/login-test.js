@@ -16,5 +16,7 @@ test('visiting /login', function(assert) {
 
   andThen(function() {
     assert.equal(currentURL(), '/');
+
+    // assert logged in etc..
   });
 });
