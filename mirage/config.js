@@ -19,7 +19,5 @@ export default function() {
     }
   });
 
-  this.get('/articles', () => {
-    return { articles: [] };
-  });
+  this.get('/articles');
 }
