@@ -1,8 +1,19 @@
-import { Factory } from 'ember-cli-mirage';
+import { Factory, fake } from 'ember-cli-mirage';
 
 export default Factory.extend({
-  username: 'jake',
-  bio: 'i work at statefarm',
-  image: 'https://i.stack.imgur.com/xHWG8.jpg',
-  following: false
+  username() {
+    return faker.internet.userName();
+  },
+
+  bio() {
+    return faker.lorem.sentence();
+  },
+
+  image() {
+    return faker.internet.avatar();
+  },
+
+  following() {
+    return faker.random.boolean();
+  }
 });
