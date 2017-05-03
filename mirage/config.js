@@ -8,12 +8,12 @@ export default function() {
 
   this.post('/users/login', (schema, request) => {
     const attrs = JSON.parse(request.requestBody).user;
-    return { user: schema.db.users.findBy({ email: attrs.email }) };
+    return schema.users.findBy({ email: attrs.email });
   });
 
   this.get('/user', (schema, request) => {
     if (request.requestHeaders.authorization === 'Token auth-token') {
-      return { user: schema.db.users.findBy({ email: 'email@example.com' }) };
+      return schema.users.findBy({ email: 'email@example.com' });
     } else {
       return new Response(401, {}, {});
     }
