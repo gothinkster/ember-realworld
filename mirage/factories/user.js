@@ -1,7 +1,7 @@
 import { Factory, faker } from 'ember-cli-mirage';
 
 export default Factory.extend({
-  token: 'token',
+  token: 'auth-token',
 
   image: null,
 

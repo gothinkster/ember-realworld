@@ -1,3 +1,5 @@
+import { Response } from 'ember-cli-mirage';
+
 export default function() {
   // this is awkward, ideally we would be doing this via the proxy.
   this.urlPrefix = 'https://conduit.productionready.io'; // make this `http://localhost:8080`, for example, if your API is on a different server
@@ -7,6 +9,14 @@ export default function() {
   this.post('/users/login', (schema, request) => {
     const attrs = JSON.parse(request.requestBody).user;
     return { user: schema.db.users.findBy({ email: attrs.email }) };
+  });
+
+  this.get('/user', (schema, request) => {
+    if (request.requestHeaders.authorization === 'Token auth-token') {
+      return { user: schema.db.users.findBy({ email: 'email@example.com' }) };
+    } else {
+      return new Response(401, {}, {});
+    }
   });
 
   this.get('/articles', () => {
