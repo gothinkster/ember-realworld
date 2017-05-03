@@ -1,10 +1,10 @@
 # ![RealWorld Ember Example App](logo-ember.png)
-
 > ### Ember.js codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld-example-apps) spec and API.
 
 
 ### [Demo](https://ember.realworld.io/)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/gothinkster/realworld)
 
+[![Build Status](https://travis-ci.org/gothinkster/ember-realworld.svg?branch=master)](https://travis-ci.org/gothinkster/ember-realworld)
 
 This codebase was created to demonstrate a fully fledged fullstack application built with **Ember** including CRUD operations, authentication, routing, pagination, and more.
 
