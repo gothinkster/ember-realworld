@@ -9,6 +9,9 @@ module.exports = {
   env: {
     browser: true
   },
+  globals: {
+    'server': true
+  },
   rules: {
     'prettier/prettier': [
       'error',
