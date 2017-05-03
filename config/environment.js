@@ -22,9 +22,7 @@ module.exports = function(environment) {
       // when it is created
     },
 
-    API: {
-      host: 'https://conduit.productionready.io'
-    },
+    API: {},
 
     'ember-simple-auth': {
       // Override the default `index` value
@@ -56,6 +54,9 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     // Some prod-only config
+    ENV.API = {
+      host: 'https://conduit.productionready.io'
+    };
   }
 
   return ENV;

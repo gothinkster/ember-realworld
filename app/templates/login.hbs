@@ -18,6 +18,7 @@
         <form>
           <fieldset class="form-group">
             {{input
+                data-test-email
                 type='email'
                 class='form-control form-control-lg'
                 placeholder='Email'
@@ -25,12 +26,13 @@
           </fieldset>
           <fieldset class="form-group">
             {{input
+                data-test-password
                 type='password'
                 class='form-control form-control-lg'
                 placeholder='Password'
                 value=password}}
           </fieldset>
-          <button class="btn btn-lg btn-primary pull-xs-right" {{action 'sign-in'}}>
+          <button data-test-login class="btn btn-lg btn-primary pull-xs-right" {{action 'login' email password}}>
             Sign In
           </button>
         </form>

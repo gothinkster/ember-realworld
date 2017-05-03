@@ -39,6 +39,13 @@ You will need the following things properly installed on your computer.
 * `ember server`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 
+When running in development mode the application will use mock data, if you would like 
+to run against the real conduit API you can do the following:
+
+```
+ember server --proxy https://conduit.productionready.io
+```
+
 ### Code Generators
 
 Make use of the many generators for code, try `ember help generate` for more details
