@@ -24,9 +24,7 @@ export default Factory.extend({
     return faker.random.number(100);
   },
 
-  tagList: ['tag'],
-
-  slug(i) {
+  slug() {
     return faker.helpers.slugify(this.title);
   }
 });
