@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { get, getProperties, inject, set } = Ember;
+const { inject, set } = Ember;
 
 export default Ember.Controller.extend({
   session: inject.service(),
@@ -17,10 +17,8 @@ export default Ember.Controller.extend({
   password: '',
 
   actions: {
-    'sign-in'() {
-      const { email, password } = getProperties(this, 'email', 'password');
-
-      return get(this, 'session')
+    login(session, email, password) {
+      return session
         .authenticate('authenticator:conduit', { email, password })
         .then(() => {
           this.transitionToRoute('home');
