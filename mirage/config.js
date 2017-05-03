@@ -4,14 +4,7 @@ export default function() {
   // this.timing = 400;      // delay for each request, automatically set to 0 during testing
 
   this.post('/users/login', (schema, request) => {
-    // {
-    //   "user":{
-    //     "email": "jake@jake.jake",
-    //     "password": "jakejake"
-    //   }
-    // }
-
     const attrs = JSON.parse(request.requestBody).user;
-    return schema.db.users.findBy({ email: attrs.email });
+    return { user: schema.db.users.findBy({ email: attrs.email }) };
   });
 }
