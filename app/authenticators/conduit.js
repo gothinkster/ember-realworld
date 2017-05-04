@@ -45,7 +45,7 @@ export default BaseAuthenticator.extend({
       return RSVP.resolve(user.serialize());
     }
 
-    // Othersize, fetch their state, log them in, and push that record into Ember Data
+    // Otherwise, fetch their state, log them in, and push that record into Ember Data
     const body = JSON.stringify({
       user: { email, password }
     });

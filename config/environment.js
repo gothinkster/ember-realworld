@@ -22,7 +22,9 @@ module.exports = function(environment) {
       // when it is created
     },
 
-    API: {},
+    API: {
+      host: ''
+    },
 
     'ember-simple-auth': {
       // Override the default `index` value
