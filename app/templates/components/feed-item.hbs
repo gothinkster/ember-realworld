@@ -17,5 +17,10 @@
     <h1>{{article.title}}</h1>
     <p>{{article.body}}</p>
     <span>Read more...</span>
+    <ul class="tag-list">
+      {{#each article.tagList as |tag|}}
+        <li class="tag-default tag-pill tag-outline">{{tag.value}}</li>
+      {{/each}}
+    </ul>
   {{/link-to}}
 </div>
