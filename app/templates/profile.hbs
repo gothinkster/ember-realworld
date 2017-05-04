@@ -29,12 +29,7 @@
           </ul>
         </div>
         {{#each articles as |article|}}
-          {{feed-item 
-            imageSrc=article.author.image 
-            author=article.author.username 
-            date=article.createdAt
-            hearts=article.favoritesCount 
-            content=article.body}}
+          {{feed-item article=article}}
         {{/each}}
       </div>
     </div>
