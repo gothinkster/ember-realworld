@@ -17,6 +17,7 @@ test('it renders', function(assert) {
     },
     createdAt: moment('1995-12-25'),
     favoritesCount: 9000,
+    tagList: ['firstTag', 'secondTag', 'thirdTag'],
     body: 'This is feed item content',
     slug: 'feed-item-title',
     title: 'Feed Item Title'
@@ -40,4 +41,6 @@ test('it renders', function(assert) {
   assert.equal(this.$('a.preview-link h1').text().trim(), 'Feed Item Title', 'Title is correct');
 
   assert.equal(this.$('a.preview-link p').text().trim(), 'This is feed item content', 'Content is correct');
+
+  assert.equal(this.$('.tag-list li.tag-pill').length, 3, 'There are 3 tags');
 });
