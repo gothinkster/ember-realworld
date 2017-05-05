@@ -16,6 +16,6 @@ test('visiting /login', assert => {
 
   andThen(() => {
     assert.equal(currentURL(), '/');
-    assert.ok(find(testSelector('sign-out')).length, 'Could not find sign-out link');
+    assert.ok(find(testSelector('currentUser-loggedIn')).length, 'Could not find currentUser profile link');
   });
 });
