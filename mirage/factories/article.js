@@ -1,5 +1,7 @@
 import { Factory, association, faker } from 'ember-cli-mirage';
 
+const tags = ['dragons', 'training', 'emberjs', 'wycats', 'tomdale', 'tomster'];
+
 export default Factory.extend({
   author: association(),
 
@@ -7,7 +9,13 @@ export default Factory.extend({
     return faker.lorem.words();
   },
 
-  tagList: ['dragons', 'training'],
+  tagList() {
+    if (faker.random.boolean()) {
+      return [faker.random.arrayElement(tags), faker.random.arrayElement(tags)];
+    } else {
+      return [];
+    }
+  },
 
   createdAt() {
     return faker.date.recent();
