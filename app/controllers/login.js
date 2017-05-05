@@ -21,6 +21,7 @@ export default Ember.Controller.extend({
       return get(this, 'session')
         .authenticate('authenticator:conduit', { email, password })
         .then(() => {
+          get(this, 'session').authorize('authorizer:conduit');
           this.transitionToRoute('home');
         })
         .catch(normalizedErrors => {
