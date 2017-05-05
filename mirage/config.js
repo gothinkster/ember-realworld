@@ -24,4 +24,8 @@ export default function() {
       tags: ['emberjs', 'tomster', 'wycats', 'tomdale', 'ember-cli']
     };
   });
+
+  this.get('/articles/:slug', ({ articles }, request) => {
+    return articles.findBy({ slug: request.params.slug });
+  });
 }
