@@ -8,9 +8,17 @@
           <p>
             {{user.bio}}
           </p>
-          <button class="btn btn-sm btn-outline-secondary action-btn">
-            <i class="ion-plus-round"></i> &nbsp; Follow {{user.username}}
-          </button>
+          {{#if (and isAuthenticated (eq user.username currentUser.username))}}
+            {{#link-to "settings"}}
+              <button class="btn btn-sm btn-outline-secondary action-btn">
+                <i class="ion-gear-a"></i> &nbsp; Edit Profile Settings
+              </button>
+            {{/link-to}}
+          {{else}}
+            <button class="btn btn-sm btn-outline-secondary action-btn">
+              <i class="ion-plus-round"></i> &nbsp; Follow {{user.username}}
+            </button>
+          {{/if}}
         </div>
       </div>
     </div>
