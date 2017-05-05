@@ -28,6 +28,7 @@ export default Factory.extend({
   favorited() {
     return faker.random.boolean();
   },
+
   favoritesCount() {
     return faker.random.number(100);
   },
