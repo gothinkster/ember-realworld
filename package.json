@@ -15,7 +15,8 @@
     "lint:fix": "eslint --fix .",
     "start": "ember server",
     "start:dev": "ember server --proxy https://conduit.productionready.io",
-    "test": "ember test"
+    "test": "ember test",
+    "test:s": "ember test --server"
   },
   "devDependencies": {
     "broccoli-asset-rev": "^2.5.0",
@@ -38,6 +39,7 @@
     "ember-load-initializers": "^1.0.0",
     "ember-moment": "^7.3.0",
     "ember-resolver": "^4.1.0",
+    "ember-route-action-helper": "^2.0.3",
     "ember-simple-auth": "^1.2.2",
     "ember-source": "^2.13.0",
     "ember-test-selectors": "^0.3.3",
