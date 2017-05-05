@@ -18,7 +18,8 @@ export default function() {
   });
 
   this.get('/articles');
-  this.get('/tags', (schema, request) => {
+
+  this.get('/tags', () => {
     return {
       tags: ['emberjs', 'tomster', 'wycats', 'tomdale', 'ember-cli']
     };
