@@ -15,7 +15,7 @@ test('visiting /login', assert => {
   click(testSelector('login'));
 
   andThen(() => {
-    assert.equal(currentURL(), '/');
-    assert.ok(find(testSelector('currentUser-loggedIn')).length, 'Could not find currentUser profile link');
+    assert.equal(currentURL(), '/', 'URL after login is Home');
+    assert.ok(find(testSelector('currentUser-loggedIn')).length, 'Found currentUser profile link');
   });
 });
