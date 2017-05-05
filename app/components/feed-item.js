@@ -1,3 +1,12 @@
 import Ember from 'ember';
 
-export default Ember.Component.extend({});
+const { computed } = Ember;
+
+export default Ember.Component.extend({
+  isFavorited: computed('article', {
+    get() {
+      //Stub until feed-item is pulled
+      return true;
+    }
+  })
+});
