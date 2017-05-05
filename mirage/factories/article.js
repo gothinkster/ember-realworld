@@ -9,6 +9,14 @@ export default Factory.extend({
     return faker.lorem.words();
   },
 
+  description() {
+    return faker.lorem.paragraphs();
+  },
+
+  body() {
+    return faker.lorem.paragraphs();
+  },
+
   tagList() {
     if (faker.random.boolean()) {
       return [faker.random.arrayElement(tags), faker.random.arrayElement(tags)];
