@@ -1,6 +1,6 @@
 import DS from 'ember-data';
 
-const { attr, belongsTo } = DS;
+const { attr, belongsTo, hasMany } = DS;
 
 export default DS.Model.extend({
   /**
@@ -37,9 +37,9 @@ export default DS.Model.extend({
   }),
 
   /**
-   * @property {string} tagList 
+   * @property {hasManyModel} tagList 
    */
-  tagList: attr(),
+  tagList: hasMany('tag'),
 
   /**
    * @property {string} description
@@ -47,7 +47,7 @@ export default DS.Model.extend({
   description: attr('string'),
 
   /**
-   * @property {string} author
+   * @property {belongsToModel} author
    */
   author: belongsTo('user'),
 

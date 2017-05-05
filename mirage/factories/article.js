@@ -5,6 +5,8 @@ export default Factory.extend({
 
   title: 'title',
 
+  tagList: ['tag'],
+
   slug(i) {
     return 'slug-' + i;
   }
