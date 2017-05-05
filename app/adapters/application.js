@@ -3,7 +3,10 @@ import config from '../config/environment';
 
 const { errorsHashToArray } = DS;
 
-export default DS.RESTAdapter.extend({
+import DataAdapterMixin from 'ember-simple-auth/mixins/data-adapter-mixin';
+
+export default DS.RESTAdapter.extend(DataAdapterMixin, {
+  authorizer: 'authorizer:conduit',
   host: config.API.host,
 
   namespace: 'api',
