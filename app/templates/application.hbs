@@ -15,14 +15,19 @@
         </li>
         <li class="nav-item">
           {{#link-to 'settings' class='nav-link' }}
-            Settings
+            <i class="ion-gear-a"></i>&nbsp;Settings
           {{/link-to}}
         </li>
         <li class="nav-item">
+          {{#link-to "profile" currentUser.username class="nav-link" }}
+            <img src= {{currentUser.image}} class='user-pic' alt="profile image for {{currentUser.username}}"> {{currentUser.username}}
+          {{/link-to}}
+        </li>
+        {{!--<li class="nav-item">
           <a href="#" class="nav-link" {{action 'sign-out'}} data-test-sign-out>
             Sign Out
           </a>
-        </li>
+        </li>--}}
       {{else}}
         <li class="nav-item">
           {{#link-to 'login' class="nav-link" }}
