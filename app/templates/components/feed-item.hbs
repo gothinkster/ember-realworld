@@ -9,7 +9,7 @@
       {{/link-to}}
       <span class="date">{{moment-format article.createdAt 'ddd MMM DD YYYY'}}</span>
     </div>
-    <button class="btn {{if isFavorited 'btn-primary' 'btn-outline-primary'}} btn-sm pull-xs-right">
+    <button class="btn {{if article.favorited 'btn-primary' 'btn-outline-primary'}} btn-sm pull-xs-right">
       <i class="ion-heart"></i> {{article.favoritesCount}}
     </button>
   </div>
