@@ -36,15 +36,13 @@ You will need the following things properly installed on your computer.
 
 ## Running / Development
 
-* `ember server`
+* `ember server` or `yarn start`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 
 When running in development mode the application will use mock data, if you would like 
 to run against the real conduit API you can do the following:
 
-```
-ember server --proxy https://conduit.productionready.io
-```
+* `ember server --proxy https://conduit.productionready.io` or `yarn start:dev`
 
 ### Code Generators
 
@@ -56,22 +54,18 @@ This project uses a combination of [ESLint][eslint] and [Prettier][prettier] to 
 
 To run verification of the code, but not fix anything automatically, you can run
 
-```bash
-yarn lint
-```
+* `yarn lint`
 
 However, thanks to the power of the tools we use, many problems can be fixed automatically.  That can be done by running
 
-```bash
-yarn lint:fix
-```
+* `yarn lint:fix`
 
 Which will detect which problems can be fixed automatically and write the correct version back to the files in question.
 
 ### Running Tests
 
-* `ember test`
-* `ember test --server`
+* `ember test` or `yarn test`
+* `ember test --server` or `yarn test:s`
 
 ### Building
 
