@@ -3,10 +3,10 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-12 col-md-10 offset-md-1">
-          <img src= {{user.image}} class="user-img" alt="user image">
-          <h4>{{user.username}}</h4>
+          <img src= {{model.user.image}} class="user-img" alt="user image">
+          <h4>{{model.user.username}}</h4>
           <p>
-            {{user.bio}}
+            {{model.user.bio}}
           </p>
           {{#if (and isAuthenticated (eq user.username currentUser.username))}}
             {{#link-to "settings"}}
@@ -16,7 +16,7 @@
             {{/link-to}}
           {{else}}
             <button class="btn btn-sm btn-outline-secondary action-btn">
-              <i class="ion-plus-round"></i> &nbsp; Follow {{user.username}}
+              <i class="ion-plus-round"></i> &nbsp; Follow {{model.user.username}}
             </button>
           {{/if}}
         </div>
@@ -29,14 +29,18 @@
         <div class="articles-toggle">
           <ul class="nav nav-pills outline-active">
             <li class="nav-item">
-              <a class="nav-link active" href="">My Articles</a>
+              {{#link-to "profile.index" class="nav-link" }}
+                My Articles
+              {{/link-to}}
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="">Favorited Articles</a>
+              {{#link-to "profile.favorites" class="nav-link" }}
+                Favorited Articles
+              {{/link-to}}
             </li>
           </ul>
         </div>
-        {{#each articles as |article|}}
+        {{#each model.articles as |article|}}
           {{feed-item article=article}}
         {{/each}}
       </div>
