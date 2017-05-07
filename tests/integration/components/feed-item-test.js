@@ -29,38 +29,26 @@ test('it renders', function(assert) {
   this.render(hbs`{{feed-item article=article }}`);
 
   assert.equal(
-    testSelector('article-author-image', article.author.image),
-    '[data-test-article-author-image="https://static.productionready.io/images/smiley-cyrus.jpg"]',
+    this.$(testSelector('article-author-image')).attr('src'),
+    'https://static.productionready.io/images/smiley-cyrus.jpg',
     'Image is default image'
   );
 
   assert.equal(
-    testSelector('article-author-username', article.author.username),
-    '[data-test-article-author-username="Alon Bukai"]',
+    this.$(testSelector('article-author-username', article.author.username)).text().trim(),
+    'Alon Bukai',
     'Author name is correct'
   );
 
-  assert.equal(
-    testSelector('article-date', article.createdAt),
-    '[data-test-article-date="819842400000"]',
-    'Date is correct'
-  );
+  assert.equal(this.$(testSelector('article-date')).text().trim(), 'Mon Dec 25 1995', 'Date is correct');
+
+  assert.equal(this.$(testSelector('article-favoritesCount')).text().trim(), '9000', 'Number of favorites is correct');
+
+  assert.equal(this.$(testSelector('article-title')).text().trim(), 'Feed Item Title', 'Title is correct');
 
   assert.equal(
-    testSelector('article-favoritesCount', article.favoritesCount),
-    '[data-test-article-favoritesCount="9000"]',
-    'Number of favorites is correct'
-  );
-
-  assert.equal(
-    testSelector('article-title', article.title),
-    '[data-test-article-title="Feed Item Title"]',
-    'Title is correct'
-  );
-
-  assert.equal(
-    testSelector('article-description', article.description),
-    '[data-test-article-description="This is feed item description"]',
+    this.$(testSelector('article-description')).text().trim(),
+    'This is feed item description',
     'Description is correct'
   );
 
