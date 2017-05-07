@@ -7,4 +7,5 @@ export default function(server) {
   */
 
   server.create('user', { email: 'email@example.com', password: 'password' });
+  server.createList('article', 20);
 }
