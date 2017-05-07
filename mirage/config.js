@@ -26,6 +26,6 @@ export default function() {
   });
 
   this.get('/articles/:slug', ({ articles }, request) => {
-    return articles.findBy({ slug: request.params.slug });
+    return articles.first();
   });
 }

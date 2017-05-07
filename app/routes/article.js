@@ -3,6 +3,6 @@ import UnauthenticatedRoute from 'ember-simple-auth/mixins/unauthenticated-route
 
 export default Ember.Route.extend(UnauthenticatedRoute, {
   model(params) {
-    return this.store.find('article', params.slug);
+    return this.store.findRecord('article', params.slug);
   }
 });
