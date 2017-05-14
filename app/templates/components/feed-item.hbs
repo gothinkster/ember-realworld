@@ -7,7 +7,7 @@
       {{#link-to "profile" article.author.username class="author" data-test-article-author-username=article.author.username}}
         {{article.author.username}}
       {{/link-to}}
-      <span class="date" data-test-article-date>{{moment-format article.createdAt 'ddd MMM DD YYYY'}}</span>
+      <span class="date" data-test-article-date>{{moment-format article.createdAt 'MMM DD, YYYY'}}</span>
     </div>
     <button class="btn {{if article.favorited 'btn-primary' 'btn-outline-primary'}} btn-sm pull-xs-right" data-test-article-favoritesCount>
       <i class="ion-heart"></i> {{article.favoritesCount}}

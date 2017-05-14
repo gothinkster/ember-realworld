@@ -40,7 +40,7 @@ test('it renders', function(assert) {
     'Author name is correct'
   );
 
-  assert.equal(this.$(testSelector('article-date')).text().trim(), 'Mon Dec 25 1995', 'Date is correct');
+  assert.equal(this.$(testSelector('article-date')).text().trim(), 'Dec 25, 1995', 'Date is correct');
 
   assert.equal(this.$(testSelector('article-favoritesCount')).text().trim(), '9000', 'Number of favorites is correct');
 
