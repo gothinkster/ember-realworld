@@ -1,1 +1,3 @@
-{{outlet}}
+{{#each model.articles as |article|}}
+  {{feed-item article=article}}
+{{/each}}

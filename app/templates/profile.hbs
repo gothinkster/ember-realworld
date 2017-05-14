@@ -40,9 +40,7 @@
             </li>
           </ul>
         </div>
-        {{#each model.articles as |article|}}
-          {{feed-item article=article}}
-        {{/each}}
+        {{outlet}}
       </div>
     </div>
   </div>
