@@ -20,9 +20,13 @@
             </li>
           </ul>
         </div>
-        {{#each model.articles as |article|}}
-          {{feed-item article=article}}
-        {{/each}}
+        {{#impagination-dataset fetch=(route-action "fetch") on-object-at=(route-action "onObjectAt") on-init=(route-action
+          'initializeReadOffset') on-observe=(route-action "logDatasetState") load-horizon=model.loadHorizon page-size=model.pageSize as |records|}}
+          {{records.length}}
+          {{#each records as |article|}}
+            {{feed-item article=article}}
+          {{/each}}
+        {{/impagination-dataset}}
       </div>
       <div class="col-md-3">
         <div class="sidebar">
