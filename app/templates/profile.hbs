@@ -8,7 +8,7 @@
           <p>
             {{model.user.bio}}
           </p>
-          {{#if (and isAuthenticated (eq user.username currentUser.username))}}
+          {{#if (and isAuthenticated (eq model.user.username currentUser.username))}}
             {{#link-to "settings"}}
               <button class="btn btn-sm btn-outline-secondary action-btn">
                 <i class="ion-gear-a"></i> Edit Profile Settings

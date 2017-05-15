@@ -1,3 +1,7 @@
 {{#each model.articles as |article|}}
   {{feed-item article=article}}
+{{else}}
+  <div class="article-preview">
+    No articles are here... yet.
+  </div>
 {{/each}}
