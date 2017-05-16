@@ -3051,6 +3051,12 @@ ember-macro-helpers@^0.4.0:
   dependencies:
     ember-cli-babel "^5.1.7"
 
+ember-math-helpers@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/ember-math-helpers/-/ember-math-helpers-2.1.0.tgz#cc342d6f91fdde5d45486ec3f27b9784f19b1884"
+  dependencies:
+    ember-cli-babel "^6.0.0"
+
 ember-maybe-import-regenerator@^0.1.5:
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/ember-maybe-import-regenerator/-/ember-maybe-import-regenerator-0.1.6.tgz#35d41828afa6d6a59bc0da3ce47f34c573d776ca"

@@ -40,12 +40,17 @@
     "ember-export-application-global": "^2.0.0",
     "ember-impagination": "^1.0.0-alpha.6",
     "ember-load-initializers": "^1.0.0",
+    "ember-math-helpers": "^2.1.0",
     "ember-moment": "^7.3.0",
     "ember-resolver": "^4.1.0",
+<<<<<<< HEAD
 <<<<<<< HEAD
     "ember-route-action-helper": "^2.0.3",
 =======
 >>>>>>> Updating home for pagianation
+=======
+    "ember-route-action-helper": "^2.0.3",
+>>>>>>> Pagination Works however not fully correct yet
     "ember-simple-auth": "^1.2.2",
     "ember-source": "^2.13.0",
     "ember-test-selectors": "^0.3.3",

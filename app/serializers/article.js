@@ -7,8 +7,8 @@ export default DS.RESTSerializer.extend(DS.EmbeddedRecordsMixin, {
     tagList: { embedded: 'always' }
   },
   normalizeResponse(store, primaryModelClass, payload, id, requestType) {
-    let newPayload = payload;
-    newPayload.articles = newPayload.articles.map(article => {
+    let newPayload = {};
+    newPayload.articles = payload.articles.map(article => {
       let newArticle = article;
       newArticle.tagList = article.tagList.map(tag => {
         return {
@@ -17,7 +17,7 @@ export default DS.RESTSerializer.extend(DS.EmbeddedRecordsMixin, {
       });
       return newArticle;
     });
-
+    newPayload.meta = { total: payload.articlesCount };
     return this._super(store, primaryModelClass, newPayload, id, requestType);
   }
 });
