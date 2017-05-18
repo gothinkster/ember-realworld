@@ -33,7 +33,9 @@
               {{#each records as |p index|}}
                 {{#if (and (eq (mod index 5 ) 0) (lt (div index 5) 50))}}
                   <li class="page-item">
-                    <a href="#" class="page-link" {{action records.reset index}}>{{add (div index 5) 1}}</a>
+                    {{#link-to "home" (query-params page=(add (div index 5) 1)) class="page-link" }}
+                      {{add (div index 5) 1}}
+                    {{/link-to}}
                   </li>
                 {{/if}}
               {{/each}}

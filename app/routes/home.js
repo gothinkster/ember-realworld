@@ -6,6 +6,11 @@ const DEBUG = true;
 const { get } = Ember;
 
 export default Ember.Route.extend({
+  queryParams: {
+    page: {
+      refreshModel: true
+    }
+  },
   // loadHorizon: 10,
   initialReadOffset: 0,
   pageSize: 5,
@@ -23,13 +28,26 @@ export default Ember.Route.extend({
     yield timeout(get(this, 'timeout-ms'));
     dataset.setReadOffset(offset);
   }).restartable(),
-  model() {
+  model(params) {
+    this.set('page', params.page);
     return Ember.RSVP.hash({
       popularTags: this.store.findAll('tag'),
       pageSize: get(this, 'pageSize'),
       loadHorizon: get(this, 'loadHorizon')
-      // articles: this.store.findAll('article')
     });
+  },
+  resetController(controller, isExiting, transition) {
+    let page = transition.queryParams.page;
+    if (!isExiting) {
+      this._resetOffset(get(this, 'dataset'));
+      this._changeOffset(get(this, 'dataset'), page);
+    }
+  },
+  _changeOffset(dataset, page) {
+    get(this, 'setReadOffset').perform(dataset, page);
+  },
+  _resetOffset(dataset) {
+    dataset.reset();
   },
   actions: {
     fetch: function(pageOffset, pageSize, stats) {
@@ -43,13 +61,12 @@ export default Ember.Route.extend({
       });
     },
     initializeReadOffset(dataset) {
-      /*this.get('setReadOffset').perform(dataset, 0);*/
-      let initReadOffset = this.get('initialReadOffset');
+      let initReadOffset = get(this, 'page');
       dataset.setReadOffset(initReadOffset);
     },
 
-    changeOffset(dataset, index) {
-      dataset.setReadOffset(index * get(this, 'pageSize'));
+    changeOffset(dataset, page) {
+      dataset.setReadOffset(page);
     },
 
     /*    onObjectAt(dataset, index) {
@@ -57,6 +74,8 @@ export default Ember.Route.extend({
     },*/
 
     logDatasetState(dataset) {
+      this.set('dataset', dataset);
+
       if (DEBUG) {
         console.log('dataset =', dataset); // eslint-disable-line no-console
       }
