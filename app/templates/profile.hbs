@@ -15,9 +15,15 @@
               </button>
             {{/link-to}}
           {{else}}
-            <button class="btn btn-sm btn-outline-secondary action-btn">
-              <i class="ion-plus-round"></i> &nbsp; Follow {{model.user.username}}
-            </button>
+            {{#if model.user.following}}
+              <button onclick= {{perform unFollowUser model.user.username}} disabled= {{waitingForFollowing}} class="btn btn-sm btn-outline-secondary action-btn">
+                <i class="ion-plus-round"></i> &nbsp; Unfollow {{model.user.username}}
+              </button>
+            {{else}}
+              <button onclick= {{perform followUser model.user.username}} disabled= {{waitingForFollowing}} class="btn btn-sm btn-outline-secondary action-btn">
+                <i class="ion-plus-round"></i> &nbsp; Follow {{model.user.username}}
+              </button>
+            {{/if}}
           {{/if}}
         </div>
       </div>
