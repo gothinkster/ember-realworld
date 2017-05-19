@@ -10,18 +10,18 @@
       {{#if isAuthenticated}}
         <li class="nav-item">
           {{#link-to 'editor.new' class='nav-link' }}
-            <i class="ion-compose"></i>&nbsp;New Post
+            <i class="ion-compose"></i>&nbsp;New Article
           {{/link-to}}
         </li>
         <li class="nav-item">
           {{#link-to 'settings' class='nav-link' }}
-            Settings
+            <i class="ion-gear-a"></i>&nbsp;Settings
           {{/link-to}}
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link" {{action 'sign-out'}} data-test-sign-out>
-            Sign Out
-          </a>
+          {{#link-to "profile" currentUser.username class="nav-link" data-test-currentUser-loggedIn=true}}
+            <img src= {{currentUser.image}} class="user-pic" alt="profile image for {{currentUser.username}}"> {{currentUser.username}}
+          {{/link-to}}
         </li>
       {{else}}
         <li class="nav-item">

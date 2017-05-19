@@ -1,12 +1,13 @@
 import { moduleFor, test } from 'ember-qunit';
 
-moduleFor('route:settings', 'Unit | Route | settings', {
+moduleFor('adapter:user', 'Unit | Adapter | user', {
   // Specify the other units that are required for this test.
-  // needs: ['controller:foo']
+  // needs: ['serializer:foo']
   needs: ['service:session']
 });
 
+// Replace this with your real tests.
 test('it exists', function(assert) {
-  let route = this.subject();
-  assert.ok(route);
+  let adapter = this.subject();
+  assert.ok(adapter);
 });

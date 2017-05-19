@@ -23,6 +23,11 @@ export default DS.Model.extend({
    */
   image: attr('string'),
 
+  /**
+   * @property {boolean} following
+   */
+  following: attr('boolean'),
+
   // Only needed for authenticating users
   password: attr('string'),
   token: attr('string')
