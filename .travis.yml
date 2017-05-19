@@ -23,7 +23,7 @@ install:
 script:
   - yarn test
 before_deploy:
-  - npm run build
+  - npm run build:prod
 
 deploy:
   provider: pages

@@ -11,6 +11,7 @@
   "repository": "",
   "scripts": {
     "build": "ember build",
+    "build:prod": "ember build -prod",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "start": "ember server",
