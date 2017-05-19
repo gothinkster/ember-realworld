@@ -11,6 +11,6 @@ test('visiting /', function(assert) {
 
   andThen(() => {
     assert.equal(currentURL(), '/');
-    assert.equal(find(testSelector('article-preview')).length, 20);
+    assert.equal(find(testSelector('article-preview')).length, 40);
   });
 });
