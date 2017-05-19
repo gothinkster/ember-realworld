@@ -21,8 +21,7 @@
           </ul>
         </div>
         {{#impagination-dataset fetch=(route-action "fetch") on-init=(route-action 'initializeReadOffset') on-observe=(route-action
-          "logDatasetState") page-size=model.pageSize as |records|}}
-          {{records.length}}
+          "onObserve") page-size=model.pageSize as |records|}}
           {{#each records as |article|}}
             {{#if article.content}}
               {{feed-item article=article.content}}
@@ -31,10 +30,10 @@
           <nav>
             <ul class="pagination">
               {{#each records as |p index|}}
-                {{#if (and (eq (mod index 5 ) 0) (lt (div index 5) 50))}}
+                {{#if (and (eq (mod index model.pageSize ) 0) (lt (div index model.pageSize) 50))}}
                   <li class="page-item">
-                    {{#link-to "home" (query-params page=(add (div index 5) 1)) class="page-link" }}
-                      {{add (div index 5) 1}}
+                    {{#link-to "home" (query-params page=(add (div index model.pageSize) 1)) class="page-link" }}
+                      {{add (div index model.pageSize) 1}}
                     {{/link-to}}
                   </li>
                 {{/if}}
