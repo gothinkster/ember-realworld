@@ -6,21 +6,21 @@
         <form>
           <fieldset>
             <fieldset class="form-group">
-              {{input value=imageTmp class="form-control" type="text" placeholder="URL of profile picture"}}
+              {{input value=model.image class="form-control" type="text" placeholder="URL of profile picture"}}
             </fieldset>
             <fieldset class="form-group">
-              {{input value=usernameTmp class="form-control form-control-lg" type="text" placeholder="Your Name"}}
+              {{input value=model.username class="form-control form-control-lg" type="text" placeholder="Your Name"}}
             </fieldset>
             <fieldset class="form-group">
-              {{textarea value=bioTmp class="form-control form-control-lg" rows="8" placeholder="Short bio about you"}}
+              {{textarea value=model.bio class="form-control form-control-lg" rows="8" placeholder="Short bio about you"}}
             </fieldset>
             <fieldset class="form-group">
-              {{input value=emailTmp class="form-control form-control-lg" type="text" placeholder="Email"}}
+              {{input value=model.email class="form-control form-control-lg" type="text" placeholder="Email"}}
             </fieldset>
             <fieldset class="form-group">
-              {{input value=passwordTmp class="form-control form-control-lg" type="password" autocomplete="new-password" placeholder="New Password"}}
+              {{input value=model.password class="form-control form-control-lg" type="password" autocomplete="new-password" placeholder="New Password"}}
             </fieldset>
-            <button {{action (route-action 'updateSettings' currentUser.username)}} type="submit" class="btn btn-lg btn-primary pull-xs-right">
+            <button {{action (route-action 'updateSettings' model)}} type="submit" class="btn btn-lg btn-primary pull-xs-right">
               Update Settings
             </button>
           </fieldset>
