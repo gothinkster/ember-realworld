@@ -37,7 +37,7 @@ export default DS.Model.extend({
   }),
 
   /**
-   * @property {hasManyModel} tagList 
+   * @property {hasManyModel} tagList
    */
   tagList: hasMany('tag'),
 
@@ -59,5 +59,10 @@ export default DS.Model.extend({
   /**
    * @property {number} favoritesCount
    */
-  favoritesCount: attr('number')
+  favoritesCount: attr('number'),
+
+  /**
+   * @property {hasManyModel} comments
+   */
+  comments: hasMany()
 });
