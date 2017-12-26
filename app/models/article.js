@@ -37,7 +37,7 @@ export default DS.Model.extend({
   }),
 
   /**
-   * @property {hasManyModel} tagList 
+   * @property {hasManyModel} tagList
    */
   tagList: hasMany('tag'),
 

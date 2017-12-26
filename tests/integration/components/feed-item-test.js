@@ -35,19 +35,41 @@ test('it renders', function(assert) {
   );
 
   assert.equal(
-    this.$(testSelector('article-author-username', article.author.username)).text().trim(),
+    this.$(testSelector('article-author-username', article.author.username))
+      .text()
+      .trim(),
     'Alon Bukai',
     'Author name is correct'
   );
 
-  assert.equal(this.$(testSelector('article-date')).text().trim(), 'Dec 25, 1995', 'Date is correct');
-
-  assert.equal(this.$(testSelector('article-favoritesCount')).text().trim(), '9000', 'Number of favorites is correct');
-
-  assert.equal(this.$(testSelector('article-title')).text().trim(), 'Feed Item Title', 'Title is correct');
+  assert.equal(
+    this.$(testSelector('article-date'))
+      .text()
+      .trim(),
+    'Dec 25, 1995',
+    'Date is correct'
+  );
 
   assert.equal(
-    this.$(testSelector('article-description')).text().trim(),
+    this.$(testSelector('article-favoritesCount'))
+      .text()
+      .trim(),
+    '9000',
+    'Number of favorites is correct'
+  );
+
+  assert.equal(
+    this.$(testSelector('article-title'))
+      .text()
+      .trim(),
+    'Feed Item Title',
+    'Title is correct'
+  );
+
+  assert.equal(
+    this.$(testSelector('article-description'))
+      .text()
+      .trim(),
     'This is feed item description',
     'Description is correct'
   );
