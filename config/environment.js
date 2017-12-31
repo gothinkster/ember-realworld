@@ -1,6 +1,7 @@
 /* eslint-env node */
+'use-strict';
 
-module.exports = function(environment) {
+module.exports = function (environment) {
   let ENV = {
     modulePrefix: 'realworld-ember',
     environment,
@@ -52,6 +53,7 @@ module.exports = function(environment) {
 
     // Enable mocking by removing the host
     ENV.API.host = '';
+    ENV.APP.autoboot = false;
   }
 
   if (environment === 'production') {
