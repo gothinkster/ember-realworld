@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import BaseAuthenticator from 'ember-simple-auth/authenticators/base';
 
-import fetch from 'ember-network/fetch';
+import fetch from 'fetch';
 import config from '../config/environment';
 
 const { RSVP, String: { capitalize }, get, getProperties, inject } = Ember;

@@ -36,13 +36,13 @@ You will need the following things properly installed on your computer.
 
 ## Running / Development
 
-* `ember server` or `yarn start`
+* `ember serve` or `yarn start`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 
 When running in development mode the application will use mock data, if you would like 
 to run against the real conduit API you can do the following:
 
-* `ember server --proxy https://conduit.productionready.io` or `yarn start:dev`
+* `ember serve --proxy https://conduit.productionready.io` or `yarn start:dev`
 
 ### Code Generators
 
@@ -65,7 +65,7 @@ Which will detect which problems can be fixed automatically and write the correc
 ### Running Tests
 
 * `ember test` or `yarn test`
-* `ember test --server` or `yarn test:s`
+* `ember test --serve` or `yarn test:s`
 
 ### Building
 

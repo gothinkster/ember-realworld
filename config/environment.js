@@ -1,11 +1,12 @@
 /* eslint-env node */
+'use-strict';
 
-module.exports = function(environment) {
-  var ENV = {
+module.exports = function (environment) {
+  let ENV = {
     modulePrefix: 'realworld-ember',
-    environment: environment,
+    environment,
     rootURL: '/',
-    locationType: 'hash',
+    locationType: 'auto',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -52,6 +53,7 @@ module.exports = function(environment) {
 
     // Enable mocking by removing the host
     ENV.API.host = '';
+    ENV.APP.autoboot = false;
   }
 
   if (environment === 'production') {
