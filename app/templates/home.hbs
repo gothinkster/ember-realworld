@@ -28,6 +28,17 @@
         {{#each model.articles as |article|}}
           {{feed-item article=article}}
         {{/each}}
+        <nav>
+          <ul class="pagination">
+            {{#each pageArray as |page|}}
+              <li class="page-item">
+                <a class="page-link" {{action 'setPage' page}}>
+                  {{page}}
+                </a>
+            </li>
+            {{/each}}
+          </ul>
+        </nav>
       </div>
       <div class="col-md-3">
         <div class="sidebar">

@@ -7,6 +7,9 @@ export default Ember.Route.extend({
   queryParams: {
     tag: {
       refreshModel: true
+    },
+    page: {
+      refreshModel: true
     }
   },
 
@@ -16,7 +19,7 @@ export default Ember.Route.extend({
       articles: this.store.query('article', {
         tag: params.tag,
         limit: 10,
-        offset: 0
+        offset: (params.page - 1) * 10
       })
     });
   }
