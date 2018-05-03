@@ -8,13 +8,14 @@ import {
 
 export default Controller.extend({
   session: service(),
+  queryParams: ['tag'],
+  tag: null,
 
   isAuthenticated: oneWay('session.isAuthenticated'),
-  activeTag: null,
 
   actions: {
     setTag(tag) {
-      this.set('activeTag', tag);
+      this.set('tag', tag);
     }
   }
 });
