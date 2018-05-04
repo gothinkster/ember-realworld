@@ -30,10 +30,10 @@
         {{/each}}
         <nav>
           <ul class="pagination">
-            {{#each pageArray as |page|}}
-              <li class="page-item">
-                <a class="page-link" {{action 'setVariable' 'page' page}}>
-                  {{page}}
+            {{#each pageArray as |item|}}
+              <li class="page-item {{if (eq page item) 'active'}}">
+                <a class="page-link" {{action 'setVariable' 'page' item}}>
+                  {{item}}
                 </a>
             </li>
             {{/each}}
