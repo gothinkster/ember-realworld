@@ -17,8 +17,8 @@ export default Controller.extend({
   isAuthenticated: oneWay('session.isAuthenticated'),
 
   actions: {
-    setVariable( variable, value ) {
-      if( this.get(variable) !== value && variable === 'tag' ) this.set('page', 1);
+    setVariable(variable, value) {
+      if(this.get(variable) !== value && variable === 'tag') this.set('page', 1);
       this.set(variable, value);
     }
   }
