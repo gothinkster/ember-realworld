@@ -11,14 +11,17 @@ export default Controller.extend({
   queryParams: ['tag', 'page'],
   tag: null,
   page: 1,
-  totalPages: 500,
-  pageArray: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+  totalPages: 1,
+  pageArray: computed('totalPages', function() {
+    let actualTotal = this.get('totalPages') / 10;
+    return Array.from(Array(actualTotal).keys()).map(num => ++num);
+  }),
 
   isAuthenticated: oneWay('session.isAuthenticated'),
 
   actions: {
     setVariable(variable, value) {
-      if(this.get(variable) !== value && variable === 'tag') this.set('page', 1);
+      if (this.get(variable) !== value && variable === 'tag') this.set('page', 1);
       this.set(variable, value);
     }
   }

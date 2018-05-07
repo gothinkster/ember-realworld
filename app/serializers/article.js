@@ -17,6 +17,9 @@ export default DS.RESTSerializer.extend(DS.EmbeddedRecordsMixin, {
       });
       return newArticle;
     });
+    newPayload.meta = {
+      articlesCount: payload.articlesCount
+    };
 
     return this._super(store, primaryModelClass, newPayload, id, requestType);
   }

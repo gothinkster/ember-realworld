@@ -22,5 +22,10 @@ export default Ember.Route.extend({
         offset: (params.page - 1) * 10
       })
     });
+  },
+
+  setupController(controller, model) {
+    this._super(controller, model);
+    controller.set('totalPages', model.articles.get('meta').articlesCount);
   }
 });

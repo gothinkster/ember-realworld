@@ -17,7 +17,20 @@ export default function() {
     }
   });
 
-  this.get('/articles');
+  this.get('/articles', (schema, request) => {
+    let allArticles = schema.articles.all(),
+      params = request.queryParams,
+      limit = parseInt(params.limit),
+      page = parseInt(params.offset) / limit,
+      start = page * limit,
+      end = start + limit,
+      newArticles = allArticles.models.slice(start, end),
+      newSchema = {};
+    newSchema.articles = newArticles;
+    newSchema.articlesCount = allArticles.length;
+
+    return newSchema;
+  });
 
   this.get('/tags', () => {
     return {
