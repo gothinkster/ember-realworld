@@ -13,7 +13,8 @@ export default Controller.extend({
   page: 1,
   totalPages: 1,
   pageArray: computed('totalPages', function() {
-    let actualTotal = this.get('totalPages') / 10;
+    let actualTotal = Math.ceil(this.get('totalPages') / 10);
+    if (actualTotal < 0) return ['1'];
     return Array.from(Array(actualTotal).keys()).map(num => ++num);
   }),
 
