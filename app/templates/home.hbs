@@ -31,7 +31,7 @@
         <nav>
           <ul class="pagination">
             {{#each pageArray as |item|}}
-              <li class="page-item {{if (eq page item) 'active'}}">
+              <li class="page-item {{if (eq page item) 'active'}}" data-test-page-link>
                 <a class="page-link" {{action 'setVariable' 'page' item}} role="button">
                   {{item}}
                 </a>
@@ -45,7 +45,7 @@
           <p>Popular Tags</p>
           <div class="tag-list">
             {{#each model.popularTags as |tag|}}
-              <a href="" class="tag-pill tag-default" {{action 'setVariable' 'tag' tag.value}}>{{tag.value}}</a>
+              <a href="" class="tag-pill tag-default" {{action 'setVariable' 'tag' tag.value}} data-test-tag-item>{{tag.value}}</a>
             {{/each}}
           </div>
         </div>
