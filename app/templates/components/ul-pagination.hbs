@@ -1,0 +1,7 @@
+<ul class="pagination">
+  {{#each pageArray as |item|}}
+    <li class="page-item {{if (eq page item) 'active'}}" data-test-page-link>
+      <a class="page-link" {{action 'updatePage' item}} role="button">{{item}}</a>
+    </li>
+  {{/each}}
+</ul>

@@ -12,11 +12,6 @@ export default Controller.extend({
   tag: null,
   page: 1,
   totalPages: 1,
-  pageArray: computed('totalPages', function() {
-    let actualTotal = Math.ceil(this.get('totalPages') / 10);
-    if (actualTotal < 0) return ['1'];
-    return Array.from(Array(actualTotal).keys()).map(num => ++num);
-  }),
 
   isAuthenticated: oneWay('session.isAuthenticated'),
 

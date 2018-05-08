@@ -29,13 +29,7 @@
           {{feed-item article=article}}
         {{/each}}
         <nav>
-          <ul class="pagination">
-            {{#each pageArray as |item|}}
-              <li class="page-item {{if (eq page item) 'active'}}" data-test-page-link>
-                <a class="page-link" {{action 'setVariable' 'page' item}} role="button">{{item}}</a>
-              </li>
-            {{/each}}
-          </ul>
+          {{ul-pagination page=page totalPages=totalPages}}
         </nav>
       </div>
       <div class="col-md-3">
