@@ -11,10 +11,10 @@ export default DS.RESTAdapter.extend(DataAdapterMixin, {
 
   namespace: 'api',
 
-  headers: {
+  headers: Object.freeze({
     Accept: 'application/json',
     'Content-Type': 'application/json'
-  },
+  }),
 
   handleResponse(status, headers, payload) {
     if (this.isInvalid(...arguments)) {

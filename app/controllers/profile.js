@@ -1,22 +1,22 @@
-import Ember from 'ember';
+import Controller from '@ember/controller';
+import { inject as service } from '@ember/service';
+import { oneWay } from '@ember/object/computed';
 import { task } from 'ember-concurrency';
 
-const { Controller, computed, inject } = Ember;
-
 export default Controller.extend({
-  profiles: inject.service(),
-  session: inject.service(),
-
-  currentUser: computed.oneWay('session.session.content.authenticated'),
-  isAuthenticated: computed.oneWay('session.isAuthenticated'),
+  profiles: service(),
+  session: service(),
 
   waitingForFollowing: false,
+
+  currentUser: oneWay('session.session.content.authenticated'),
+  isAuthenticated: oneWay('session.isAuthenticated'),
 
   followUser: task(function*(userName) {
     this.toggleProperty('waitingForFollowing');
 
-    let result = yield this.get('profiles').followUser(userName);
-    let isFollowing = result.profile.following;
+    const result = yield this.get('profiles').followUser(userName);
+    const isFollowing = result.profile.following;
     this.set('model.user.following', isFollowing);
 
     this.toggleProperty('waitingForFollowing');
@@ -24,8 +24,8 @@ export default Controller.extend({
   unFollowUser: task(function*(userName) {
     this.toggleProperty('waitingForFollowing');
 
-    let result = yield this.get('profiles').unFollowUser(userName);
-    let isFollowing = result.profile.following;
+    const result = yield this.get('profiles').unFollowUser(userName);
+    const isFollowing = result.profile.following;
     this.set('model.user.following', isFollowing);
 
     this.toggleProperty('waitingForFollowing');

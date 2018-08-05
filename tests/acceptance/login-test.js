@@ -1,21 +1,23 @@
-import { test } from 'qunit';
-import testSelector from 'ember-test-selectors';
-import moduleForAcceptance from 'realworld-ember/tests/helpers/module-for-acceptance';
+import { module, test } from 'qunit';
+import { visit, currentURL, fillIn, click, find } from '@ember/test-helpers';
+import { setupApplicationTest } from 'ember-qunit';
+import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 
-moduleForAcceptance('Acceptance | login');
+module('Acceptance | login', function(hooks) {
+  setupApplicationTest(hooks);
+  setupMirage(hooks);
 
-test('visiting /login', assert => {
-  const user = server.create('user', { email: 'bob@example.com', password: 'password123' });
+  test('visiting /login', async assert => {
+    const user = server.create('user', { email: 'bob@example.com', password: 'password123' });
 
-  visit('/login');
+    await visit('/login');
 
-  fillIn(testSelector('email'), user.email);
-  fillIn(testSelector('password'), user.password);
+    await fillIn('[data-test-email]', user.email);
+    await fillIn('[data-test-password]', user.password);
 
-  click(testSelector('login'));
+    await click('[data-test-login]');
 
-  andThen(() => {
     assert.equal(currentURL(), '/', 'URL after login is Home');
-    assert.ok(find(testSelector('currentUser-loggedIn')).length, 'Found currentUser profile link');
+    assert.ok(find('[data-test-currentUser-loggedIn]').text.length, 'Found currentUser profile link');
   });
 });
