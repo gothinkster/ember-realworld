@@ -4,7 +4,7 @@ module.exports = function(environment) {
   const ENV = {
     modulePrefix: 'realworld-ember',
     environment: environment,
-    rootURL: '',
+    rootURL: '/',
     locationType: 'auto',
     EmberENV: {
       FEATURES: {
