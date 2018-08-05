@@ -1,7 +1,7 @@
-/* eslint-env node */
+'use strict';
 
 module.exports = function(environment) {
-  var ENV = {
+  const ENV = {
     modulePrefix: 'realworld-ember',
     environment: environment,
     rootURL: '/',
@@ -49,6 +49,7 @@ module.exports = function(environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
     ENV.APP.rootElement = '#ember-testing';
+    ENV.APP.autoboot = false;
 
     // Enable mocking by removing the host
     ENV.API.host = '';

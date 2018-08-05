@@ -1,16 +1,18 @@
-import { test } from 'qunit';
-import testSelector from 'ember-test-selectors';
-import moduleForAcceptance from 'realworld-ember/tests/helpers/module-for-acceptance';
+import { module, test } from 'qunit';
+import { visit, currentURL, findAll } from '@ember/test-helpers';
+import { setupApplicationTest } from 'ember-qunit';
+import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 
-moduleForAcceptance('Acceptance | home');
+module('Acceptance | home', function(hooks) {
+  setupApplicationTest(hooks);
+  setupMirage(hooks);
 
-test('visiting /', function(assert) {
-  server.createList('article', 20);
+  test('visiting /', async function(assert) {
+    server.createList('article', 20);
 
-  visit('/');
+    await visit('/');
 
-  andThen(() => {
     assert.equal(currentURL(), '/');
-    assert.equal(find(testSelector('article-preview')).length, 20);
+    assert.equal(findAll('[data-test-article-preview]').length, 20);
   });
 });

@@ -1,9 +1,14 @@
-import Ember from 'ember';
-
-const { Controller, get, inject, set } = Ember;
+import Controller from '@ember/controller';
+import { inject as service } from '@ember/service';
+import { set } from '@ember/object';
 
 export default Controller.extend({
-  session: inject.service(),
+  session: service(),
+
+  errors: null,
+
+  email: '',
+  password: '',
 
   init() {
     this._super();
@@ -11,18 +16,13 @@ export default Controller.extend({
     set(this, 'errors', []);
   },
 
-  errors: null,
-
-  email: '',
-  password: '',
-
   actions: {
     login(email, password) {
-      return get(this, 'session')
+      return this.session
         .authenticate('authenticator:conduit', { email, password })
         .then(() => {
           this.transitionToRoute('home');
-          get(this, 'session').authorize('authorizer:conduit');
+          this.session.authorize('authorizer:conduit');
         })
         .catch(normalizedErrors => {
           set(this, 'errors', normalizedErrors);

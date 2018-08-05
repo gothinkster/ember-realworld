@@ -1,10 +1,11 @@
-import Ember from 'ember';
+import Route from '@ember/routing/route';
+import { hash } from 'rsvp';
 
-export default Ember.Route.extend({
+export default Route.extend({
+  templateName: 'profile/index',
   model(/*params*/) {
-    return Ember.RSVP.hash({
+    return hash({
       articles: this.store.query('article', { favorited: this.modelFor('profile').user.get('username') })
     });
-  },
-  templateName: 'profile/index'
+  }
 });

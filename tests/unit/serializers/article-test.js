@@ -6,9 +6,9 @@ moduleForModel('article', 'Unit | Serializer | article', {
 
 // Replace this with your real tests.
 test('it serializes records', function(assert) {
-  let record = this.subject();
+  const record = this.subject();
 
-  let serializedRecord = record.serialize();
+  const serializedRecord = record.serialize();
 
   assert.ok(serializedRecord);
 });
