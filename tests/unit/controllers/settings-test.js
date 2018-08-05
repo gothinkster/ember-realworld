@@ -6,6 +6,6 @@ moduleFor('controller:settings', 'Unit | Controller | settings', {
 
 // Replace this with your real tests.
 test('it exists', function(assert) {
-  let controller = this.subject();
+  const controller = this.subject();
   assert.ok(controller);
 });

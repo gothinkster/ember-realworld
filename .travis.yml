@@ -4,26 +4,32 @@ node_js:
   - "6"
 
 sudo: false
-env:
-  global:
-    secure: ufLCe8s4c+Nn2uqHoue+H0dXZzlRi/laDx1rdBUQ/e++0D3Yem54RRprhSPJFUt1NBnVhB28KOEMQte+HJwwCeJwzhftPzL6U3Se6oiNx7gzpbIybUhD2Eo+7NCPCDW78IVHmb4uWLF3f5w2qcVOMldxGTtvi20owJsItXMajkWdXLHBuiitnNV7C4KHsJk0GHAuAgy+jL/D3Gn/RTQtM/ZuQzD6Um0S7vXuUwC8T3CzGzE26Xdse0oBbvvdjzC1DlRMj6DZ9dC267DOfPq2xIaJAXkr9bY27rhXayjn9MMFTzXDXOihgqbawzTebwKzzyjWYPzpetWW/wgRlww7d/KH2mv4kmLIMgqkLFXw1+yd5FUJia2BMTQYbevS+L75hJl27ryXfnt5OdRyaeoKampbGMhKfV0BGotyjmBl1fOS7bvNzz1lKzZofcXnr09QrdrxKzCUq5t4sixkdaBHToPc26pzMikRiQ9Qe+MWalyHoTLc/Vu7T3ehOmQ3md7eM3ZvYIfavEwcovXamw1w6IfPjlalIb6NoB3iBN1FpAsNtreAKeTtAy32+AU71M1BHlL0vo5N6NLNE71jJkSoshHNCArkVRozgU0bSoB9w8YT7TeB4eHbKrgP5GFkcF4JyhGBcXvX8FSMecbouL4kWMhU7ybee1wCk2uj7EtUpeU=
+dist: trusty
+
+addons:
+  chrome: stable
 
 cache:
   yarn: true
 
+env:
+  global:
+    secure: ufLCe8s4c+Nn2uqHoue+H0dXZzlRi/laDx1rdBUQ/e++0D3Yem54RRprhSPJFUt1NBnVhB28KOEMQte+HJwwCeJwzhftPzL6U3Se6oiNx7gzpbIybUhD2Eo+7NCPCDW78IVHmb4uWLF3f5w2qcVOMldxGTtvi20owJsItXMajkWdXLHBuiitnNV7C4KHsJk0GHAuAgy+jL/D3Gn/RTQtM/ZuQzD6Um0S7vXuUwC8T3CzGzE26Xdse0oBbvvdjzC1DlRMj6DZ9dC267DOfPq2xIaJAXkr9bY27rhXayjn9MMFTzXDXOihgqbawzTebwKzzyjWYPzpetWW/wgRlww7d/KH2mv4kmLIMgqkLFXw1+yd5FUJia2BMTQYbevS+L75hJl27ryXfnt5OdRyaeoKampbGMhKfV0BGotyjmBl1fOS7bvNzz1lKzZofcXnr09QrdrxKzCUq5t4sixkdaBHToPc26pzMikRiQ9Qe+MWalyHoTLc/Vu7T3ehOmQ3md7eM3ZvYIfavEwcovXamw1w6IfPjlalIb6NoB3iBN1FpAsNtreAKeTtAy32+AU71M1BHlL0vo5N6NLNE71jJkSoshHNCArkVRozgU0bSoB9w8YT7TeB4eHbKrgP5GFkcF4JyhGBcXvX8FSMecbouL4kWMhU7ybee1wCk2uj7EtUpeU=
+    # See https://git.io/vdao3 for details.
+    - JOBS=1
+
 before_install:
-  - curl -o- -L https://yarnpkg.com/install.sh | bash
-  - export PATH=$HOME/.yarn/bin:$PATH
-  - yarn global add phantomjs-prebuilt
-  - phantomjs --version
+  - npm config set spin false
 
 install:
   - yarn install
 
 script:
+  - yarn lint:js
   - yarn test
+
 before_deploy:
-  - npm run build:prod
+  -yarn build:prod
 
 deploy:
   provider: pages

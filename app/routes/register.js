@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Route from '@ember/routing/route';
 import UnauthenticatedRoute from 'ember-simple-auth/mixins/unauthenticated-route-mixin';
 
-export default Ember.Route.extend(UnauthenticatedRoute, {});
+export default Route.extend(UnauthenticatedRoute, {});

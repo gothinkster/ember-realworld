@@ -1,10 +1,10 @@
-import Ember from 'ember';
+import { getProperties } from '@ember/object';
+import { inject as service } from '@ember/service';
+import { capitalize } from '@ember/string';
+import fetch from 'fetch';
 import BaseAuthenticator from 'ember-simple-auth/authenticators/base';
-
-import fetch from 'ember-network/fetch';
+import { reject, resolve } from 'rsvp';
 import config from '../config/environment';
-
-const { RSVP, String: { capitalize }, get, getProperties, inject } = Ember;
 
 const headers = {
   Accept: 'application/json',
@@ -26,7 +26,7 @@ function normalizeErrors(errors) {
 }
 
 export default BaseAuthenticator.extend({
-  store: inject.service(),
+  store: service(),
 
   /**
    * Authenticate a user
@@ -42,7 +42,7 @@ export default BaseAuthenticator.extend({
 
     // If the user is already logged in, store their serialized state
     if (token) {
-      return RSVP.resolve(user.serialize());
+      return resolve(user.serialize());
     }
 
     // Otherwise, fetch their state, log them in, and push that record into Ember Data
@@ -57,7 +57,7 @@ export default BaseAuthenticator.extend({
 
   restore({ token }) {
     if (!token) {
-      return RSVP.reject();
+      return reject();
     }
 
     const fullHeaders = Object.assign({}, headers, {
@@ -71,12 +71,12 @@ export default BaseAuthenticator.extend({
 
   _handleApiResponse(data) {
     if (data.errors) {
-      return RSVP.reject(normalizeErrors(data.errors));
+      return reject(normalizeErrors(data.errors));
     }
 
     const user = this._pushCurrentUserToStore(data);
 
-    return RSVP.resolve(user.serialize());
+    return resolve(user.serialize());
   },
 
   /**
@@ -84,9 +84,8 @@ export default BaseAuthenticator.extend({
    * user record
    */
   _pushCurrentUserToStore(userPayload) {
-    const store = get(this, 'store');
-    store.pushPayload(userPayload);
+    this.store.pushPayload(userPayload);
 
-    return store.peekRecord('user', userPayload.user.username);
+    return this.store.peekRecord('user', userPayload.user.username);
   }
 });

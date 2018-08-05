@@ -1,14 +1,14 @@
-import Ember from 'ember';
-
-const { Controller, get, inject, computed } = Ember;
+import Controller from '@ember/controller';
+import { inject as service } from '@ember/service';
+import { oneWay } from '@ember/object/computed';
 
 export default Controller.extend({
-  session: inject.service(),
-  isAuthenticated: computed.oneWay('session.isAuthenticated'),
+  session: service(),
+  isAuthenticated: oneWay('session.isAuthenticated'),
 
   actions: {
     signOut() {
-      get(this, 'session').invalidate();
+      this.session.invalidate();
     }
   }
 });
