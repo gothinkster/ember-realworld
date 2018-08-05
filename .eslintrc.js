@@ -4,8 +4,13 @@ module.exports = {
     ecmaVersion: 2017,
     sourceType: 'module'
   },
-  extends: ['eslint:recommended', 'prettier'],
-  plugins: ['prettier'],
+  plugins: [
+    'ember','prettier'
+  ],
+  extends: [
+    'eslint:recommended',
+    'plugin:ember/recommended','prettier'
+  ],
   env: {
     browser: true
   },
@@ -17,5 +22,25 @@ module.exports = {
         singleQuote: true
       }
     ]
-  }
+  },
+  overrides: [
+    // node files
+    {
+      files: [
+        'ember-cli-build.js',
+        'testem.js',
+        'blueprints/*/index.js',
+        'config/**/*.js',
+        'lib/*/index.js'
+      ],
+      parserOptions: {
+        sourceType: 'script',
+        ecmaVersion: 2015
+      },
+      env: {
+        browser: false,
+        node: true
+      }
+    }
+  ]
 };
