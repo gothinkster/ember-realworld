@@ -1,5 +1,9 @@
 module.exports = {
   globals: {
+    server: true,
+  },
+  globals: {
+    server: true,
     server: true
   },
   root: true,

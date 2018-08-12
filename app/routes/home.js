@@ -1,9 +1,7 @@
 import Route from '@ember/routing/route';
-import {
-  hash
-} from 'rsvp';
+import { hash } from 'rsvp';
 
-export default Ember.Route.extend({
+export default Route.extend({
   queryParams: {
     tag: {
       refreshModel: true
@@ -14,8 +12,8 @@ export default Ember.Route.extend({
   },
 
   model(params) {
-    let perPage = 10;
-    return Ember.RSVP.hash({
+    const perPage = 10;
+    return hash({
       perPage: perPage,
       popularTags: this.store.findAll('tag'),
       articles: this.store.query('article', {

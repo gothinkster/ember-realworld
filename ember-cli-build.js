@@ -3,21 +3,9 @@
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
-<<<<<<< HEAD
   const app = new EmberApp(defaults, {
     // Add options here
   });
-=======
-  var app = new EmberApp(
-    defaults,
-    {
-      // Add options here
-      'ember-cli-babel': {
-        includePolyfill: true
-      }
-    }
-  );
->>>>>>> Update ember-lodash and add polyfill to fix incorrect failing phantomjs tests
 
   // Use `app.import` to add additional libraries to the generated
   // output files.

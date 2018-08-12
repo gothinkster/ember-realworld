@@ -39,5 +39,7 @@
     "precompile",
     "qunit",
     "realworld"
-  ]
+  ],
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": false,
+  "editor.formatOnSave": false
 }

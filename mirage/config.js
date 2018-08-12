@@ -18,7 +18,7 @@ export default function() {
   });
 
   this.get('/articles', (schema, request) => {
-    let allArticles = schema.articles.all(),
+    const allArticles = schema.articles.all(),
       params = request.queryParams,
       limit = parseInt(params.limit),
       page = parseInt(params.offset) / limit,

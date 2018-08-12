@@ -1,9 +1,9 @@
-import Ember from 'ember';
-const { computed } = Ember;
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
   pageArray: computed('totalPages', function() {
-    let actualTotal = Math.ceil(this.get('totalPages') / this.get('limit'));
+    const actualTotal = Math.ceil(this.get('totalPages') / this.get('limit'));
     if (actualTotal < 0) return ['1'];
     return Array.from(Array(actualTotal).keys()).map(num => ++num);
   }),

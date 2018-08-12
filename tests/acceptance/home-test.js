@@ -1,22 +1,13 @@
-import {
-  module,
-  test
-} from 'qunit';
-import {
-  visit,
-  currentURL,
-  findAll
-} from '@ember/test-helpers';
-import {
-  setupApplicationTest
-} from 'ember-qunit';
+import { module, test } from 'qunit';
+import { visit, currentURL, find, testSelector } from '@ember/test-helpers';
+import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 
-module('Acceptance | home', function (hooks) {
+module('Acceptance | home', function(hooks) {
   setupApplicationTest(hooks);
   setupMirage(hooks);
 
-  test('visiting /', async function (assert) {
+  test('visiting /', async function(assert) {
     server.createList('article', 20);
 
     await visit('/');
@@ -31,7 +22,7 @@ module('Acceptance | home', function (hooks) {
   });
 });
 
-test('clicking a page', function (assert) {
+test('clicking a page', function(assert) {
   server.createList('article', 20);
 
   visit('/');
@@ -44,7 +35,7 @@ test('clicking a page', function (assert) {
   });
 });
 
-test('clicking a tag', function (assert) {
+test('clicking a tag', function(assert) {
   visit('/');
   click('.tag-list a:first-child');
 
@@ -55,7 +46,7 @@ test('clicking a tag', function (assert) {
   });
 });
 
-test('clicking a page and tag', function (assert) {
+test('clicking a page and tag', function(assert) {
   server.createList('article', 20);
 
   visit('/');
