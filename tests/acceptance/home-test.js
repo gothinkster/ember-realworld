@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { visit, currentURL, find, testSelector, click, andThen } from '@ember/test-helpers';
+import { visit, currentURL, find, click } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 
@@ -13,64 +13,56 @@ module('Acceptance | home', function(hooks) {
     await visit('/');
 
     assert.equal(currentURL(), '/');
-    assert.equal(find(testSelector('article-preview')).length, 10);
-    assert.equal(find(testSelector('tag-item')).length, 7);
-    assert.equal(find(testSelector('page-link')).length, 2);
-    assert.equal(find('.feed-toggle a.nav-link').length, 1);
-    assert.equal(find('.feed-toggle a.nav-link.active').text(), 'Global Feed');
-    assert.equal(find('ul.pagination .page-item.active a').text(), '1');
+    assert.equal(this.element.querySelectorAll('[data-test-article-preview]').length, 10);
+    assert.equal(this.element.querySelectorAll('[data-test-tag-item]').length, 7);
+    assert.equal(this.element.querySelectorAll('[data-test-page-link]').length, 2);
+    assert.equal(this.element.querySelectorAll('.feed-toggle a.nav-link').length, 1);
+    assert.equal(find('.feed-toggle a.nav-link.active').textContent.trim(), 'Global Feed');
+    assert.equal(find('ul.pagination .page-item.active a').textContent.trim(), '1');
   });
-});
 
-test('clicking a page', function(assert) {
-  server.createList('article', 20);
+  test('clicking a page', async function(assert) {
+    await server.createList('article', 20);
 
-  visit('/');
-  click('.page-item:nth-child(2) a');
+    await visit('/');
+    await click('ul.pagination .page-item:nth-child(2) a');
 
-  andThen(() => {
     assert.equal(currentURL(), '/?page=2');
-    assert.equal(find(testSelector('page-link')).length, 2);
-    assert.equal(find('ul.pagination .page-item.active a').text(), '2');
+    assert.equal(this.element.querySelectorAll('.page-link').length, 2);
+    assert.equal(find('ul.pagination .page-item.active a').textContent.trim(), '2');
   });
-});
 
-test('clicking a tag', function(assert) {
-  visit('/');
-  click('.tag-list a:first-child');
+  test('clicking a tag', async function(assert) {
+    await visit('/');
+    await click('.sidebar .tag-list a:first-child');
 
-  andThen(() => {
     assert.equal(currentURL(), '/?tag=emberjs');
-    assert.equal(find('.feed-toggle a.nav-link').length, 2);
-    assert.equal(find('.feed-toggle a.nav-link.active').text(), 'emberjs');
+    assert.equal(this.element.querySelectorAll('.feed-toggle a.nav-link').length, 2);
+    assert.equal(find('.feed-toggle a.nav-link.active').textContent.trim(), 'emberjs');
   });
-});
 
-test('clicking a page and tag', function(assert) {
-  server.createList('article', 20);
+  test('clicking a page and tag', async function(assert) {
+    await server.createList('article', 20);
 
-  visit('/');
-  click('.tag-list a:first-child');
-  click('.page-item:nth-child(2) a');
+    await visit('/');
+    await click('.sidebar .tag-list a:first-child');
+    await click('ul.pagination .page-item:nth-child(2) a');
 
-  andThen(() => {
     assert.equal(currentURL(), '/?page=2&tag=emberjs');
-    assert.equal(find('.feed-toggle a.nav-link').length, 2);
-    assert.equal(find('.feed-toggle a.nav-link.active').text(), 'emberjs');
-    assert.equal(find('ul.pagination .page-item.active a').text(), '2');
+    assert.equal(this.element.querySelectorAll('.feed-toggle a.nav-link').length, 2);
+    assert.equal(find('.feed-toggle a.nav-link.active').textContent.trim(), 'emberjs');
+    assert.equal(find('ul.pagination .page-item.active a').textContent.trim(), '2');
   });
-});
 
-test('resetting to the main list', function(assert) {
-  server.createList('article', 20);
+  test('resetting to the main list', async function(assert) {
+    await server.createList('article', 20);
 
-  visit('/?page=2&tag=emberjs');
-  click('.feed-toggle a.nav-link:first-child');
+    await visit('/?page=2&tag=emberjs');
+    await click('.feed-toggle a.nav-link:first-child');
 
-  andThen(() => {
     assert.equal(currentURL(), '/');
-    assert.equal(find('.feed-toggle a.nav-link').length, 1);
-    assert.equal(find('.feed-toggle a.nav-link.active').text(), 'Global Feed');
-    assert.equal(find('ul.pagination .page-item.active a').text(), '1');
+    assert.equal(this.element.querySelectorAll('.feed-toggle a.nav-link').length, 1);
+    assert.equal(find('.feed-toggle a.nav-link.active').textContent.trim(), 'Global Feed');
+    assert.equal(find('ul.pagination .page-item.active a').textContent.trim(), '1');
   });
 });
