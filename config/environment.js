@@ -29,9 +29,6 @@ module.exports = function(environment) {
     'ember-simple-auth': {
       // Override the default `index` value
       routeIfAlreadyAuthenticated: 'home'
-    },
-    'ember-cli-mirage': {
-      enabled: true
     }
   };
 

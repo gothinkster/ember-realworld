@@ -9,23 +9,17 @@
     "**/assets": true,
     "**/dist": true
   },
+  "editor.formatOnSave": true,	
   "html.format.enable": true,
   "html.format.indentHandlebars": true,
-  "beautify.language": {
-    "css": ["css", "scss"],
-    "html": ["htm", "html", "hbs"]
-  },
   "html.format.maxPreserveNewLines": 0,
   "html.format.wrapLineLength": 120,
   "editor.detectIndentation": false,
   "path-intellisense.mappings": {
     "realworld-ember": "${workspaceRoot}/app"
   },
-  "stylelint.enable": true,
   "css.validate": false,
   "scss.validate": false,
-  "stylefmt.useStylelintConfigOverrides": true,
-  "html.format.unformatted": "a, abbr, acronym, b, bdo, big, br, cite, code, dfn, em, i, img, input, kbd, map, object, q, samp, select, small, strong, sub, sup, textarea, tt, var",
   "editor.tabSize": 2,
   "cSpell.words": [
     "alon",
