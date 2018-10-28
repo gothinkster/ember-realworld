@@ -7,14 +7,17 @@ export default Controller.extend({
   queryParams: ['tag', 'page'],
   tag: null,
   page: 1,
-  totalPages: 1,
 
   isAuthenticated: oneWay('session.isAuthenticated'),
+  totalPages: oneWay('model.articles.meta.articlesCount'),
+  postsPerPage: oneWay('model.perPage'),
 
   actions: {
-    setVariable(variable, value) {
-      if (this.get(variable) !== value && variable === 'tag') this.set('page', 1);
-      this.set(variable, value);
+    setTag(value) {
+      if (this.get('tag') !== value) {
+        this.set('page', 1);
+      }
+      this.set('tag', value);
     }
   }
 });

@@ -22,11 +22,5 @@ export default Route.extend({
         offset: (params.page - 1) * perPage
       })
     });
-  },
-
-  setupController(controller, model) {
-    this._super(controller, model);
-    controller.set('totalPages', model.articles.get('meta').articlesCount);
-    controller.set('postsPerPage', model.perPage);
   }
 });
