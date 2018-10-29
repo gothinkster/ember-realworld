@@ -18,6 +18,8 @@ export default DS.RESTSerializer.extend(DS.EmbeddedRecordsMixin, {
       return newArticle;
     });
     newPayload.meta = {
+      // This gives an error warning that articlesCount is not a valid model.
+      // We aren't using jsonAPI. Might be a good idea to refactor towards this
       articlesCount: payload.articlesCount
     };
 

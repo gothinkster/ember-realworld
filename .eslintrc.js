@@ -1,6 +1,6 @@
 module.exports = {
   globals: {
-    server: true,
+    server: true
   },
   root: true,
   parser: 'babel-eslint',

@@ -18,7 +18,7 @@
   "scripts": {
     "build": "ember build",
     "build:prod": "ember build -prod",
-    "lint:js": "eslint ./ --ext .js",
+    "lint:js": "eslint . *.js",
     "lint:fix": "yarn lint:js --fix",
     "start": "ember serve",
     "test": "ember test",
