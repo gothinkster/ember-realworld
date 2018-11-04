@@ -16,20 +16,28 @@
               </li>
             {{/if}}
             <li class="nav-item">
-              <a class="nav-link active" href="">Global Feed</a>
+              <a class="nav-link {{unless tag 'active'}}" href="" {{action 'setTag' null}}>Global Feed</a>
             </li>
+            {{#if tag}}
+              <li class="nav-item">
+                <a class="nav-link active" href="">{{tag}}</a>
+              </li>
+            {{/if}}
           </ul>
         </div>
         {{#each model.articles as |article|}}
           {{feed-item article=article}}
         {{/each}}
+        <nav>
+          {{ul-pagination page=page totalPages=totalPages limit=postsPerPage}}
+        </nav>
       </div>
       <div class="col-md-3">
         <div class="sidebar">
           <p>Popular Tags</p>
           <div class="tag-list">
             {{#each model.popularTags as |tag|}}
-              <a href="" class="tag-pill tag-default">{{tag.value}}</a>
+              <a href="" class="tag-pill tag-default" {{action 'setTag' tag.value}} data-test-tag-item>{{tag.value}}</a>
             {{/each}}
           </div>
         </div>
