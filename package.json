@@ -1,6 +1,6 @@
 {
   "name": "realworld-ember",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
   "description": "This codebase was created to demonstrate a fully fledged fullstack application built with **Ember** including CRUD operations, authentication, routing, pagination, and more.",
   "license": "MIT",
@@ -15,7 +15,7 @@
     "doc": "doc",
     "test": "tests"
   },
-  "repository": "",
+  "repository": "https://github.com/gothinkster/ember-realworld",
   "scripts": {
     "build": "ember build",
     "build:prod": "ember build -prod",
