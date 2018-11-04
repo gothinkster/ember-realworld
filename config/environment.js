@@ -60,7 +60,6 @@ module.exports = function(environment) {
     ENV.API = {
       host: 'https://conduit.productionready.io'
     };
-    ENV.rootURL = '/ember-realworld/';
   }
 
   return ENV;
