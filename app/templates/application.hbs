@@ -20,7 +20,10 @@
         </li>
         <li class="nav-item">
           {{#link-to "profile" currentUser.username class="nav-link" data-test-currentUser-loggedIn=true}}
-            <img src= {{currentUser.image}} class="user-pic" alt="profile image for {{currentUser.username}}"> {{currentUser.username}}
+            {{#if currentUser.image}}
+              <img src={{currentUser.image}} class="user-pic" alt="profile image for {{currentUser.username}}">
+            {{/if}}
+            {{currentUser.username}}
           {{/link-to}}
         </li>
       {{else}}
@@ -45,7 +48,8 @@
       conduit
     {{/link-to}}
     <span class="attribution">
-      An interactive learning project from <a href="https://thinkster.io">Thinkster</a>. Code &amp; design licensed under
+      An interactive learning project from <a href="https://thinkster.io">Thinkster</a>. Code &amp; design licensed
+      under
       MIT.
     </span>
   </div>
