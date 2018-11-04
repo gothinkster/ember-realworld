@@ -1,8 +1,8 @@
 import ApplicationAdapter from './application';
 
 export default ApplicationAdapter.extend({
-  pathForType: function() {
-    return 'profiles';
+  pathForType() {
+    return 'users';
   },
   followUser(userName) {
     const url = this.buildURL('user', userName) + '/follow';
