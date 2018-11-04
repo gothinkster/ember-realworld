@@ -11,8 +11,7 @@ export default Controller.extend({
   password: '',
 
   init() {
-    this._super();
-
+    this._super(...arguments);
     set(this, 'errors', []);
   },
 
@@ -22,7 +21,6 @@ export default Controller.extend({
         .authenticate('authenticator:conduit', { email, password })
         .then(() => {
           this.transitionToRoute('home');
-          this.session.authorize('authorizer:conduit');
         })
         .catch(normalizedErrors => {
           set(this, 'errors', normalizedErrors);
