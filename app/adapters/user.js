@@ -1,15 +1,8 @@
 import ApplicationAdapter from './application';
+import ENV from 'ember-realworld/config/environment';
 
 export default ApplicationAdapter.extend({
-  pathForType() {
-    return 'users';
-  },
-  followUser(userName) {
-    const url = this.buildURL('user', userName) + '/follow';
-    return this.ajax(url, 'POST');
-  },
-  unFollowUser(userName) {
-    const url = this.buildURL('user', userName) + '/follow';
-    return this.ajax(url, 'DELETE');
+  urlForUpdateRecord() {
+    return `${ENV.APP.apiHost}/user`;
   }
 });

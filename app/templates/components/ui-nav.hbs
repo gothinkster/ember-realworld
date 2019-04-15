@@ -1,0 +1,49 @@
+<nav class="navbar navbar-light">
+  <div class="container">
+    {{#link-to 'index' query=(hash author=null page=1 tag=null) class="navbar-brand" }}
+      conduit
+    {{/link-to}}
+    <ul class="nav navbar-nav pull-xs-right">
+      <li class="nav-item">
+        {{#link-to 'index' class='nav-link' }}
+          Home
+        {{/link-to}}
+      </li>
+      {{#if this.session.isLoggedIn}}
+        <li class="nav-item">
+          {{#link-to 'editor.new' class='nav-link' }}
+            <i class="ion-compose"></i>&nbsp;New Article
+          {{/link-to}}
+        </li>
+        <li class="nav-item">
+          {{#link-to 'settings' class='nav-link' }}
+            <i class="ion-gear-a"></i>&nbsp;Settings
+          {{/link-to}}
+        </li>
+        <li class="nav-item">
+          {{#link-to "profile" this.session.user class="nav-link" data-test-currentUser-loggedIn=true}}
+            {{#if this.session.users.image}}
+              <img src={{this.session.user.image}} class="user-pic"
+                alt="profile image for {{this.session.user.username}}">
+            {{/if}}
+            {{this.session.user.username}}
+          {{/link-to}}
+        </li>
+        <li class="nav-item">
+          <a href="" class="nav-link" onclick={{action this.session.logOut}}>Log out</a>
+        </li>
+      {{else}}
+        <li class="nav-item">
+          {{#link-to 'login' class="nav-link" }}
+            Sign In
+          {{/link-to}}
+        </li>
+        <li class="nav-item">
+          {{#link-to 'register' class="nav-link" }}
+            Sign Up
+          {{/link-to}}
+        </li>
+      {{/if}}
+    </ul>
+  </div>
+</nav>

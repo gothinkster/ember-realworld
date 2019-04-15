@@ -1,8 +1,12 @@
 import DS from 'ember-data';
-
+import { htmlSafe } from '@ember/string';
+import { inject as service } from '@ember/service';
+import marked from 'marked';
 const { attr, belongsTo, hasMany } = DS;
 
 export default DS.Model.extend({
+  authorizedFetch: service(),
+
   /**
    * @property {string} title
    */
@@ -59,5 +63,34 @@ export default DS.Model.extend({
   /**
    * @property {number} favoritesCount
    */
-  favoritesCount: attr('number')
+  favoritesCount: attr('number'),
+
+  get safeMarkup() {
+    const markup = marked(this.body, { sanitize: true });
+    return htmlSafe(markup);
+  },
+
+  loadComments() {
+    return this.store.query('comment', {
+      article_id: this.id
+    });
+  },
+
+  async favorite() {
+    await this.favoriteOperation('favorite');
+  },
+
+  async unfavorite() {
+    await this.favoriteOperation('unfavorite');
+  },
+
+  async favoriteOperation(operation) {
+    const { article } = await this.authorizedFetch.fetch(
+      `/articles/${this.id}/favorite`,
+      operation === 'unfavorite' ? 'DELETE' : 'POST'
+    );
+    this.store.pushPayload({
+      articles: [Object.assign(article, { id: article.slug })]
+    });
+  }
 });

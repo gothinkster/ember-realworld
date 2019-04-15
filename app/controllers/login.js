@@ -20,7 +20,7 @@ export default Controller.extend({
       return this.session
         .authenticate('authenticator:conduit', { email, password })
         .then(() => {
-          this.transitionToRoute('home');
+          this.transitionToRoute('index');
         })
         .catch(normalizedErrors => {
           set(this, 'errors', normalizedErrors);

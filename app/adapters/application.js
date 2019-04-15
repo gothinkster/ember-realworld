@@ -1,26 +1,21 @@
 import DS from 'ember-data';
-import config from '../config/environment';
-import { isPresent } from '@ember/utils';
-import DataAdapterMixin from 'ember-simple-auth/mixins/data-adapter-mixin';
+import { computed } from '@ember/object';
+import { inject as service } from '@ember/service';
+import ENV from 'ember-realworld/config/environment';
+const { errorsHashToArray, RESTAdapter } = DS;
 
-const { errorsHashToArray } = DS;
+export default RESTAdapter.extend({
+  session: service(),
 
-export default DS.RESTAdapter.extend(DataAdapterMixin, {
-  host: config.API.host,
+  host: ENV.APP.apiHost,
 
-  namespace: 'api',
-
-  headers: Object.freeze({
-    Accept: 'application/json',
-    'Content-Type': 'application/json'
-  }),
-
-  authorize(xhr) {
-    const { access_token } = this.get('session.data.authenticated');
-    if (isPresent(access_token)) {
-      xhr.setRequestHeader('Authorization', `Token ${access_token}`);
+  headers: computed('session.token', {
+    get() {
+      return {
+        Authorization: this.session.token ? `Token ${this.session.token}` : ''
+      };
     }
-  },
+  }),
 
   handleResponse(status, headers, payload) {
     if (this.isInvalid(...arguments)) {

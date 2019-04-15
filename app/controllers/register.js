@@ -28,7 +28,7 @@ export default Controller.extend({
       return user
         .save()
         .then(() => this.session.authenticate('authenticator:conduit', user))
-        .then(() => this.transitionToRoute('home'))
+        .then(() => this.transitionToRoute('index'))
         .catch(() => this._displayErrors(user));
     }
   },
