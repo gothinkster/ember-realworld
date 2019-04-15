@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <nav class="navbar navbar-light">
   <div class="container">
     <a class="navbar-brand" href="index.html">conduit</a>
@@ -54,3 +55,10 @@
     </span>
   </div>
 </footer>
+=======
+{{!-- The following component displays Ember's default welcome message. --}}
+<WelcomePage />
+{{!-- Feel free to remove this! --}}
+
+{{outlet}}
+>>>>>>> a55531c... message

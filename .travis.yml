@@ -25,19 +25,6 @@ install:
   - yarn install
 
 script:
+  - yarn lint:hbs
   - yarn lint:js
   - yarn test
-
-before_deploy:
-  -yarn build:prod
-
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN
-  local_dir: dist
-  repo: "gothinkster/ember-realworld"
-  project_name: ember-realworld
-  target_branch: gh-pages
-  on:
-    branch: master
