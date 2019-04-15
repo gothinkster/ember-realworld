@@ -4,7 +4,7 @@
       <div class="col-md-6 offset-md-3 col-xs-12">
         <h1 class="text-xs-center">Sign Up</h1>
         <p class="text-xs-center">
-          {{#link-to 'login'}}
+          {{#link-to "login"}}
             Have an account?
           {{/link-to}}
         </p>
@@ -18,25 +18,25 @@
         <form>
           <fieldset class="form-group">
             {{input
-                class='form-control form-control-lg'
-                placeholder='Username'
+                class="form-control form-control-lg"
+                placeholder="Username"
                 value=username}}
           </fieldset>
           <fieldset class="form-group">
             {{input
-                class='form-control form-control-lg'
-                type='email'
-                placeholder='Email'
+                class="form-control form-control-lg"
+                type="email"
+                placeholder="Email"
                 value=email}}
           </fieldset>
           <fieldset class="form-group">
             {{input
-                class='form-control form-control-lg'
-                type='password'
-                placeholder='Password'
+                class="form-control form-control-lg"
+                type="password"
+                placeholder="Password"
                 value=password}}
           </fieldset>
-          <button class="btn btn-lg btn-primary pull-xs-right" {{action 'sign-up'}}>
+          <button class="btn btn-lg btn-primary pull-xs-right" {{action "sign-up"}}>
             Sign Up
           </button>
         </form>
