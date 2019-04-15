@@ -15,7 +15,7 @@ export default Controller.extend({
   followUser: task(function*(userName) {
     this.toggleProperty('waitingForFollowing');
 
-    const result = yield this.get('profiles').followUser(userName);
+    const result = yield this.profiles.followUser(userName);
     const isFollowing = result.profile.following;
     this.set('model.user.following', isFollowing);
 
@@ -24,7 +24,7 @@ export default Controller.extend({
   unFollowUser: task(function*(userName) {
     this.toggleProperty('waitingForFollowing');
 
-    const result = yield this.get('profiles').unFollowUser(userName);
+    const result = yield this.profiles.unFollowUser(userName);
     const isFollowing = result.profile.following;
     this.set('model.user.following', isFollowing);
 

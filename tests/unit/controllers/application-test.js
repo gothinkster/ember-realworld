@@ -1,11 +1,12 @@
-import { moduleFor, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleFor('controller:application', 'Unit | Controller | application', {
-  needs: ['service:session']
-});
+module('Unit | Controller | application', function(hooks) {
+  setupTest(hooks);
 
-// Replace this with your real tests.
-test('it exists', function(assert) {
-  const controller = this.subject();
-  assert.ok(controller);
+  // Replace this with your real tests.
+  test('it exists', function(assert) {
+    const controller = this.owner.lookup('controller:application');
+    assert.ok(controller);
+  });
 });

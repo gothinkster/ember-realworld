@@ -1,11 +1,14 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('article', 'Unit | Model | article', {
-  needs: ['model:user', 'model:tag']
-});
+import { run } from '@ember/runloop';
 
-test('it exists', function(assert) {
-  const model = this.subject();
-  // let store = this.store();
-  assert.ok(!!model);
+module('Unit | Model | article', function(hooks) {
+  setupTest(hooks);
+
+  test('it exists', function(assert) {
+    const model = run(() => this.owner.lookup('service:store').createRecord('article'));
+    // let store = this.store();
+    assert.ok(!!model);
+  });
 });

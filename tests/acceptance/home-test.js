@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { visit, currentURL, find, click } from '@ember/test-helpers';
+import { visit, currentURL, click } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 
@@ -17,8 +17,8 @@ module('Acceptance | home', function(hooks) {
     assert.equal(this.element.querySelectorAll('[data-test-tag-item]').length, 7);
     assert.equal(this.element.querySelectorAll('[data-test-page-link]').length, 2);
     assert.equal(this.element.querySelectorAll('.feed-toggle a.nav-link').length, 1);
-    assert.equal(find('.feed-toggle a.nav-link.active').textContent.trim(), 'Global Feed');
-    assert.equal(find('ul.pagination .page-item.active a').textContent.trim(), '1');
+    assert.dom('.feed-toggle a.nav-link.active').hasText('Global Feed');
+    assert.dom('ul.pagination .page-item.active a').hasText('1');
   });
 
   test('clicking a page', async function(assert) {
@@ -29,7 +29,7 @@ module('Acceptance | home', function(hooks) {
 
     assert.equal(currentURL(), '/?page=2');
     assert.equal(this.element.querySelectorAll('.page-link').length, 2);
-    assert.equal(find('ul.pagination .page-item.active a').textContent.trim(), '2');
+    assert.dom('ul.pagination .page-item.active a').hasText('2');
   });
 
   test('clicking a tag', async function(assert) {
@@ -38,7 +38,7 @@ module('Acceptance | home', function(hooks) {
 
     assert.equal(currentURL(), '/?tag=emberjs');
     assert.equal(this.element.querySelectorAll('.feed-toggle a.nav-link').length, 2);
-    assert.equal(find('.feed-toggle a.nav-link.active').textContent.trim(), 'emberjs');
+    assert.dom('.feed-toggle a.nav-link.active').hasText('emberjs');
   });
 
   test('clicking a page and tag', async function(assert) {
@@ -50,8 +50,8 @@ module('Acceptance | home', function(hooks) {
 
     assert.equal(currentURL(), '/?page=2&tag=emberjs');
     assert.equal(this.element.querySelectorAll('.feed-toggle a.nav-link').length, 2);
-    assert.equal(find('.feed-toggle a.nav-link.active').textContent.trim(), 'emberjs');
-    assert.equal(find('ul.pagination .page-item.active a').textContent.trim(), '2');
+    assert.dom('.feed-toggle a.nav-link.active').hasText('emberjs');
+    assert.dom('ul.pagination .page-item.active a').hasText('2');
   });
 
   test('resetting to the main list', async function(assert) {
@@ -62,7 +62,7 @@ module('Acceptance | home', function(hooks) {
 
     assert.equal(currentURL(), '/');
     assert.equal(this.element.querySelectorAll('.feed-toggle a.nav-link').length, 1);
-    assert.equal(find('.feed-toggle a.nav-link.active').textContent.trim(), 'Global Feed');
-    assert.equal(find('ul.pagination .page-item.active a').textContent.trim(), '1');
+    assert.dom('.feed-toggle a.nav-link.active').hasText('Global Feed');
+    assert.dom('ul.pagination .page-item.active a').hasText('1');
   });
 });
