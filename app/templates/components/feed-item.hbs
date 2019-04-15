@@ -1,15 +1,17 @@
 <div class="article-preview" data-test-article-preview>
   <div class="article-meta">
     {{#link-to "profile" article.author.username}}
-      <img data-test-article-author-image src= {{article.author.image}} alt="profile image for {{article.author.username}}">
+      <img data-test-article-author-image src={{article.author.image}}
+        alt="profile image for {{article.author.username}}">
     {{/link-to}}
     <div class="info">
       {{#link-to "profile" article.author.username class="author" data-test-article-author-username=article.author.username}}
         {{article.author.username}}
       {{/link-to}}
-      <span class="date" data-test-article-date>{{moment-format article.createdAt 'MMM D, YYYY'}}</span>
+      <span class="date" data-test-article-date>{{moment-format article.createdAt "MMM D, YYYY"}}</span>
     </div>
-    <button class="btn {{if article.favorited 'btn-primary' 'btn-outline-primary'}} btn-sm pull-xs-right" data-test-article-favoritesCount>
+    <button class="btn {{if article.favorited "btn-primary" "btn-outline-primary"}} btn-sm pull-xs-right"
+      data-test-article-favoritesCount>
       <i class="ion-heart"></i> {{article.favoritesCount}}
     </button>
   </div>

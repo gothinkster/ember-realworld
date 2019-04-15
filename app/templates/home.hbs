@@ -16,7 +16,7 @@
               </li>
             {{/if}}
             <li class="nav-item">
-              <a class="nav-link {{unless tag 'active'}}" href="" {{action 'setTag' null}}>Global Feed</a>
+              <a class="nav-link {{unless tag "active"}}" href="" {{action "setTag" null}}>Global Feed</a>
             </li>
             {{#if tag}}
               <li class="nav-item">
@@ -37,7 +37,7 @@
           <p>Popular Tags</p>
           <div class="tag-list">
             {{#each model.popularTags as |tag|}}
-              <a href="" class="tag-pill tag-default" {{action 'setTag' tag.value}} data-test-tag-item>{{tag.value}}</a>
+              <a href="" class="tag-pill tag-default" {{action "setTag" tag.value}} data-test-tag-item>{{tag.value}}</a>
             {{/each}}
           </div>
         </div>

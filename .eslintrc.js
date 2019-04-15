@@ -24,6 +24,7 @@ module.exports = {
     'ember/order-in-components': 'error',
     'ember/order-in-controllers': 'error',
     'ember/order-in-routes': 'error',
+    "ember/no-restricted-resolver-tests": 'warn',
     'prefer-const': 'error',
     'no-var': 'error'
   },
