@@ -31,13 +31,9 @@ module('Integration | Component | feed item', function(hooks) {
       .dom('[data-test-article-author-image]')
       .hasAttribute('src', 'https://static.productionready.io/images/smiley-cyrus.jpg', 'Image is default image');
 
-    assert.equal(
-      this.$(`[data-test-article-author-username="${article.author.username}"]`)
-        .text()
-        .trim(),
-      'Alon Bukai',
-      'Author name is correct'
-    );
+    assert
+      .dom(`[data-test-article-author-username="${article.author.username}"]`)
+      .hasText('Alon Bukai', 'Author name is correct');
 
     assert.dom('[data-test-article-date]').hasText('Dec 25, 1995', 'Date is correct');
 

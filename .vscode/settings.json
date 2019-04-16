@@ -2,6 +2,7 @@
 {
   "prettier.printWidth": 120,
   "prettier.singleQuote": true,
+  "eslint.autoFixOnSave": true,
   "search.exclude": {
     "**/node_modules": true,
     "**/bower_components": true,
@@ -9,7 +10,7 @@
     "**/assets": true,
     "**/dist": true
   },
-  "editor.formatOnSave": true,	
+  "editor.formatOnSave": true,
   "html.format.enable": true,
   "html.format.indentHandlebars": true,
   "html.format.maxPreserveNewLines": 0,
