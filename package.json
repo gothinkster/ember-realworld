@@ -3,19 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "description": "This codebase was created to demonstrate a fully fledged fullstack application built with **Ember** including CRUD operations, authentication, routing, pagination, and more.",
+  "repository": "https://github.com/gothinkster/ember-realworld",
   "license": "MIT",
   "author": "Alon Bukai",
+  "directories": {
+    "doc": "doc",
+    "test": "tests"
+  },
   "contributors": [
     "Alon Bukai",
     "Alex LaFroscia",
     "Jonathan Goldman",
     "Laura Kajpust"
   ],
-  "directories": {
-    "doc": "doc",
-    "test": "tests"
-  },
-  "repository": "https://github.com/gothinkster/ember-realworld",
   "scripts": {
     "build": "ember build",
     "build:prod": "ember build -prod",
@@ -28,32 +28,32 @@
     "test:s": "ember test --server"
   },
   "devDependencies": {
+    "@ember/optional-features": "^0.6.3",
     "babel-eslint": "^10.0.1",
     "broccoli-asset-rev": "^2.7.0",
-    "ember-cli": "~3.3.0",
+    "ember-cli": "~3.9.0",
     "ember-cli-babel": "^7.7.3",
-    "ember-cli-dependency-checker": "^3.0.0",
+    "ember-cli-dependency-checker": "^3.1.0",
     "ember-cli-eslint": "^5.1.0",
     "ember-cli-htmlbars": "^3.0.0",
     "ember-cli-htmlbars-inline-precompile": "^1.0.3",
     "ember-cli-inject-live-reload": "^1.8.2",
     "ember-cli-mirage": "0.4.15",
     "ember-cli-moment-shim": "^3.7.1",
-    "ember-cli-qunit": "^4.3.2",
-    "ember-cli-shims": "^1.2.0",
     "ember-cli-sri": "^2.1.1",
     "ember-cli-template-lint": "^1.0.0-beta.3",
     "ember-cli-uglify": "^2.1.0",
     "ember-cli-update": "^0.33.1",
     "ember-concurrency": "^0.10.0",
-    "ember-data": "~3.3.0",
+    "ember-data": "~3.9.0",
     "ember-fetch": "^6.5.0",
     "ember-load-initializers": "^1.1.0",
     "ember-moment": "^7.8.1",
     "ember-resolver": "^5.0.1",
     "ember-route-action-helper": "^2.0.7",
     "ember-simple-auth": "^1.8.2",
-    "ember-source": "~3.3.0",
+    "ember-source": "~3.9.0",
+    "ember-qunit": "^3.4.1",
     "ember-test-selectors": "2.1.0",
     "ember-truth-helpers": "^2.1.0",
     "eslint": "^5.16.0",
@@ -62,7 +62,7 @@
     "eslint-plugin-prettier": "3.0.1",
     "loader.js": "^4.7.0",
     "prettier": "^1.17.0",
-    "qunit-dom": "^0.7.1"
+    "qunit-dom": "^0.8.0"
   },
   "engines": {
     "node": "6.* || 8.* || >= 10.*"

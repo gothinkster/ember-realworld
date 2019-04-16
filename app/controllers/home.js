@@ -14,7 +14,7 @@ export default Controller.extend({
 
   actions: {
     setTag(value) {
-      if (this.get('tag') !== value) {
+      if (this.tag !== value) {
         this.set('page', 1);
       }
       this.set('tag', value);
