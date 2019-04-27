@@ -8,7 +8,6 @@ export default Controller.extend({
   tag: null,
   page: 1,
 
-  isAuthenticated: oneWay('session.isAuthenticated'),
   totalPages: oneWay('model.articles.meta.articlesCount'),
   postsPerPage: oneWay('model.perPage'),
 

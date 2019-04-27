@@ -13,7 +13,7 @@ export default Service.extend({
   initSession() {
     const storedToken = this.getStoredToken();
     if (storedToken) {
-      this.token = storedToken;
+      this.set('token', storedToken);
       return this.fetchUser();
     }
   },
@@ -34,7 +34,7 @@ export default Service.extend({
     } catch {
       // Registration returned errors
     } finally {
-      this.user = user;
+      this.set('user', user);
     }
     return user;
   },
@@ -75,7 +75,7 @@ export default Service.extend({
     this.store.pushPayload({
       users: [user]
     });
-    this.user = this.store.peekRecord('user', user.id);
+    this.set('user', this.store.peekRecord('user', user.id));
     return this.user;
   },
 
@@ -95,12 +95,12 @@ export default Service.extend({
   },
 
   setToken(token) {
-    this.token = token;
+    this.set('token', token);
     localStorage.setItem(STORAGE_KEY, token);
   },
 
   removeToken() {
-    this.token = null;
+    this.set('token', null);
     localStorage.removeItem(STORAGE_KEY);
   },
 
