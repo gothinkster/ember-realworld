@@ -15,7 +15,7 @@
             {{/each}}
           </ul>
         {{/if}}
-        <form>
+        <form {{action (perform this.register) on="submit"}}>
           <fieldset class="form-group">
             {{input
                 class="form-control form-control-lg"
@@ -36,8 +36,7 @@
                 placeholder="Password"
                 value=password}}
           </fieldset>
-          <button class="btn btn-lg btn-primary pull-xs-right" onclick={{perform this.register}}
-            disabled={{this.register.isRunning}}>
+          <button class="btn btn-lg btn-primary pull-xs-right" disabled={{this.register.isRunning}}>
             Sign Up
           </button>
         </form>

@@ -60,7 +60,7 @@ module('Acceptance | home', function(hooks) {
     await server.createList('article', 20);
 
     await visit('/?page=2&tag=emberjs');
-    await click('.feed-toggle a.nav-link:first-child');
+    await click('[data-test-global-feed]');
 
     assert.equal(currentURL(), '/');
     assert.equal(this.element.querySelectorAll('.feed-toggle a.nav-link').length, 1);

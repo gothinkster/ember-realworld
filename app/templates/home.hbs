@@ -16,7 +16,9 @@
               </li>
             {{/if}}
             <li class="nav-item">
-              <a class="nav-link {{unless tag "active"}}" href="" {{action "setTag" null}}>Global Feed</a>
+              {{#link-to "home" (query-params page=1 tag=null) class="nav-link" data-test-global-feed="true"}}
+                Global Feed
+              {{/link-to}}
             </li>
             {{#if tag}}
               <li class="nav-item">

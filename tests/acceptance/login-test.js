@@ -9,7 +9,7 @@ module('Acceptance | login', function(hooks) {
   setupMirage(hooks);
   setupLoggedOutUser(hooks);
 
-  test('visiting /login', async assert => {
+  test('visiting /login', async function(assert) {
     const user = server.create('user', { email: 'bob@example.com', password: 'password123' });
 
     await visit('/login');
