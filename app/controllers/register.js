@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
+import { task } from 'ember-concurrency';
 
 export default Controller.extend({
   session: service(),
@@ -10,13 +11,11 @@ export default Controller.extend({
   email: '',
   password: '',
 
-  actions: {
-    async register() {
-      const user = await this.session.register(this.username, this.email, this.password);
-      this.set('user', user);
-      if (this.user.isValid) {
-        this.router.transitionTo('home');
-      }
+  register: task(function*() {
+    const user = yield this.session.register(this.username, this.email, this.password);
+    this.set('user', user);
+    if (this.user.isValid) {
+      this.router.transitionTo('home');
     }
-  }
+  }).drop()
 });

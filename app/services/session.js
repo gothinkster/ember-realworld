@@ -22,25 +22,28 @@ export default Service.extend({
     return !!this.token;
   }),
 
-  async register(username, email, password) {
+  register(username, email, password) {
     const user = this.store.createRecord('user', {
       username,
       email,
       password
     });
-    try {
-      await user.save();
-      this.setToken(user.token);
-    } catch {
-      // Registration returned errors
-    } finally {
-      this.set('user', user);
-    }
-    return user;
+    return new Promise(resolve => {
+      user
+        .save()
+        .then(() => {
+          this.setToken(user.token);
+        })
+        .catch(err => err)
+        .finally(() => {
+          this.set('user', user);
+          resolve(user);
+        });
+    });
   },
 
-  async logIn(email, password) {
-    const login = await fetch(`${ENV.API.host}/api/users/login`, {
+  logIn(email, password) {
+    return fetch(`${ENV.API.host}/api/users/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -51,43 +54,46 @@ export default Service.extend({
           password
         }
       })
-    });
-    const userPayload = await login.json();
-    if (userPayload.errors) {
-      const errors = this.processLoginErrors(userPayload.errors);
-      return { errors };
-    } else {
-      this.store.pushPayload({
-        users: [userPayload.user]
+    })
+      .then(login => login.json())
+      .then(userPayload => {
+        if (userPayload.errors) {
+          const errors = this.processLoginErrors(userPayload.errors);
+          return { errors };
+        } else {
+          this.store.pushPayload({
+            users: [userPayload.user]
+          });
+          this.setToken(userPayload.user.token);
+          this.set('user', this.store.peekRecord('user', userPayload.user.username));
+          return this.user;
+        }
       });
-      this.setToken(userPayload.user.token);
-      this.set('user', this.store.peekRecord('user', userPayload.user.username));
-      return this.user;
-    }
   },
 
   logOut() {
     this.removeToken();
   },
 
-  async fetchUser() {
-    const { user } = await this.fetch('/user');
-    this.store.pushPayload({
-      users: [user]
+  fetchUser() {
+    return this.fetch('/user').then(({ user }) => {
+      this.store.pushPayload({
+        users: [user]
+      });
+      this.set('user', this.store.peekRecord('user', user.username));
+      return this.user;
     });
-    this.set('user', this.store.peekRecord('user', user.id));
-    return this.user;
   },
 
-  async fetch(url, method = 'GET') {
-    const response = await fetch(`${ENV.API.host}/api${url}`, {
+  fetch(url, method = 'GET') {
+    return fetch(`${ENV.API.host}/api${url}`, {
       method,
       headers: {
         Authorization: this.token ? `Token ${this.token}` : ''
       }
-    });
-    const payload = await response.json();
-    return payload;
+    })
+      .then(response => response.json())
+      .then(payload => payload);
   },
 
   getStoredToken() {

@@ -32,7 +32,8 @@
                 placeholder="Password"
                 value=password}}
           </fieldset>
-          <button data-test-login class="btn btn-lg btn-primary pull-xs-right" {{action "logIn"}}>
+          <button data-test-login class="btn btn-lg btn-primary pull-xs-right" onclick={{perform this.logIn}}
+            disabled={{this.logIn.isRunning}}>
             Sign In
           </button>
         </form>
