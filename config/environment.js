@@ -25,11 +25,6 @@ module.exports = function(environment) {
     API: {
       host: ''
     },
-
-    'ember-simple-auth': {
-      // Override the default `index` value
-      routeIfAlreadyAuthenticated: 'home'
-    }
   };
 
   if (environment === 'development') {

@@ -1,6 +1,5 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-import { oneWay } from '@ember/object/computed';
 import { task } from 'ember-concurrency';
 
 export default Controller.extend({
@@ -8,9 +7,6 @@ export default Controller.extend({
   session: service(),
 
   waitingForFollowing: false,
-
-  currentUser: oneWay('session.session.content.authenticated'),
-  isAuthenticated: oneWay('session.isAuthenticated'),
 
   followUser: task(function*(userName) {
     this.toggleProperty('waitingForFollowing');
@@ -21,6 +17,7 @@ export default Controller.extend({
 
     this.toggleProperty('waitingForFollowing');
   }).drop(),
+
   unFollowUser: task(function*(userName) {
     this.toggleProperty('waitingForFollowing');
 

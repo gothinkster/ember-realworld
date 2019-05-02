@@ -1,30 +1,18 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-import { set } from '@ember/object';
+import { task } from 'ember-concurrency';
 
 export default Controller.extend({
   session: service(),
-
-  errors: null,
+  router: service(),
 
   email: '',
   password: '',
 
-  init() {
-    this._super(...arguments);
-    set(this, 'errors', []);
-  },
-
-  actions: {
-    login(email, password) {
-      return this.session
-        .authenticate('authenticator:conduit', { email, password })
-        .then(() => {
-          this.transitionToRoute('home');
-        })
-        .catch(normalizedErrors => {
-          set(this, 'errors', normalizedErrors);
-        });
+  logIn: task(function*() {
+    this.set('user', yield this.session.logIn(this.email, this.password));
+    if (!this.user.errors.length) {
+      this.router.transitionTo('home');
     }
-  }
+  }).drop()
 });

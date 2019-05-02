@@ -2,10 +2,12 @@ import { module, test } from 'qunit';
 import { visit, currentURL, click } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
+import { setupLoggedOutUser } from '../helpers/user';
 
 module('Acceptance | home', function(hooks) {
   setupApplicationTest(hooks);
   setupMirage(hooks);
+  setupLoggedOutUser(hooks);
 
   test('visiting /', async function(assert) {
     server.createList('article', 20);
@@ -58,7 +60,7 @@ module('Acceptance | home', function(hooks) {
     await server.createList('article', 20);
 
     await visit('/?page=2&tag=emberjs');
-    await click('.feed-toggle a.nav-link:first-child');
+    await click('[data-test-global-feed]');
 
     assert.equal(currentURL(), '/');
     assert.equal(this.element.querySelectorAll('.feed-toggle a.nav-link').length, 1);

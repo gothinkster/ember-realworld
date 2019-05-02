@@ -7,7 +7,7 @@
           Home
         {{/link-to}}
       </li>
-      {{#if isAuthenticated}}
+      {{#if session.isLoggedIn}}
         <li class="nav-item">
           {{#link-to "editor.new" class="nav-link" }}
             <i class="ion-compose"></i>&nbsp;New Article
@@ -19,11 +19,11 @@
           {{/link-to}}
         </li>
         <li class="nav-item">
-          {{#link-to "profile" currentUser.username class="nav-link" data-test-currentUser-loggedIn=true}}
-            {{#if currentUser.image}}
-              <img src={{currentUser.image}} class="user-pic" alt="profile image for {{currentUser.username}}">
+          {{#link-to "profile" session.user.username class="nav-link" data-test-currentUser-loggedIn=true}}
+            {{#if session.user.image}}
+              <img src={{session.user.image}} class="user-pic" alt="profile image for {{session.user.username}}">
             {{/if}}
-            {{currentUser.username}}
+            {{session.user.username}}
           {{/link-to}}
         </li>
       {{else}}

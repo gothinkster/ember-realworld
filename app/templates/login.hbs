@@ -8,14 +8,14 @@
             Need an account?
           {{/link-to}}
         </p>
-        {{#if errors}}
+        {{#if (not this.user.isValid)}}
           <ul class="error-messages">
-            {{#each errors as |error|}}
+            {{#each this.user.errors as |error|}}
               <li>{{error}}</li>
             {{/each}}
           </ul>
         {{/if}}
-        <form>
+        <form {{action (perform this.logIn) on="submit"}}>
           <fieldset class="form-group">
             {{input
                 data-test-email
@@ -32,7 +32,7 @@
                 placeholder="Password"
                 value=password}}
           </fieldset>
-          <button data-test-login class="btn btn-lg btn-primary pull-xs-right" {{action "login" email password}}>
+          <button data-test-login class="btn btn-lg btn-primary pull-xs-right" disabled={{this.logIn.isRunning}}>
             Sign In
           </button>
         </form>

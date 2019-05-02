@@ -3,12 +3,12 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-12 col-md-10 offset-md-1">
-          <img src= {{model.user.image}} class="user-img" alt="user image">
+          <img src={{model.user.image}} class="user-img" alt="user image">
           <h4>{{model.user.username}}</h4>
           <p>
             {{model.user.bio}}
           </p>
-          {{#if (and isAuthenticated (eq model.user.username currentUser.username))}}
+          {{#if (and session.isLoggedIn (eq model.user.username session.user.username))}}
             {{#link-to "settings"}}
               <button class="btn btn-sm btn-outline-secondary action-btn">
                 <i class="ion-gear-a"></i> Edit Profile Settings
@@ -16,11 +16,13 @@
             {{/link-to}}
           {{else}}
             {{#if model.user.following}}
-              <button onclick= {{perform unFollowUser model.user.username}} disabled= {{waitingForFollowing}} class="btn btn-sm btn-outline-secondary action-btn">
+              <button onclick={{perform unFollowUser model.user.username}} disabled={{waitingForFollowing}}
+                class="btn btn-sm btn-outline-secondary action-btn">
                 <i class="ion-plus-round"></i> &nbsp; Unfollow {{model.user.username}}
               </button>
             {{else}}
-              <button onclick= {{perform followUser model.user.username}} disabled= {{waitingForFollowing}} class="btn btn-sm btn-outline-secondary action-btn">
+              <button onclick={{perform followUser model.user.username}} disabled={{waitingForFollowing}}
+                class="btn btn-sm btn-outline-secondary action-btn">
                 <i class="ion-plus-round"></i> &nbsp; Follow {{model.user.username}}
               </button>
             {{/if}}
