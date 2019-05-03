@@ -23,7 +23,11 @@ module.exports = function(environment) {
     },
 
     API: {
-      host: ''
+      host: 'https://conduit.productionready.io'
+    },
+
+    'ember-cli-mirage': {
+      enabled: false
     },
   };
 
@@ -52,9 +56,6 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     // Some prod-only config
-    ENV.API = {
-      host: 'https://conduit.productionready.io'
-    };
   }
 
   return ENV;
