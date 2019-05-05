@@ -26,5 +26,5 @@ export default Controller.extend({
     this.set('model.user.following', isFollowing);
 
     this.toggleProperty('waitingForFollowing');
-  }).drop()
+  }).drop(),
 });

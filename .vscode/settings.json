@@ -1,7 +1,5 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-  "prettier.printWidth": 120,
-  "prettier.singleQuote": true,
   "eslint.autoFixOnSave": true,
   "search.exclude": {
     "**/node_modules": true,

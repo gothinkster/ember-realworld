@@ -24,7 +24,7 @@ export default DS.Model.extend({
   createdAt: attr('date', {
     defaultValue() {
       return new Date();
-    }
+    },
   }),
 
   /**
@@ -33,7 +33,7 @@ export default DS.Model.extend({
   updateAt: attr('date', {
     defaultValue() {
       return new Date();
-    }
+    },
   }),
 
   /**
@@ -59,5 +59,5 @@ export default DS.Model.extend({
   /**
    * @property {number} favoritesCount
    */
-  favoritesCount: attr('number')
+  favoritesCount: attr('number'),
 });

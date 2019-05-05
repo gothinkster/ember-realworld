@@ -7,11 +7,11 @@ export default DS.RESTSerializer.extend({
     const newPayload = {
       tags: payload.tags.map(tag => {
         return {
-          value: tag
+          value: tag,
         };
-      })
+      }),
     };
 
     return this._super(store, primaryModelClass, newPayload, id, requestType);
-  }
+  },
 });

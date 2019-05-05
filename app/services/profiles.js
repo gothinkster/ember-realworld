@@ -10,5 +10,5 @@ export default Service.extend({
   unFollowUser(userName) {
     const adapter = this.store.adapterFor('user');
     return adapter.unFollowUser(userName);
-  }
+  },
 });

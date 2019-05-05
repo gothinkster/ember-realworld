@@ -43,5 +43,5 @@ export default Factory.extend({
 
   slug() {
     return faker.helpers.slugify(this.title);
-  }
+  },
 });

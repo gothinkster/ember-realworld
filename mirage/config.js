@@ -34,7 +34,7 @@ export default function() {
 
   this.get('/tags', () => {
     return {
-      tags: ['emberjs', 'tomster', 'wycats', 'tomdale', 'ember-cli']
+      tags: ['emberjs', 'tomster', 'wycats', 'tomdale', 'ember-cli'],
     };
   });
 }

@@ -15,5 +15,5 @@ export default Factory.extend({
 
   bio() {
     return faker.lorem.paragraph();
-  }
+  },
 });

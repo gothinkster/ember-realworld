@@ -30,5 +30,5 @@ export default DS.Model.extend({
 
   // Only needed for authenticating users
   password: attr('string'),
-  token: attr('string')
+  token: attr('string'),
 });

@@ -14,5 +14,5 @@ export default Controller.extend({
     if (!this.user.errors.length) {
       this.router.transitionTo('home');
     }
-  }).drop()
+  }).drop(),
 });

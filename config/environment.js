@@ -13,8 +13,8 @@ module.exports = function(environment) {
       },
       EXTEND_PROTOTYPES: {
         // Prevent Ember Data from overriding Date.parse.
-        Date: false
-      }
+        Date: false,
+      },
     },
 
     APP: {
@@ -23,11 +23,11 @@ module.exports = function(environment) {
     },
 
     API: {
-      host: 'https://conduit.productionready.io'
+      host: 'https://conduit.productionready.io',
     },
 
     'ember-cli-mirage': {
-      enabled: false
+      enabled: false,
     },
   };
 

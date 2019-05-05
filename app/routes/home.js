@@ -4,11 +4,11 @@ import { hash } from 'rsvp';
 export default Route.extend({
   queryParams: {
     tag: {
-      refreshModel: true
+      refreshModel: true,
     },
     page: {
-      refreshModel: true
-    }
+      refreshModel: true,
+    },
   },
 
   model(params) {
@@ -19,8 +19,8 @@ export default Route.extend({
       articles: this.store.query('article', {
         tag: params.tag,
         limit: 10,
-        offset: (params.page - 1) * perPage
-      })
+        offset: (params.page - 1) * perPage,
+      }),
     });
-  }
+  },
 });

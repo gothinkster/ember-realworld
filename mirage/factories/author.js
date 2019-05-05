@@ -15,5 +15,5 @@ export default Factory.extend({
 
   following() {
     return faker.random.boolean();
-  }
+  },
 });

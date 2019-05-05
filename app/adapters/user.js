@@ -11,5 +11,5 @@ export default ApplicationAdapter.extend({
   unFollowUser(userName) {
     const url = this.buildURL('user', userName) + '/follow';
     return this.ajax(url, 'DELETE');
-  }
+  },
 });

@@ -26,7 +26,7 @@ export default Service.extend({
     const user = this.store.createRecord('user', {
       username,
       email,
-      password
+      password,
     });
     return new Promise(resolve => {
       user
@@ -46,14 +46,14 @@ export default Service.extend({
     return fetch(`${ENV.API.host}/api/users/login`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         user: {
           email,
-          password
-        }
-      })
+          password,
+        },
+      }),
     })
       .then(login => login.json())
       .then(userPayload => {
@@ -62,7 +62,7 @@ export default Service.extend({
           return { errors };
         } else {
           this.store.pushPayload({
-            users: [userPayload.user]
+            users: [userPayload.user],
           });
           this.setToken(userPayload.user.token);
           this.set('user', this.store.peekRecord('user', userPayload.user.username));
@@ -78,7 +78,7 @@ export default Service.extend({
   fetchUser() {
     return this.fetch('/user').then(({ user }) => {
       this.store.pushPayload({
-        users: [user]
+        users: [user],
       });
       this.set('user', this.store.peekRecord('user', user.username));
       return this.user;
@@ -89,8 +89,8 @@ export default Service.extend({
     return fetch(`${ENV.API.host}/api${url}`, {
       method,
       headers: {
-        Authorization: this.token ? `Token ${this.token}` : ''
-      }
+        Authorization: this.token ? `Token ${this.token}` : '',
+      },
     })
       .then(response => response.json())
       .then(payload => payload);
@@ -119,5 +119,5 @@ export default Service.extend({
       });
     });
     return loginErrors;
-  }
+  },
 });

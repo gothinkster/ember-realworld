@@ -5,7 +5,9 @@ export default Route.extend({
   templateName: 'profile/index',
   model(/*params*/) {
     return hash({
-      articles: this.store.query('article', { favorited: this.modelFor('profile').user.get('username') })
+      articles: this.store.query('article', {
+        favorited: this.modelFor('profile').user.get('username'),
+      }),
     });
-  }
+  },
 });
