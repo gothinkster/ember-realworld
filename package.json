@@ -19,6 +19,7 @@
   "scripts": {
     "build": "ember build",
     "build:prod": "ember build -prod",
+    "lint:check": "eslint --print-config . | eslint-config-prettier-check",
     "lint:js": "eslint . *.js",
     "lint:fix": "yarn lint:js --fix",
     "lint:hbs": "ember-template-lint .",
