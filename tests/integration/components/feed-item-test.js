@@ -14,14 +14,14 @@ module('Integration | Component | feed item', function(hooks) {
     const article = {
       author: {
         image: 'https://static.productionready.io/images/smiley-cyrus.jpg',
-        username: 'Alon Bukai'
+        username: 'Alon Bukai',
       },
       createdAt: moment('1995-12-25'),
       favoritesCount: 9000,
       tagList: ['firstTag', 'secondTag', 'thirdTag'],
       description: 'This is feed item description',
       slug: 'feed-item-title',
-      title: 'Feed Item Title'
+      title: 'Feed Item Title',
     };
 
     this.set('article', article);

@@ -17,6 +17,6 @@ export default Controller.extend({
         this.set('page', 1);
       }
       this.set('tag', value);
-    }
-  }
+    },
+  },
 });

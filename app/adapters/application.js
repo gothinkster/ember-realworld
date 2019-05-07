@@ -14,5 +14,5 @@ export default RESTAdapter.extend({
     }
 
     return this._super(...arguments);
-  }
+  },
 });

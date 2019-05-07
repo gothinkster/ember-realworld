@@ -10,7 +10,10 @@ module('Acceptance | login', function(hooks) {
   setupLoggedOutUser(hooks);
 
   test('visiting /login', async function(assert) {
-    const user = server.create('user', { email: 'bob@example.com', password: 'password123' });
+    const user = server.create('user', {
+      email: 'bob@example.com',
+      password: 'password123',
+    });
 
     await visit('/login');
 

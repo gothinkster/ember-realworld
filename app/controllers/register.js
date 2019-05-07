@@ -17,5 +17,5 @@ export default Controller.extend({
     if (this.user.isValid) {
       this.router.transitionTo('home');
     }
-  }).drop()
+  }).drop(),
 });

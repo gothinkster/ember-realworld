@@ -19,7 +19,10 @@ module('Unit | Service | session', function(hooks) {
     });
 
     test('#logIn', async function(assert) {
-      const mockUser = server.create('user', { email: 'bob@example.com', password: 'password123' });
+      const mockUser = server.create('user', {
+        email: 'bob@example.com',
+        password: 'password123',
+      });
       const service = this.owner.lookup('service:session');
       const user = await service.logIn(mockUser.email, mockUser.password);
       assert.equal(user.email, 'bob@example.com');

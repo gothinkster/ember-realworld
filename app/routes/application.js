@@ -5,5 +5,5 @@ export default Route.extend({
   session: service(),
   model() {
     return this.session.initSession();
-  }
+  },
 });
