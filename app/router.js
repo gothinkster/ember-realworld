@@ -12,7 +12,7 @@ Router.map(function() {
   this.route('login');
   this.route('register');
 
-  this.route('profile', { path: '/profile/:username' }, function() {
+  this.route('profile', { path: '/profile/:id' }, function() {
     this.route('favorites');
   });
   this.route('settings');

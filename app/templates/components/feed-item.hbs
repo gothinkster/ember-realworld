@@ -1,12 +1,11 @@
 <div class="article-preview" data-test-article-preview>
   <div class="article-meta">
-    {{#link-to "profile" article.author.username}}
-      <img data-test-article-author-image src={{article.author.image}}
-        alt="profile image for {{article.author.username}}">
+    {{#link-to "profile" article.author.id}}
+      <img data-test-article-author-image src={{article.author.image}} alt="profile image for {{article.author.id}}">
     {{/link-to}}
     <div class="info">
-      {{#link-to "profile" article.author.username class="author" data-test-article-author-username=article.author.username}}
-        {{article.author.username}}
+      {{#link-to "profile" article.author.id class="author" data-test-article-author-username=article.author.id}}
+        {{article.author.id}}
       {{/link-to}}
       <span class="date" data-test-article-date>{{moment-format article.createdAt "MMM D, YYYY"}}</span>
     </div>

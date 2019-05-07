@@ -65,7 +65,7 @@ export default Service.extend({
             users: [userPayload.user],
           });
           this.setToken(userPayload.user.token);
-          this.set('user', this.store.peekRecord('user', userPayload.user.username));
+          this.set('user', this.store.peekRecord('user', userPayload.user.id));
           return this.user;
         }
       });

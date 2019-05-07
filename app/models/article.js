@@ -49,7 +49,7 @@ export default DS.Model.extend({
   /**
    * @property {belongsToModel} author
    */
-  author: belongsTo('user'),
+  author: belongsTo('profile'),
 
   /**
    * @property {boolean} favorited

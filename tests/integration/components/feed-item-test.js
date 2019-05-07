@@ -14,7 +14,7 @@ module('Integration | Component | feed item', function(hooks) {
     const article = {
       author: {
         image: 'https://static.productionready.io/images/smiley-cyrus.jpg',
-        username: 'Alon Bukai',
+        id: 'AlonBukai',
       },
       createdAt: moment('1995-12-25'),
       favoritesCount: 9000,
@@ -32,8 +32,8 @@ module('Integration | Component | feed item', function(hooks) {
       .hasAttribute('src', 'https://static.productionready.io/images/smiley-cyrus.jpg', 'Image is default image');
 
     assert
-      .dom(`[data-test-article-author-username="${article.author.username}"]`)
-      .hasText('Alon Bukai', 'Author name is correct');
+      .dom(`[data-test-article-author-username="${article.author.id}"]`)
+      .hasText('AlonBukai', 'Author name is correct');
 
     assert.dom('[data-test-article-date]').hasText('Dec 25, 1995', 'Date is correct');
 
