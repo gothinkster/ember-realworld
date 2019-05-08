@@ -1,6 +1,6 @@
 import { Factory, association, faker } from 'ember-cli-mirage';
 
-const tags = ['dragons', 'training', 'emberjs', 'wycats', 'tomdale', 'tomster'];
+const tags = ['emberjs', 'tomster', 'wycats', 'tomdale', 'ember-cli', 'training', 'dragons'];
 
 export default Factory.extend({
   author: association(),
