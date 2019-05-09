@@ -21,7 +21,8 @@
         <li class="nav-item">
           {{#link-to "profile" session.user.username class="nav-link" data-test-currentUser-loggedIn=true}}
             {{#if session.user.image}}
-              <img src={{session.user.image}} class="user-pic" alt="profile image for {{session.user.username}}">
+              <img src={{session.user.image}} class="user-pic" alt="profile image for {{session.user.username}}"
+                data-test-currentUser-user-pic>
             {{/if}}
             {{session.user.username}}
           {{/link-to}}

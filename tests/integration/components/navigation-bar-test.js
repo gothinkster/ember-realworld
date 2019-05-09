@@ -16,6 +16,10 @@ module('Integration | Component | navigation-bar', function(hooks) {
   test('it renders signed in', async function(assert) {
     const session = {
       isLoggedIn: true,
+      user: {
+        username: 'joe blogs',
+        image: 'https://static.productionready.io/images/smiley-cyrus.jpg',
+      },
     };
 
     this.set('session', session);
@@ -24,5 +28,10 @@ module('Integration | Component | navigation-bar', function(hooks) {
 
     assert.dom('[data-test-navigation-bar-editor-new]').exists();
     assert.dom('[data-test-navigation-bar-sign-in]').doesNotExist();
+    assert.dom('[data-test-currentUser-loggedIn]').containsText('joe blogs');
+
+    assert
+      .dom('[data-test-currentUser-user-pic]')
+      .hasAttribute('src', 'https://static.productionready.io/images/smiley-cyrus.jpg');
   });
 });
