@@ -1,5 +1,5 @@
 [![RealWorld Frontend](https://img.shields.io/badge/realworld-frontend-%23783578.svg)](http://realworld.io)
-[![Build Status](https://travis-ci.org/gothinkster/ember-realworld.svg?branch=master)](https://travis-ci.org/gothinkster/ember-realworld)
+[![Build Status](https://api.travis-ci.org/gothinkster/ember-realworld.svg?branch=master)](https://travis-ci.org/gothinkster/ember-realworld)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/d113b25f-ae1c-41b1-8bff-0bfa0b9ac594/deploy-status)](https://app.netlify.com/sites/ember-realworld/deploys)
 
 # Ember RealWorld example app
