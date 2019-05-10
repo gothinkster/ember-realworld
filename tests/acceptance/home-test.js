@@ -14,13 +14,29 @@ module('Acceptance | home', function(hooks) {
 
     await visit('/');
 
-    assert.equal(currentURL(), '/');
-    assert.equal(this.element.querySelectorAll('[data-test-article-preview]').length, 10);
-    assert.equal(this.element.querySelectorAll('[data-test-tag]').length, 7);
-    assert.equal(this.element.querySelectorAll('[data-test-page-link]').length, 2);
-    assert.equal(this.element.querySelectorAll('.feed-toggle a.nav-link').length, 1);
-    assert.dom('.feed-toggle a.nav-link.active').hasText('Global Feed');
-    assert.dom('ul.pagination .page-item.active a').hasText('1');
+    assert.equal(currentURL(), '/', 'The home URL is correct');
+    assert.equal(
+      this.element.querySelectorAll('[data-test-article-preview]').length,
+      10,
+      'The correct number of articles appear in the list',
+    );
+    assert.equal(
+      this.element.querySelectorAll('[data-test-tag]').length,
+      7,
+      'The correct number of tags appear in the sidebar',
+    );
+    assert.equal(
+      this.element.querySelectorAll('[data-test-page-item]').length,
+      2,
+      'The correct number of pages appear in the pagination list',
+    );
+    assert.equal(
+      this.element.querySelectorAll('.feed-toggle a.nav-link').length,
+      1,
+      'The correct number of feed tabs appear',
+    );
+    assert.dom('.feed-toggle a.nav-link.active').hasText('Global Feed', 'The active tab has the correct text');
+    assert.dom('ul.pagination .page-item.active a').hasText('1', 'The active page is correct in the pagination list');
   });
 
   test('clicking a page', async function(assert) {
@@ -38,9 +54,13 @@ module('Acceptance | home', function(hooks) {
     await visit('/');
     await click('.sidebar .tag-list a:first-child');
 
-    assert.equal(currentURL(), '/?tag=emberjs');
-    assert.equal(this.element.querySelectorAll('.feed-toggle a.nav-link').length, 2);
-    assert.dom('.feed-toggle a.nav-link.active').hasText('emberjs');
+    assert.equal(currentURL(), '/?tag=emberjs', 'The URL has the correct tag as a query param');
+    assert.equal(
+      this.element.querySelectorAll('.feed-toggle a.nav-link').length,
+      2,
+      'The correct number of feed tabs appear',
+    );
+    assert.dom('.feed-toggle a.nav-link.active').hasText('emberjs', 'The active feed toggle has the correct tag name');
   });
 
   test('clicking a page and tag', async function(assert) {
@@ -50,10 +70,14 @@ module('Acceptance | home', function(hooks) {
     await click('.sidebar .tag-list a:first-child');
     await click('[data-test-tag="training"]');
 
-    assert.equal(currentURL(), '/?tag=training');
-    assert.equal(this.element.querySelectorAll('.feed-toggle a.nav-link').length, 2);
-    assert.dom('.feed-toggle a.nav-link.active').hasText('training');
-    assert.dom('ul.pagination .page-item.active a').hasText('1');
+    assert.equal(currentURL(), '/?tag=training', 'The URL has the correct tag as a query param');
+    assert.equal(
+      this.element.querySelectorAll('.feed-toggle a.nav-link').length,
+      2,
+      'The correct number of feed tabs appear',
+    );
+    assert.dom('.feed-toggle a.nav-link.active').hasText('training', 'The active feed has the correct tag name');
+    assert.dom('ul.pagination .page-item.active a').hasText('1', 'The correct page is active in the pagination list');
   });
 
   test('resetting to the main list', async function(assert) {

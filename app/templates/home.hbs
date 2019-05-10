@@ -27,11 +27,16 @@
             {{/if}}
           </ul>
         </div>
-        {{#each model.articles as |article|}}
+        {{#each model as |article|}}
           {{feed-item article=article}}
         {{/each}}
         <nav>
-          {{ul-pagination page=page totalPages=totalPages limit=postsPerPage}}
+          {{pagination-list
+            current=page
+            total=model.meta.articlesCount
+            pageSize=model.meta.pageSize
+            existingParams=(hash tag=tag)
+          }}
         </nav>
       </div>
       <div class="col-md-3">
