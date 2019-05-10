@@ -16,7 +16,7 @@ module('Acceptance | home', function(hooks) {
 
     assert.equal(currentURL(), '/');
     assert.equal(this.element.querySelectorAll('[data-test-article-preview]').length, 10);
-    assert.equal(this.element.querySelectorAll('[data-test-tag-item]').length, 7);
+    assert.equal(this.element.querySelectorAll('[data-test-tag]').length, 7);
     assert.equal(this.element.querySelectorAll('[data-test-page-link]').length, 2);
     assert.equal(this.element.querySelectorAll('.feed-toggle a.nav-link').length, 1);
     assert.dom('.feed-toggle a.nav-link.active').hasText('Global Feed');
@@ -48,12 +48,12 @@ module('Acceptance | home', function(hooks) {
 
     await visit('/');
     await click('.sidebar .tag-list a:first-child');
-    await click('ul.pagination .page-item:nth-child(2) a');
+    await click('[data-test-tag="training"]');
 
-    assert.equal(currentURL(), '/?page=2&tag=emberjs');
+    assert.equal(currentURL(), '/?tag=training');
     assert.equal(this.element.querySelectorAll('.feed-toggle a.nav-link').length, 2);
-    assert.dom('.feed-toggle a.nav-link.active').hasText('emberjs');
-    assert.dom('ul.pagination .page-item.active a').hasText('2');
+    assert.dom('.feed-toggle a.nav-link.active').hasText('training');
+    assert.dom('ul.pagination .page-item.active a').hasText('1');
   });
 
   test('resetting to the main list', async function(assert) {

@@ -15,7 +15,6 @@ export default Route.extend({
     const perPage = 10;
     return hash({
       perPage: perPage,
-      popularTags: this.store.findAll('tag'),
       articles: this.store.query('article', {
         tag: params.tag,
         limit: 10,
