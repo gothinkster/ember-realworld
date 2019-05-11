@@ -36,12 +36,7 @@
       </div>
       <div class="col-md-3">
         <div class="sidebar">
-          <p>Popular Tags</p>
-          <div class="tag-list">
-            {{#each model.popularTags as |tag|}}
-              <a href="" class="tag-pill tag-default" {{action "setTag" tag.value}} data-test-tag-item>{{tag.value}}</a>
-            {{/each}}
-          </div>
+          {{tag-list}}
         </div>
       </div>
     </div>
