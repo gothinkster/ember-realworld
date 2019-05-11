@@ -1,44 +1,42 @@
-<nav class="navbar navbar-light">
-  <div class="container">
-    <a class="navbar-brand" href="index.html">conduit</a>
-    <ul class="nav navbar-nav pull-xs-right">
-      <li class="nav-item">
-        {{#link-to "home" class="nav-link" }}
-          Home
+<div class="container">
+  <a class="navbar-brand" href="index.html">conduit</a>
+  <ul class="nav navbar-nav pull-xs-right">
+    <li class="nav-item">
+      {{#link-to "home" class="nav-link" }}
+        Home
+      {{/link-to}}
+    </li>
+    {{#if session.isLoggedIn}}
+      <li class="nav-item" data-test-navigation-bar-editor-new>
+        {{#link-to "editor.new" class="nav-link" }}
+          <i class="ion-compose"></i>&nbsp;New Article
         {{/link-to}}
       </li>
-      {{#if session.isLoggedIn}}
-        <li class="nav-item" data-test-navigation-bar-editor-new>
-          {{#link-to "editor.new" class="nav-link" }}
-            <i class="ion-compose"></i>&nbsp;New Article
-          {{/link-to}}
-        </li>
-        <li class="nav-item">
-          {{#link-to "settings" class="nav-link" }}
-            <i class="ion-gear-a"></i>&nbsp;Settings
-          {{/link-to}}
-        </li>
-        <li class="nav-item">
-          {{#link-to "profile" session.user.username class="nav-link" data-test-currentUser-loggedIn=true}}
-            {{#if session.user.image}}
-              <img src={{session.user.image}} class="user-pic" alt="profile image for {{session.user.username}}"
-                data-test-currentUser-user-pic>
-            {{/if}}
-            {{session.user.username}}
-          {{/link-to}}
-        </li>
-      {{else}}
-        <li class="nav-item" data-test-navigation-bar-sign-in>
-          {{#link-to "login" class="nav-link" }}
-            Sign In
-          {{/link-to}}
-        </li>
-        <li class="nav-item">
-          {{#link-to "register" class="nav-link" }}
-            Sign Up
-          {{/link-to}}
-        </li>
-      {{/if}}
-    </ul>
-  </div>
-</nav>
+      <li class="nav-item">
+        {{#link-to "settings" class="nav-link" }}
+          <i class="ion-gear-a"></i>&nbsp;Settings
+        {{/link-to}}
+      </li>
+      <li class="nav-item">
+        {{#link-to "profile" session.user.username class="nav-link" data-test-currentUser-loggedIn=true}}
+          {{#if session.user.image}}
+            <img src={{session.user.image}} class="user-pic" alt="profile image for {{session.user.username}}"
+              data-test-currentUser-user-pic>
+          {{/if}}
+          {{session.user.username}}
+        {{/link-to}}
+      </li>
+    {{else}}
+      <li class="nav-item" data-test-navigation-bar-sign-in>
+        {{#link-to "login" class="nav-link" }}
+          Sign In
+        {{/link-to}}
+      </li>
+      <li class="nav-item">
+        {{#link-to "register" class="nav-link" }}
+          Sign Up
+        {{/link-to}}
+      </li>
+    {{/if}}
+  </ul>
+</div>

@@ -9,6 +9,7 @@ module('Integration | Component | navigation-bar', function(hooks) {
   test('it renders signed out', async function(assert) {
     await render(hbs`{{navigation-bar}}`);
 
+    assert.dom('nav.navbar.navbar-light').exists();
     assert.dom('[data-test-navigation-bar-sign-in]').exists();
     assert.dom('[data-test-navigation-bar-editor-new]').doesNotExist();
   });
