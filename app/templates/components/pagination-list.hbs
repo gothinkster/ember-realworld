@@ -1,0 +1,14 @@
+<ul class="pagination">
+  {{#each pages as |page|}}
+    <li class="page-item {{if (eq current page) "active"}}" data-test-page-item>
+      {{#link-to
+          "home"
+          (query-params tag=existingParams.tag page=page)
+          class="page-link"
+          data-test-page-item-link=page
+        }}
+        {{page}}
+      {{/link-to}}
+    </li>
+  {{/each}}
+</ul>
