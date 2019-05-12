@@ -59,7 +59,9 @@ export default Service.extend({
       .then(userPayload => {
         if (userPayload.errors) {
           const errors = this.processLoginErrors(userPayload.errors);
-          return { errors };
+          return {
+            errors,
+          };
         } else {
           this.store.pushPayload({
             users: [userPayload.user],
