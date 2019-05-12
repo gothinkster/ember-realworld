@@ -4,7 +4,7 @@ import Component from '@ember/component';
 export default Component.extend({
   tagName: 'nav',
   pages: computed('total', 'pageSize', function() {
-    if (!this.total) {
+    if (!this.total || this.total <= this.pageSize) {
       return [];
     }
     const pages = Math.ceil(this.total / this.pageSize);

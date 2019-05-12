@@ -1,7 +1,10 @@
 import Controller from '@ember/controller';
+import { inject as service } from '@ember/service';
 
 export default Controller.extend({
-  queryParams: ['tag', 'page'],
+  session: service(),
+  queryParams: ['feed', 'tag', 'page'],
+  feed: null,
   tag: null,
   page: 1,
 });

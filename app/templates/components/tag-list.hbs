@@ -5,7 +5,7 @@
   <div class="tag-list">
     {{#each this.tags as |tag| }}
       {{#link-to "home"
-        (query-params author=null tag=tag.id page=1)
+        (query-params feed=null tag=tag.id page=1)
         class="tag-pill tag-default"
         data-test-tag=tag.id
       }}
