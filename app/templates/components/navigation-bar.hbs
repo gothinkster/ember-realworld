@@ -1,5 +1,7 @@
 <div class="container">
-  <a class="navbar-brand" href="index.html">conduit</a>
+  {{#link-to "home" (query-params tag=null page=1) class="navbar-brand" }}
+    conduit
+  {{/link-to}}
   <ul class="nav navbar-nav pull-xs-right">
     <li class="nav-item">
       {{#link-to "home" class="nav-link" }}
