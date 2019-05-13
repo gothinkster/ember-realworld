@@ -2,7 +2,7 @@ import { module, test } from 'qunit';
 import { visit, currentURL, click } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
-import { setupLoggedOutUser } from '../helpers/user';
+import { setupLoggedInUser, setupLoggedOutUser } from '../helpers/user';
 
 module('Acceptance | home', function(hooks) {
   setupApplicationTest(hooks);
@@ -35,6 +35,7 @@ module('Acceptance | home', function(hooks) {
       1,
       'The correct number of feed tabs appear',
     );
+    assert.dom('[data-test-feed="your"]').doesNotExist('Your feed is not shown when logged out');
     assert.dom('.feed-toggle a.nav-link.active').hasText('Global Feed', 'The active tab has the correct text');
     assert.dom('ul.pagination .page-item.active a').hasText('1', 'The active page is correct in the pagination list');
   });
@@ -84,11 +85,44 @@ module('Acceptance | home', function(hooks) {
     await server.createList('article', 20);
 
     await visit('/?page=2&tag=emberjs');
-    await click('[data-test-global-feed]');
+    await click('[data-test-feed="global"]');
 
     assert.equal(currentURL(), '/');
     assert.equal(this.element.querySelectorAll('.feed-toggle a.nav-link').length, 1);
     assert.dom('.feed-toggle a.nav-link.active').hasText('Global Feed');
     assert.dom('ul.pagination .page-item.active a').hasText('1');
+  });
+
+  module('logged in user', function(hooks) {
+    setupLoggedInUser(hooks);
+
+    hooks.beforeEach(function() {
+      server.create('user', {
+        email: 'bob@example.com',
+        password: 'password123',
+      });
+      server.get('/user', schema => {
+        return schema.users.first();
+      });
+    });
+
+    test('Your feed', async function(assert) {
+      await server.createList('article', 20);
+
+      server.get('/articles/feed', schema => {
+        return {
+          articles: [schema.articles.first()],
+          articlesCount: 1,
+        };
+      });
+
+      await visit('/');
+      assert.equal(currentURL(), '/', 'Lands on the home page');
+      assert.dom('[data-test-feed="global"].active').exists('Global feed is selected by default');
+      await click('[data-test-feed="your"]');
+      assert.equal(currentURL(), '/?feed=your', 'Lands on the "Your feed" page');
+      assert.dom('[data-test-article-preview]').exists({ count: 1 }, 'One article is loaded on "Your feed"');
+      assert.dom('[data-test-feed="your"].active').exists('Your feed is selected');
+    });
   });
 });

@@ -80,7 +80,7 @@ export default Service.extend({
       this.store.pushPayload({
         users: [user],
       });
-      this.set('user', this.store.peekRecord('user', user.username));
+      this.set('user', this.store.peekRecord('user', user.id));
       return this.user;
     });
   },
