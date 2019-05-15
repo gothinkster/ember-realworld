@@ -22,6 +22,7 @@ Router.map(function() {
     this.route('new', { path: '/' });
     this.route('article', { path: '/:slug' });
   });
+  this.route('error', { path: '/*path' });
 });
 
 export default Router;
