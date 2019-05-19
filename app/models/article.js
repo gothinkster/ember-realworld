@@ -1,63 +1,35 @@
 import DS from 'ember-data';
+import { inject as service } from '@ember/service';
 
 const { attr, belongsTo, hasMany } = DS;
 
 export default DS.Model.extend({
-  /**
-   * @property {string} title
-   */
+  session: service(),
   title: attr('string'),
-
-  /**
-   * @property {string} slug
-   */
-  slug: attr('string'),
-
-  /**
-   * @property {string} body
-   */
   body: attr('string'),
-
-  /**
-   * @property {date} createdAt
-   */
-  createdAt: attr('date', {
-    defaultValue() {
-      return new Date();
-    },
-  }),
-
-  /**
-   * @property {date} updateAt
-   */
-  updateAt: attr('date', {
-    defaultValue() {
-      return new Date();
-    },
-  }),
-
-  /**
-   * @property {hasManyModel} tagList
-   */
+  createdAt: attr('date'),
+  updatedAt: attr('date'),
   tagList: hasMany('tag'),
-
-  /**
-   * @property {string} description
-   */
   description: attr('string'),
-
-  /**
-   * @property {belongsToModel} author
-   */
   author: belongsTo('profile'),
-
-  /**
-   * @property {boolean} favorited
-   */
   favorited: attr('boolean'),
-
-  /**
-   * @property {number} favoritesCount
-   */
   favoritesCount: attr('number'),
+
+  async favorite() {
+    await this.favoriteOperation('favorite');
+  },
+
+  async unfavorite() {
+    await this.favoriteOperation('unfavorite');
+  },
+
+  async favoriteOperation(operation) {
+    const { article } = await this.session.fetch(
+      `/articles/${this.id}/favorite`,
+      operation === 'unfavorite' ? 'DELETE' : 'POST',
+    );
+    this.store.pushPayload({
+      articles: [Object.assign(article, { id: article.slug })],
+    });
+  },
 });

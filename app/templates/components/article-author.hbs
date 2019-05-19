@@ -1,0 +1,9 @@
+{{#link-to "profile" article.author.id}}
+  <img data-test-article-author-image src={{article.author.image}} alt="profile image for {{article.author.id}}">
+{{/link-to}}
+<div class="info">
+  {{#link-to "profile" article.author.id class="author" data-test-article-author-username=article.author.id}}
+    {{article.author.id}}
+  {{/link-to}}
+  <span class="date" data-test-article-date>{{format-date article.updatedAt}}</span>
+</div>

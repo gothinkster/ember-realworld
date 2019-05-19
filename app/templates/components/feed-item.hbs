@@ -1,27 +1,18 @@
 <div class="article-preview" data-test-article-preview>
   <div class="article-meta">
-    {{#link-to "profile" article.author.id}}
-      <img data-test-article-author-image src={{article.author.image}} alt="profile image for {{article.author.id}}">
-    {{/link-to}}
-    <div class="info">
-      {{#link-to "profile" article.author.id class="author" data-test-article-author-username=article.author.id}}
-        {{article.author.id}}
-      {{/link-to}}
-      <span class="date" data-test-article-date>{{moment-format article.createdAt "MMM D, YYYY"}}</span>
-    </div>
-    <button class="btn {{if article.favorited "btn-primary" "btn-outline-primary"}} btn-sm pull-xs-right"
-      data-test-article-favoritesCount>
-      <i class="ion-heart"></i> {{article.favoritesCount}}
-    </button>
+    {{article-author article=article}}
+    {{favorite-article article=article isIconOnly=true class="pull-xs-right"}}
   </div>
-  {{#link-to "article" article.slug class="preview-link" }}
+  {{#link-to "article" article.id class="preview-link" }}
     <h1 data-test-article-title>{{article.title}}</h1>
     <p data-test-article-description>{{article.description}}</p>
     <span>Read more...</span>
-    <ul class="tag-list">
-      {{#each article.tagList as |tag|}}
-        <li class="tag-default tag-pill tag-outline" data-test-article-tag>{{tag.value}}</li>
-      {{/each}}
-    </ul>
+    {{#if article.tagList}}
+      <ul class="tag-list">
+        {{#each article.tagList as |tag|}}
+          <li class="tag-default tag-pill tag-outline" data-test-article-tag>{{tag.value}}</li>
+        {{/each}}
+      </ul>
+    {{/if}}
   {{/link-to}}
 </div>

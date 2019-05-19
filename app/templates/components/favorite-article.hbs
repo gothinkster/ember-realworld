@@ -1,0 +1,10 @@
+<i class="ion-heart"></i>
+&nbsp;
+{{#if isIconOnly}}
+  <span data-test-article-favorites-count>{{article.favoritesCount}}</span>
+{{else}}
+  <span data-test-favorite-text>{{if article.favorited "Unf" "F"}}avorite Post</span>
+  <span data-test-article-favorites-count class="counter">
+    {{article.favoritesCount}}
+  </span>
+{{/if}}
