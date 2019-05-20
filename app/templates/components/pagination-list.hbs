@@ -3,7 +3,7 @@
     <li class="page-item {{if (eq current page) "active"}}" data-test-page-item>
       {{#link-to
           "home"
-          (query-params tag=existingParams.tag page=page)
+          (query-params feed=existingParams.feed tag=existingParams.tag page=page)
           class="page-link"
           data-test-page-item-link=page
         }}
