@@ -8,11 +8,6 @@ export default Route.extend({
     return this.store.findRecord('article', slug);
   },
 
-  afterModel(model) {
-    // Load comments from the model.
-    return model.comments;
-  },
-
   actions: {
     async createComment(article, message, event) {
       event.preventDefault();
