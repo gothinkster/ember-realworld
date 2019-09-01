@@ -52,25 +52,26 @@ module('Unit | Controller | article', function(hooks) {
   article.comments = comments;
 
   test('`comments` are sorted by `id` in descending order', function(assert) {
+    assert.expect(1);
     const controller = this.owner.lookup('controller:article');
     controller.set('model', article);
 
     const commentIds = controller.get('comments').map(comment => comment.id);
     assert.equal(commentIds.join(), '2,1');
-    assert.expect(1);
   });
 
   test('`articleBody` is markdown converted to HTML safe string', function(assert) {
+    assert.expect(1);
     const controller = this.owner.lookup('controller:article');
     controller.set('model', article);
 
     const articleBody = controller.get('articleBody');
 
     assert.equal(articleBody.string.trim(), '<h1 id="markdown">Markdown!</h1>');
-    assert.expect(1);
   });
 
   test('`newComment` tracks string changes and updates when `model` changes', function(assert) {
+    assert.expect(3);
     const controller = this.owner.lookup('controller:article');
     controller.set('model', article);
 
@@ -87,6 +88,5 @@ module('Unit | Controller | article', function(hooks) {
     controller.set('model', null);
 
     assert.equal(controller.get('newComment'), '', 'should reset to the default when `model` changes');
-    assert.expect(3);
   });
 });

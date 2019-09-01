@@ -30,6 +30,8 @@ module('Integration | Component | article-meta', function(hooks) {
   });
 
   test('it renders', async function(assert) {
+    assert.expect(6);
+
     await render(hbs`{{article-meta article=article}}`);
 
     assert
@@ -47,10 +49,11 @@ module('Integration | Component | article-meta', function(hooks) {
     assert.dom('[data-test-favorite-article-button]').includesText(`Favorite Post`);
 
     assert.dom('[data-test-article-favorites-count]').hasText('9000', 'Number of favorites is correct');
-    assert.expect(6);
   });
 
   test('clicking on `follow-author` button triggers `onFollowAuthor` method', async function(assert) {
+    assert.expect(2);
+
     const onFollowAuthor = () => {
       const isFollowing = this.get('article.author.following');
       this.set('article.author.following', !isFollowing);
@@ -66,10 +69,11 @@ module('Integration | Component | article-meta', function(hooks) {
     assert
       .dom('[data-test-follow-author-button]')
       .includesText(`Unfollow ${article.author.id}`, 'Button text is updated');
-    assert.expect(2);
   });
 
   test('clicking on `favorite-article` button triggers `onFollowAuthor` method', async function(assert) {
+    assert.expect(3);
+
     const onFavoriteArticle = () => {
       const isFavorite = this.get('article.favorited');
       const favoritesCount = this.get('article.favoritesCount');
@@ -86,6 +90,5 @@ module('Integration | Component | article-meta', function(hooks) {
     assert.ok(this.get('article.favorited'), '`onFavoriteArticle` method to be triggered');
     assert.dom('[data-test-favorite-article-button]').includesText(`Unfavorite Post`, 'Button text is updated');
     assert.dom('[data-test-article-favorites-count]').hasText('9001', 'Number of favorites is correct');
-    assert.expect(3);
   });
 });
