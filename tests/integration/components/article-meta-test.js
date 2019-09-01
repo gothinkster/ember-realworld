@@ -4,7 +4,7 @@ import { click, render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { formatDate } from 'realworld-ember/helpers/format-date';
 
-module('Integration | Component | article-meta', function (hooks) {
+module('Integration | Component | article-meta', function(hooks) {
   setupRenderingTest(hooks);
 
   const date = new Date();
@@ -25,11 +25,11 @@ module('Integration | Component | article-meta', function (hooks) {
     title: 'Feed Item Title',
   };
 
-  hooks.beforeEach(function () {
+  hooks.beforeEach(function() {
     this.set('article', article);
   });
 
-  test('it renders', async function (assert) {
+  test('it renders', async function(assert) {
     await render(hbs`{{article-meta article=article}}`);
 
     assert
@@ -47,9 +47,10 @@ module('Integration | Component | article-meta', function (hooks) {
     assert.dom('[data-test-favorite-article-button]').includesText(`Favorite Post`);
 
     assert.dom('[data-test-article-favorites-count]').hasText('9000', 'Number of favorites is correct');
+    assert.expect(6);
   });
 
-  test('clicking on `follow-author` button triggers `onFollowAuthor` method', async function (assert) {
+  test('clicking on `follow-author` button triggers `onFollowAuthor` method', async function(assert) {
     const onFollowAuthor = () => {
       const isFollowing = this.get('article.author.following');
       this.set('article.author.following', !isFollowing);
@@ -65,9 +66,10 @@ module('Integration | Component | article-meta', function (hooks) {
     assert
       .dom('[data-test-follow-author-button]')
       .includesText(`Unfollow ${article.author.id}`, 'Button text is updated');
+    assert.expect(2);
   });
 
-  test('clicking on `favorite-article` button triggers `onFollowAuthor` method', async function (assert) {
+  test('clicking on `favorite-article` button triggers `onFollowAuthor` method', async function(assert) {
     const onFavoriteArticle = () => {
       const isFavorite = this.get('article.favorited');
       const favoritesCount = this.get('article.favoritesCount');
@@ -84,5 +86,6 @@ module('Integration | Component | article-meta', function (hooks) {
     assert.ok(this.get('article.favorited'), '`onFavoriteArticle` method to be triggered');
     assert.dom('[data-test-favorite-article-button]').includesText(`Unfavorite Post`, 'Button text is updated');
     assert.dom('[data-test-article-favorites-count]').hasText('9001', 'Number of favorites is correct');
+    assert.expect(3);
   });
 });
