@@ -2,7 +2,7 @@
   <div class="banner">
     <div class="container">
       <h1>{{model.title}}</h1>
-      {{article-author-meta article=model onFavoriteArticle=(action (route-action "favoriteArticle" model)) onFollowAuthor=(action (route-action "followAuthor" model.author))}}
+      {{article-meta article=model onFavoriteArticle=(action (route-action "favoriteArticle" model)) onFollowAuthor=(action (route-action "followAuthor" model.author))}}
     </div>
   </div>
   <div class="container page">
@@ -14,7 +14,7 @@
     </div>
     <hr>
     <div class="article-actions">
-      {{article-author-meta article=model onFavoriteArticle=(action (route-action "favoriteArticle" model)) onFollowAuthor=(action (route-action "followAuthor" model.author))}}
+      {{article-meta article=model onFavoriteArticle=(action (route-action "favoriteArticle" model)) onFollowAuthor=(action (route-action "followAuthor" model.author))}}
     </div>
     <div class="row">
       <div class="col-xs-12 col-md-8 offset-md-2">
