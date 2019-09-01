@@ -1,6 +1,6 @@
 import { Response } from 'ember-cli-mirage';
 
-export default function() {
+export default function () {
   this.namespace = 'api'; // make this `/api`, for example, if your API is namespaced
   this.timing = 400; // delay for each request, automatically set to 0 during testing
 
@@ -36,5 +36,23 @@ export default function() {
     return {
       tags: ['emberjs', 'tomster', 'wycats', 'tomdale', 'ember-cli', 'training', 'dragons'],
     };
+  });
+
+  this.post('/profiles/:username/follow', (schema, request) => {
+    const username = request.params.username;
+    const profile = schema.profiles.findBy({ username });
+
+    profile.following = true;
+
+    return profile.update();
+  });
+
+  this.delete('/profiles/:username/follow', (schema, request) => {
+    const username = request.params.username;
+    const profile = schema.profiles.findBy({ username });
+
+    profile.following = false;
+
+    return profile.update();
   });
 }

@@ -16,4 +16,8 @@ export default Factory.extend({
   bio() {
     return faker.lorem.paragraph();
   },
+
+  following() {
+    return faker.random.boolean();
+  },
 });
