@@ -12,7 +12,7 @@ export default RESTAdapter.extend({
 
   namespace: 'api',
 
-  headers: computed('session.user', function() {
+  headers: computed('session.token', function() {
     const headers = {};
 
     if (this.session.token) {
