@@ -4,52 +4,59 @@ import { setupTest } from 'ember-qunit';
 module('Unit | Controller | article', function(hooks) {
   setupTest(hooks);
 
-  const date = new Date();
-  const dateISOString = date.toISOString();
-  const article = {
-    author: {
-      image: 'https://static.productionready.io/images/smiley-cyrus.jpg',
-      id: 'AlonBukai',
-      following: false,
-    },
-    createdAt: dateISOString,
-    updatedAt: dateISOString,
-    favorited: false,
-    favoritesCount: 9000,
-    tagList: ['firstTag', 'secondTag', 'thirdTag'],
-    description: 'This is feed item description',
-    slug: 'feed-item-title',
-    title: 'Feed Item Title',
-    body: '# Markdown!',
-  };
-  const comments = [
-    {
-      id: 1,
-      createdAt: dateISOString,
-      updatedAt: dateISOString,
-      body: 'Comment 1',
-      author: {
-        image: 'https://static.productionready.io/images/smiley-cyrus.jpg',
-        id: 'Foo',
-        following: false,
-      },
-      article,
-    },
-    {
-      id: 2,
-      createdAt: dateISOString,
-      updatedAt: dateISOString,
-      body: 'Comment 2',
-      author: {
-        image: 'https://static.productionready.io/images/smiley-cyrus.jpg',
-        id: 'Bar',
-        following: false,
-      },
-      article,
-    },
-  ];
+  let date;
+  let dateISOString;
+  let article;
+  let comments;
 
-  article.comments = comments;
+  hooks.beforeEach(function() {
+    date = new Date();
+    dateISOString = date.toISOString();
+    article = {
+      author: {
+        image: 'https://static.productionready.io/images/smiley-cyrus.jpg',
+        id: 'AlonBukai',
+        following: false,
+      },
+      createdAt: dateISOString,
+      updatedAt: dateISOString,
+      favorited: false,
+      favoritesCount: 9000,
+      tagList: ['firstTag', 'secondTag', 'thirdTag'],
+      description: 'This is feed item description',
+      slug: 'feed-item-title',
+      title: 'Feed Item Title',
+      body: '# Markdown!',
+    };
+    comments = [
+      {
+        id: 1,
+        createdAt: dateISOString,
+        updatedAt: dateISOString,
+        body: 'Comment 1',
+        author: {
+          image: 'https://static.productionready.io/images/smiley-cyrus.jpg',
+          id: 'Foo',
+          following: false,
+        },
+        article,
+      },
+      {
+        id: 2,
+        createdAt: dateISOString,
+        updatedAt: dateISOString,
+        body: 'Comment 2',
+        author: {
+          image: 'https://static.productionready.io/images/smiley-cyrus.jpg',
+          id: 'Bar',
+          following: false,
+        },
+        article,
+      },
+    ];
+
+    article.comments = comments;
+  });
 
   test('`comments` are sorted by `id` in descending order', function(assert) {
     assert.expect(1);
