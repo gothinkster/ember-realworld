@@ -9,7 +9,7 @@ export default DS.RESTSerializer.extend(DS.EmbeddedRecordsMixin, {
 
   normalizeArrayResponse(store, primaryModelClass, payload, id, requestType) {
     payload.articles = payload.articles.map(article => {
-      return this.normalizeArticle(store, article, article.slug);
+      return this.normalizeArticle(article);
     });
     payload.meta = {
       articlesCount: payload.articlesCount,
@@ -21,12 +21,16 @@ export default DS.RESTSerializer.extend(DS.EmbeddedRecordsMixin, {
   },
 
   normalizeSingleResponse(store, primaryModelClass, payload, id, requestType) {
-    payload.article = this.normalizeArticle(store, payload.article, id);
+    payload.article = this.normalizeArticle(payload.article);
 
     return this._super(store, primaryModelClass, payload, id, requestType);
   },
 
-  normalizeArticle(store, article) {
+  /**
+   * Normalizses the article data to work with the `article` model.
+   * @param {Object} article An article from a payload.
+   */
+  normalizeArticle(article) {
     article.tagList = article.tagList.map(tag => {
       return {
         value: tag,
