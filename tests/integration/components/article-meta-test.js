@@ -7,25 +7,29 @@ import { formatDate } from 'realworld-ember/helpers/format-date';
 module('Integration | Component | article-meta', function(hooks) {
   setupRenderingTest(hooks);
 
-  const date = new Date();
-  const dateISOString = date.toISOString();
-  const article = {
-    author: {
-      image: 'https://static.productionready.io/images/smiley-cyrus.jpg',
-      id: 'AlonBukai',
-      following: false,
-    },
-    createdAt: dateISOString,
-    updatedAt: dateISOString,
-    favorited: false,
-    favoritesCount: 9000,
-    tagList: ['firstTag', 'secondTag', 'thirdTag'],
-    description: 'This is feed item description',
-    slug: 'feed-item-title',
-    title: 'Feed Item Title',
-  };
+  let date;
+  let dateISOString;
+  let article;
 
   hooks.beforeEach(function() {
+    date = new Date();
+    dateISOString = date.toISOString();
+    article = {
+      author: {
+        image: 'https://static.productionready.io/images/smiley-cyrus.jpg',
+        id: 'AlonBukai',
+        following: false,
+      },
+      createdAt: dateISOString,
+      updatedAt: dateISOString,
+      favorited: false,
+      favoritesCount: 9000,
+      tagList: ['firstTag', 'secondTag', 'thirdTag'],
+      description: 'This is feed item description',
+      slug: 'feed-item-title',
+      title: 'Feed Item Title',
+    };
+
     this.set('article', article);
   });
 
