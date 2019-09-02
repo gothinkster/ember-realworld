@@ -2,7 +2,21 @@
   <div class="banner">
     <div class="container">
       <h1>{{model.title}}</h1>
-      {{article-meta article=model onFavoriteArticle=(action (route-action "favoriteArticle" model)) onFollowAuthor=(action (route-action "followAuthor" model.author))}}
+      {{article-meta
+        article=model 
+        onFavoriteArticle=(action 
+          (if session.isLoggedIn 
+            (route-action "favoriteArticle" model)
+            (transition-to "login")
+          )
+        ) 
+        onFollowAuthor=(action
+          (if session.isLoggedIn
+            (route-action "followAuthor" model.author)
+            (transition-to "login")
+          )
+        )
+      }}
     </div>
   </div>
   <div class="container page">
@@ -14,12 +28,26 @@
     </div>
     <hr>
     <div class="article-actions">
-      {{article-meta article=model onFavoriteArticle=(action (route-action "favoriteArticle" model)) onFollowAuthor=(action (route-action "followAuthor" model.author))}}
+      {{article-meta
+        article=model 
+        onFavoriteArticle=(action 
+          (if session.isLoggedIn 
+            (route-action "favoriteArticle" model)
+            (transition-to "login")
+          )
+        ) 
+        onFollowAuthor=(action
+          (if session.isLoggedIn
+            (route-action "followAuthor" model.author)
+            (transition-to "login")
+          )
+        )
+      }}
     </div>
     <div class="row">
       <div class="col-xs-12 col-md-8 offset-md-2">
         {{#if session.isLoggedIn}}
-          <form class="card comment-form" onsubmit={{action (route-action "createComment" model newComment)}}>
+          <form class="card comment-form" {{action (route-action "createComment" model newComment) on="submit" }}>
             <div class="card-block">
               {{textarea class="form-control" placeholder="Write a comment..." rows="3" value=newComment}}
             </div>
@@ -30,6 +58,11 @@
               </button>
             </div>
           </form>
+        {{else}}
+          <p>
+            {{#link-to "login"}}Sign in{{/link-to}} or {{#link-to "register"}}sign up{{/link-to}} to add comments on
+            this article.
+          </p>
         {{/if}}
         {{#each comments key="id" as | comment |}}
           <div class="card">

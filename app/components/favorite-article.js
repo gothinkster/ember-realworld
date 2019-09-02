@@ -13,7 +13,7 @@ export default Component.extend({
     if (this.session.isLoggedIn) {
       await this.article[operation]();
     } else {
-      this.router.transitionTo('sign-in');
+      this.router.transitionTo('login');
     }
   },
 });

@@ -2,6 +2,7 @@ import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 
 export default Route.extend({
+  session: service(),
   store: service(),
 
   model({ slug }) {
@@ -9,9 +10,7 @@ export default Route.extend({
   },
 
   actions: {
-    async createComment(article, message, event) {
-      event.preventDefault();
-
+    async createComment(article, message) {
       await this.store
         .createRecord('comment', {
           article,

@@ -52,6 +52,8 @@
     "ember-qunit": "^4.4.1",
     "ember-resolver": "^5.0.1",
     "ember-route-action-helper": "^2.0.7",
+    "ember-sinon": "^4.0.0",
+    "ember-sinon-qunit": "^3.4.0",
     "ember-source": "~3.9.0",
     "ember-test-selectors": "2.1.0",
     "ember-truth-helpers": "^2.1.0",
