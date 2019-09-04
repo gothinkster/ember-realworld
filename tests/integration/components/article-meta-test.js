@@ -34,9 +34,16 @@ module('Integration | Component | article-meta', function(hooks) {
   });
 
   test('it renders', async function(assert) {
-    assert.expect(6);
+    assert.expect(12);
 
-    await render(hbs`{{article-meta article=article}}`);
+    this.setProperties({
+      onFollowAuthor() {},
+      onFavoriteArticle() {},
+    });
+
+    await render(
+      hbs`{{article-meta article=article onFollowAuthor=onFollowAuthor onFavoriteArticle=onFavoriteArticle}}`,
+    );
 
     assert
       .dom('[data-test-article-author-image]')
@@ -48,11 +55,35 @@ module('Integration | Component | article-meta', function(hooks) {
 
     assert.dom('[data-test-article-date]').hasText(formatDate([date]), 'Date is correct');
 
+    assert.dom('[data-test-follow-author-button-login]').includesText(`Follow ${article.author.id}`);
+
+    assert
+      .dom('[data-test-follow-author-button]')
+      .isNotVisible('Follow author button is not visible when user is logged out');
+
+    assert.dom('[data-test-favorite-article-button-login]').includesText(`Favorite Post`);
+
+    assert
+      .dom('[data-test-favorite-article-button]')
+      .isNotVisible('Favorite article button is not visible when user is logged out');
+
+    assert.dom('[data-test-article-favorites-count]').hasText('9000', 'Number of favorites is correct');
+
+    await render(
+      hbs`{{article-meta article=article isLoggedIn=true onFollowAuthor=onFollowAuthor onFavoriteArticle=onFavoriteArticle}}`,
+    );
+
     assert.dom('[data-test-follow-author-button]').includesText(`Follow ${article.author.id}`);
+
+    assert
+      .dom('[data-test-follow-author-button-login]')
+      .isNotVisible('Follow author login button is not visible when user is logged in');
 
     assert.dom('[data-test-favorite-article-button]').includesText(`Favorite Post`);
 
-    assert.dom('[data-test-article-favorites-count]').hasText('9000', 'Number of favorites is correct');
+    assert
+      .dom('[data-test-favorite-article-button-login]')
+      .isNotVisible('Favorite article login button is not visible when user is logged in');
   });
 
   test('clicking on `follow-author` button triggers `onFollowAuthor` method', async function(assert) {
@@ -63,8 +94,13 @@ module('Integration | Component | article-meta', function(hooks) {
       this.set('article.author.following', !isFollowing);
     };
 
-    this.set('onFollowAuthor', onFollowAuthor);
-    await render(hbs`{{article-meta article=article onFollowAuthor=onFollowAuthor}}`);
+    this.setProperties({
+      onFollowAuthor,
+      onFavoriteArticle() {},
+    });
+    await render(
+      hbs`{{article-meta article=article isLoggedIn=true onFollowAuthor=onFollowAuthor onFavoriteArticle=onFavoriteArticle}}`,
+    );
 
     await click('[data-test-follow-author-button]');
     await settled();
@@ -86,7 +122,13 @@ module('Integration | Component | article-meta', function(hooks) {
     };
 
     this.set('onFavoriteArticle', onFavoriteArticle);
-    await render(hbs`{{article-meta article=article onFavoriteArticle=onFavoriteArticle}}`);
+    this.setProperties({
+      onFavoriteArticle,
+      onFollowAuthor() {},
+    });
+    await render(
+      hbs`{{article-meta article=article isLoggedIn=true onFollowAuthor=onFollowAuthor onFavoriteArticle=onFavoriteArticle}}`,
+    );
 
     await click('[data-test-favorite-article-button]');
     await settled();

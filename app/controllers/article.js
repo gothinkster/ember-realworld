@@ -48,4 +48,30 @@ export default Controller.extend({
       return value;
     },
   }),
+
+  actions: {
+    async createComment(article, message) {
+      await this.store
+        .createRecord('comment', {
+          article,
+          body: message,
+        })
+        .save();
+
+      // Clear the `newComment` since the new comment has been created.
+      this.set('newComment', '');
+    },
+
+    async deleteComment(comment) {
+      return comment.destroyRecord();
+    },
+
+    async favoriteArticle(article) {
+      return article.get('favorited') ? article.unfavorite() : article.favorite();
+    },
+
+    async followAuthor(author) {
+      return author.get('following') ? author.unfollow() : author.follow();
+    },
+  },
 });

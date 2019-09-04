@@ -4,18 +4,9 @@
       <h1>{{model.title}}</h1>
       {{article-meta
         article=model 
-        onFavoriteArticle=(action 
-          (if session.isLoggedIn 
-            (route-action "favoriteArticle" model)
-            (transition-to "login")
-          )
-        ) 
-        onFollowAuthor=(action
-          (if session.isLoggedIn
-            (route-action "followAuthor" model.author)
-            (transition-to "login")
-          )
-        )
+        isLoggedIn=session.isLoggedIn
+        onFavoriteArticle=(action "favoriteArticle") 
+        onFollowAuthor=(action "followAuthor")
       }}
     </div>
   </div>
@@ -30,24 +21,15 @@
     <div class="article-actions">
       {{article-meta
         article=model 
-        onFavoriteArticle=(action 
-          (if session.isLoggedIn 
-            (route-action "favoriteArticle" model)
-            (transition-to "login")
-          )
-        ) 
-        onFollowAuthor=(action
-          (if session.isLoggedIn
-            (route-action "followAuthor" model.author)
-            (transition-to "login")
-          )
-        )
+        isLoggedIn=session.isLoggedIn
+        onFavoriteArticle=(action "favoriteArticle") 
+        onFollowAuthor=(action "followAuthor")
       }}
     </div>
     <div class="row">
       <div class="col-xs-12 col-md-8 offset-md-2">
         {{#if session.isLoggedIn}}
-          <form class="card comment-form" {{action (route-action "createComment" model newComment) on="submit" }}>
+          <form class="card comment-form" {{action "createComment" model newComment on="submit" }}>
             <div class="card-block">
               {{textarea class="form-control" placeholder="Write a comment..." rows="3" value=newComment}}
             </div>
@@ -81,7 +63,7 @@
                   {{!-- API doesn't seem to support editing comments.
                   <i class="ion-edit"></i>
                   --}}
-                  <button class="ion-trash-a" type="button" {{action (route-action "deleteComment" comment)}}></button>
+                  <button class="ion-trash-a" type="button" {{action "deleteComment" comment}}></button>
                 </span>
               {{/if}}
             </div>

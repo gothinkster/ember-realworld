@@ -1,5 +1,7 @@
-import { module, test } from 'qunit';
+import { module } from 'qunit';
 import { setupTest } from 'ember-qunit';
+import EmberObject from '@ember/object';
+import test from 'ember-sinon-qunit/test-support/test';
 
 module('Unit | Controller | article', function(hooks) {
   setupTest(hooks);
@@ -95,5 +97,88 @@ module('Unit | Controller | article', function(hooks) {
     controller.set('model', null);
 
     assert.equal(controller.get('newComment'), '', 'should reset to the default when `model` changes');
+  });
+
+  test('`createComment` method creates a new comment record', async function(assert) {
+    assert.expect(3);
+
+    const controller = this.owner.lookup('controller:article');
+    const store = controller.store;
+    const message = 'foo bar';
+    const createRecordStub = this.stub(store, 'createRecord');
+    const article = {
+      save: this.stub().resolves(),
+    };
+    createRecordStub.returns(article);
+
+    await controller.actions.createComment.call(controller, article, message);
+
+    assert.ok(
+      createRecordStub.calledOnceWith('comment', { article, body: message }),
+      'Create a `comment` record with expected properties',
+    );
+    assert.ok(article.save.calledOnce, 'New `comment` record should be saved');
+    assert.equal(controller.get('newComment'), '', '`controller.newComment` should be reset to an empty string');
+  });
+
+  test('`deleteComment` method deletes a comment record', async function(assert) {
+    assert.expect(1);
+
+    const controller = this.owner.lookup('controller:article');
+    const comment = {
+      destroyRecord: this.stub().resolves(),
+    };
+
+    await controller.actions.deleteComment.call(controller, comment);
+
+    assert.ok(comment.destroyRecord.calledOnce, '`comment.destroyRecord` shoud be executed');
+  });
+
+  test('`favoriteArticle` method favorites/unfavorites an article', async function(assert) {
+    assert.expect(4);
+
+    const controller = this.owner.lookup('controller:article');
+    const articleFavorited = EmberObject.create({
+      favorited: true,
+      favorite: this.stub().resolves(),
+      unfavorite: this.stub().resolves(),
+    });
+    const articleUnfavorited = EmberObject.create({
+      favorited: false,
+      favorite: this.stub().resolves(),
+      unfavorite: this.stub().resolves(),
+    });
+
+    await controller.actions.favoriteArticle.call(controller, articleFavorited);
+    assert.notOk(articleFavorited.favorite.called, 'Do not favorite a favorited article');
+    assert.ok(articleFavorited.unfavorite.calledOnce, 'Unfavorite a favorited article');
+
+    await controller.actions.favoriteArticle.call(controller, articleUnfavorited);
+    assert.ok(articleUnfavorited.favorite.called, 'Favorite an unfavorited article');
+    assert.notOk(articleUnfavorited.unfavorite.calledOnce, 'Do not unfavorite an unfavorited article');
+  });
+
+  test('`followAuthor` method follows/unfollows an author', async function(assert) {
+    assert.expect(4);
+
+    const controller = this.owner.lookup('controller:article');
+    const authorFollowed = EmberObject.create({
+      following: true,
+      follow: this.stub().resolves(),
+      unfollow: this.stub().resolves(),
+    });
+    const authorUnfollowed = EmberObject.create({
+      following: false,
+      follow: this.stub().resolves(),
+      unfollow: this.stub().resolves(),
+    });
+
+    await controller.actions.followAuthor.call(controller, authorFollowed);
+    assert.notOk(authorFollowed.follow.called, 'Do not follow a author who is already followed');
+    assert.ok(authorFollowed.unfollow.calledOnce, 'Unfollow an author who is followed');
+
+    await controller.actions.followAuthor.call(controller, authorUnfollowed);
+    assert.ok(authorUnfollowed.follow.called, 'Follow an author who is not followed');
+    assert.notOk(authorUnfollowed.unfollow.calledOnce, 'Do not unfollow an author who not followed');
   });
 });
