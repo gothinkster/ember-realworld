@@ -20,27 +20,14 @@ module('Unit | Adapter | comment', function(hooks) {
     assert.equal(adapter.pathForType(), 'articles');
   });
 
-  test('`urlForCreateRecord` method returns expected URL', function(assert) {
-    assert.expect(1);
+  test('`buildURL method returns expected URL', function(assert) {
     const adapter = this.owner.lookup('adapter:comment');
     const host = adapter.host;
 
-    assert.equal(adapter.urlForCreateRecord('comment', snapshot), `${host}/api/articles/1/comments`);
-  });
+    // Create record has no ID
+    assert.equal(adapter.buildURL('comment', null, snapshot), `${host}/api/articles/1/comments`);
 
-  test('`urlForUpdateRecord` method returns expected URL', function(assert) {
-    assert.expect(1);
-    const adapter = this.owner.lookup('adapter:comment');
-    const host = adapter.host;
-
-    assert.equal(adapter.urlForUpdateRecord(1, 'comment', snapshot), `${host}/api/articles/1/comments/1`);
-  });
-
-  test('`urlForDeleteRecord` method returns expected URL', function(assert) {
-    assert.expect(1);
-    const adapter = this.owner.lookup('adapter:comment');
-    const host = adapter.host;
-
-    assert.equal(adapter.urlForDeleteRecord(1, 'comment', snapshot), `${host}/api/articles/1/comments/1`);
+    // Delete Record has an ID.
+    assert.equal(adapter.buildURL('comment', 'foo', snapshot), `${host}/api/articles/1/comments/foo`);
   });
 });
