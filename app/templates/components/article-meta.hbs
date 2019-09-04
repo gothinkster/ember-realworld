@@ -12,11 +12,11 @@
       <span class="counter" data-test-article-favorites-count>{{article.favoritesCount}}</span>
     </button>
   {{else}}
-    {{#link-to "login" tagName="button" class="btn btn-sm btn-outline-secondary" data-test-follow-author-button-login=""}}
+    {{#link-to "login" class="btn btn-sm btn-outline-secondary" data-test-follow-author-button-login=""}}
       Follow {{article.author.id}}
     {{/link-to}}
     &nbsp;&nbsp;
-    {{#link-to "login" tagName="button" class="btn btn-sm btn-outline-secondary" data-test-favorite-article-button-login=""}}
+    {{#link-to "login" class="btn btn-sm btn-outline-secondary" data-test-favorite-article-button-login=""}}
       <i class="ion-heart"></i> &nbsp; Favorite Post
       <span class="counter" data-test-article-favorites-count>{{article.favoritesCount}}</span>
     {{/link-to}}
