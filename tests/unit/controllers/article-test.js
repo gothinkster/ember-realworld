@@ -181,4 +181,19 @@ module('Unit | Controller | article', function(hooks) {
     assert.ok(authorUnfollowed.follow.called, 'Follow an author who is not followed');
     assert.notOk(authorUnfollowed.unfollow.calledOnce, 'Do not unfollow an author who not followed');
   });
+
+  test('`deleteArticle` method deletes an article and transitions to home', async function(assert) {
+    assert.expect(2);
+
+    const controller = this.owner.lookup('controller:article');
+    const article = {
+      destroyRecord: this.stub().resolves(),
+    };
+    const transitionToRouteStub = this.stub(controller, 'transitionToRoute');
+
+    await controller.actions.deleteArticle.call(controller, article);
+
+    assert.ok(article.destroyRecord.calledOnce, 'Execute `article.destroyRecord` method to delete the record');
+    assert.ok(transitionToRouteStub.calledOnceWith('home'), 'Transition to `home` route');
+  });
 });

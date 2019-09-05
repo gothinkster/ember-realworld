@@ -1,16 +1,26 @@
 <div class="article-meta" data-test-article-meta>
   {{article-author article=article tagName=""}}
   {{#if isLoggedIn}}
-    <button class="btn btn-sm {{if article.author.following "btn-secondary" "btn-outline-secondary"}}"
-      data-test-follow-author-button {{action onFollowAuthor article.author}}>
-      <i class="ion-plus-round"></i> &nbsp; {{if article.author.following "Unfollow" "Follow"}} {{article.author.id}}
-    </button>
-    &nbsp;&nbsp;
-    <button class="btn btn-sm {{if article.favorited "btn-primary" "btn-outline-primary"}}"
-      {{action onFavoriteArticle article}} data-test-favorite-article-button>
-      <i class="ion-heart"></i> &nbsp; {{if article.favorited "Unfavorite" "Favorite"}} Post
-      <span class="counter" data-test-article-favorites-count>{{article.favoritesCount}}</span>
-    </button>
+    {{#if canEdit}}
+      {{#link-to "editor.article" article.id class="btn btn-sm btn-outline-secondary" data-test-edit-article-button=""}}
+        <i class="ion-edit"></i> &nbsp; Edit Article
+      {{/link-to}}
+      &nbsp;&nbsp;
+      <button class="btn btn-sm btn-outline-danger" {{action onDeleteArticle article}} data-test-delete-article-button>
+        <i class="ion-trash-a"></i> &nbsp; Delete Article
+      </button>
+    {{else}}
+      <button class="btn btn-sm {{if article.author.following "btn-secondary" "btn-outline-secondary"}}"
+        data-test-follow-author-button {{action onFollowAuthor article.author}}>
+        <i class="ion-plus-round"></i> &nbsp; {{if article.author.following "Unfollow" "Follow"}} {{article.author.id}}
+      </button>
+      &nbsp;&nbsp;
+      <button class="btn btn-sm {{if article.favorited "btn-primary" "btn-outline-primary"}}"
+        {{action onFavoriteArticle article}} data-test-favorite-article-button>
+        <i class="ion-heart"></i> &nbsp; {{if article.favorited "Unfavorite" "Favorite"}} Post
+        <span class="counter" data-test-article-favorites-count>{{article.favoritesCount}}</span>
+      </button>
+    {{/if}}
   {{else}}
     {{#link-to "login" class="btn btn-sm btn-outline-secondary" data-test-follow-author-button-login=""}}
       Follow {{article.author.id}}
