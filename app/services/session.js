@@ -79,11 +79,15 @@ export default Service.extend({
 
   fetchUser() {
     return this.fetch('/user').then(({ user }) => {
-      this.store.pushPayload({
-        users: [user],
-      });
-      this.set('user', this.store.peekRecord('user', user.id));
-      return this.user;
+      // Only push the user into the store if user is truthy
+      // Otherwise store will throw errors where a type cannot be looked up on undefined.
+      if (user) {
+        this.store.pushPayload({
+          users: [user],
+        });
+        this.set('user', this.store.peekRecord('user', user.id));
+        return this.user;
+      }
     });
   },
 

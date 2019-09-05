@@ -37,4 +37,22 @@ export default function() {
       tags: ['emberjs', 'tomster', 'wycats', 'tomdale', 'ember-cli', 'training', 'dragons'],
     };
   });
+
+  this.post('/profiles/:username/follow', (schema, request) => {
+    const username = request.params.username;
+    const profile = schema.profiles.findBy({ username });
+
+    profile.following = true;
+
+    return profile.update();
+  });
+
+  this.delete('/profiles/:username/follow', (schema, request) => {
+    const username = request.params.username;
+    const profile = schema.profiles.findBy({ username });
+
+    profile.following = false;
+
+    return profile.update();
+  });
 }
