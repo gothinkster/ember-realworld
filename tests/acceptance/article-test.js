@@ -22,6 +22,8 @@ module('Acceptance | article', function(hooks) {
   });
 
   test('visiting /article/:slug', async function(assert) {
+    assert.expect(1);
+
     const profile = await server.create('profile');
     const article = await server.create('article', {
       author: profile,
@@ -33,6 +35,8 @@ module('Acceptance | article', function(hooks) {
   });
 
   test('favorite article', async function(assert) {
+    assert.expect(2);
+
     const profile = await server.create('profile');
     const article = await server.create('article', {
       author: profile,
@@ -56,6 +60,8 @@ module('Acceptance | article', function(hooks) {
   });
 
   test('follow author', async function(assert) {
+    assert.expect(2);
+
     const profile = await server.create('profile', {
       following: false,
     });
@@ -81,6 +87,8 @@ module('Acceptance | article', function(hooks) {
   });
 
   test('edit article', async function(assert) {
+    assert.expect(1);
+
     const userProfile = await server.schema.profiles.findBy({ username: user.username });
     const article = await server.create('article', {
       author: userProfile,
@@ -98,6 +106,8 @@ module('Acceptance | article', function(hooks) {
   });
 
   test('delete article', async function(assert) {
+    assert.expect(1);
+
     const userProfile = await server.schema.profiles.findBy({ username: user.username });
     const article = await server.create('article', {
       author: userProfile,
@@ -112,6 +122,8 @@ module('Acceptance | article', function(hooks) {
   });
 
   test('post comment', async function(assert) {
+    assert.expect(3);
+
     const profile = await server.create('profile');
     const article = await server.create('article', {
       author: profile,
@@ -132,6 +144,8 @@ module('Acceptance | article', function(hooks) {
   });
 
   test('delete comment', async function(assert) {
+    assert.expect(2);
+
     const profile = await server.create('profile');
     const userProfile = await server.schema.profiles.findBy({
       username: user.username,

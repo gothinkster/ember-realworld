@@ -1,8 +1,9 @@
-import { module, test } from 'qunit';
+import { module } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { click, render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { formatDate } from 'realworld-ember/helpers/format-date';
+import test from 'ember-sinon-qunit/test-support/test';
 
 module('Integration | Component | article-meta', function(hooks) {
   setupRenderingTest(hooks);
@@ -151,7 +152,7 @@ module('Integration | Component | article-meta', function(hooks) {
     await click('[data-test-follow-author-button]');
     await settled();
 
-    assert.ok(this.get('article.author.following'), '`onFollowAuthor` method to be triggered');
+    assert.ok(this.get('article.author.following'), '`onFollowAuthor` action to be triggered with `author`');
     assert
       .dom('[data-test-follow-author-button]')
       .includesText(`Unfollow ${article.author.id}`, 'Button text is updated');
@@ -167,7 +168,6 @@ module('Integration | Component | article-meta', function(hooks) {
       this.set('article.favoritesCount', !isFavorite ? favoritesCount + 1 : favoritesCount - 1);
     };
 
-    this.set('onFavoriteArticle', onFavoriteArticle);
     this.setProperties({
       onFavoriteArticle,
       onFollowAuthor() {},
@@ -180,8 +180,27 @@ module('Integration | Component | article-meta', function(hooks) {
     await click('[data-test-favorite-article-button]');
     await settled();
 
-    assert.ok(this.get('article.favorited'), '`onFavoriteArticle` method to be triggered');
+    assert.ok(this.get('article.favorited'), '`onFavoriteArticle` action to be triggered with `article`');
     assert.dom('[data-test-favorite-article-button]').includesText(`Unfavorite Post`, 'Button text is updated');
     assert.dom('[data-test-article-favorites-count]').hasText('9001', 'Number of favorites is correct');
+  });
+
+  test('clicking on `delete-article` button triggers `onDeleteArticle` method', async function(assert) {
+    assert.expect(1);
+
+    const onDeleteArticle = this.spy();
+
+    this.setProperties({
+      onFavoriteArticle() {},
+      onFollowAuthor() {},
+      onDeleteArticle,
+    });
+
+    await render(
+      hbs`{{article-meta article=article isLoggedIn=true canEdit=true onFollowAuthor=onFollowAuthor onFavoriteArticle=onFavoriteArticle onDeleteArticle=onDeleteArticle}}`,
+    );
+    await click('[data-test-delete-article-button]');
+
+    assert.ok(onDeleteArticle.calledOnceWith(article), '`onDeleteArticle` action to be triggered with `article`');
   });
 });
