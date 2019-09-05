@@ -70,6 +70,12 @@ export default Controller.extend({
       return article.get('favorited') ? article.unfavorite() : article.favorite();
     },
 
+    async deleteArticle(article) {
+      await article.destroyRecord();
+      // Upon successfully deleting the article, transition to home.
+      return this.transitionToRoute('home');
+    },
+
     async followAuthor(author) {
       return author.get('following') ? author.unfollow() : author.follow();
     },

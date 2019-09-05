@@ -34,15 +34,16 @@ module('Integration | Component | article-meta', function(hooks) {
   });
 
   test('it renders', async function(assert) {
-    assert.expect(12);
+    assert.expect(22);
 
     this.setProperties({
       onFollowAuthor() {},
       onFavoriteArticle() {},
+      onDeleteArticle() {},
     });
 
     await render(
-      hbs`{{article-meta article=article onFollowAuthor=onFollowAuthor onFavoriteArticle=onFavoriteArticle}}`,
+      hbs`{{article-meta article=article onFollowAuthor=onFollowAuthor onFavoriteArticle=onFavoriteArticle onDeleteArticle=onDeleteArticle}}`,
     );
 
     assert
@@ -69,8 +70,16 @@ module('Integration | Component | article-meta', function(hooks) {
 
     assert.dom('[data-test-article-favorites-count]').hasText('9000', 'Number of favorites is correct');
 
+    assert
+      .dom('[data-test-edit-article-button]')
+      .isNotVisible('Edit article button is not visible when user is logged out');
+
+    assert
+      .dom('[data-test-delete-article-button]')
+      .isNotVisible('Delete article button is not visible when user is logged out');
+
     await render(
-      hbs`{{article-meta article=article isLoggedIn=true onFollowAuthor=onFollowAuthor onFavoriteArticle=onFavoriteArticle}}`,
+      hbs`{{article-meta article=article isLoggedIn=true onFollowAuthor=onFollowAuthor onFavoriteArticle=onFavoriteArticle onDeleteArticle=onDeleteArticle}}`,
     );
 
     assert.dom('[data-test-follow-author-button]').includesText(`Follow ${article.author.id}`);
@@ -84,6 +93,42 @@ module('Integration | Component | article-meta', function(hooks) {
     assert
       .dom('[data-test-favorite-article-button-login]')
       .isNotVisible('Favorite article login button is not visible when user is logged in');
+
+    assert
+      .dom('[data-test-edit-article-button]')
+      .isNotVisible('Edit article button is not visible when user is logged in but cannot edit');
+
+    assert
+      .dom('[data-test-delete-article-button]')
+      .isNotVisible('Delete article button is not visible when user is logged in but cannot edit');
+
+    await render(
+      hbs`{{article-meta article=article isLoggedIn=true canEdit=true onFollowAuthor=onFollowAuthor onFavoriteArticle=onFavoriteArticle onDeleteArticle=onDeleteArticle}}`,
+    );
+
+    assert
+      .dom('[data-test-follow-author-button-login]')
+      .isNotVisible('Follow author login button is not visible when user is logged in but can edit');
+
+    assert
+      .dom('[data-test-follow-author-button]')
+      .isNotVisible('Follow author button is not visible when user is logged in but can edit');
+
+    assert
+      .dom('[data-test-favorite-article-button-login]')
+      .isNotVisible('Favorite article login button is not visible when user is logged in but can edit');
+
+    assert
+      .dom('[data-test-favorite-article-button]')
+      .isNotVisible('Favorite article button is not visible when user is logged in but can edit');
+
+    assert
+      .dom('[data-test-edit-article-button]')
+      .isVisible('Edit article button is visible when user is logged in and can edit');
+
+    assert
+      .dom('[data-test-delete-article-button]')
+      .isVisible('Delete article button is not visible when user is logged in and can edit');
   });
 
   test('clicking on `follow-author` button triggers `onFollowAuthor` method', async function(assert) {
@@ -97,9 +142,10 @@ module('Integration | Component | article-meta', function(hooks) {
     this.setProperties({
       onFollowAuthor,
       onFavoriteArticle() {},
+      onDeleteArticle() {},
     });
     await render(
-      hbs`{{article-meta article=article isLoggedIn=true onFollowAuthor=onFollowAuthor onFavoriteArticle=onFavoriteArticle}}`,
+      hbs`{{article-meta article=article isLoggedIn=true onFollowAuthor=onFollowAuthor onFavoriteArticle=onFavoriteArticle onDeleteArticle=onDeleteArticle}}`,
     );
 
     await click('[data-test-follow-author-button]');
@@ -125,9 +171,10 @@ module('Integration | Component | article-meta', function(hooks) {
     this.setProperties({
       onFavoriteArticle,
       onFollowAuthor() {},
+      onDeleteArticle() {},
     });
     await render(
-      hbs`{{article-meta article=article isLoggedIn=true onFollowAuthor=onFollowAuthor onFavoriteArticle=onFavoriteArticle}}`,
+      hbs`{{article-meta article=article isLoggedIn=true onFollowAuthor=onFollowAuthor onFavoriteArticle=onFavoriteArticle onDeleteArticle=onDeleteArticle}}`,
     );
 
     await click('[data-test-favorite-article-button]');

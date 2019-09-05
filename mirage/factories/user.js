@@ -16,4 +16,14 @@ export default Factory.extend({
   bio() {
     return faker.lorem.paragraph();
   },
+
+  afterCreate(user, server) {
+    const { image, email, username, bio } = user;
+    server.create('profile', {
+      image,
+      email,
+      username,
+      bio,
+    });
+  },
 });
