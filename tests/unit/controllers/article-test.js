@@ -62,6 +62,7 @@ module('Unit | Controller | article', function(hooks) {
 
   test('`comments` are sorted by `id` in descending order', function(assert) {
     assert.expect(1);
+
     const controller = this.owner.lookup('controller:article');
     controller.set('model', article);
 
@@ -71,6 +72,7 @@ module('Unit | Controller | article', function(hooks) {
 
   test('`articleBody` is markdown converted to HTML safe string', function(assert) {
     assert.expect(1);
+
     const controller = this.owner.lookup('controller:article');
     controller.set('model', article);
 
@@ -81,6 +83,7 @@ module('Unit | Controller | article', function(hooks) {
 
   test('`newComment` tracks string changes and updates when `model` changes', function(assert) {
     assert.expect(3);
+
     const controller = this.owner.lookup('controller:article');
     controller.set('model', article);
 
@@ -97,6 +100,28 @@ module('Unit | Controller | article', function(hooks) {
     controller.set('model', null);
 
     assert.equal(controller.get('newComment'), '', 'should reset to the default when `model` changes');
+  });
+
+  test('`isNewCommentValid` validates the new comment', function(assert) {
+    assert.expect(3);
+
+    const controller = this.owner.lookup('controller:article');
+    controller.set('model', article);
+
+    assert.equal(controller.get('newComment'), '', 'New comment should be an empty string by default');
+    assert.notOk(controller.get('isNewCommentValid'), 'New comment should be invalid because it is an empty string');
+
+    controller.set('newComment', '   ');
+    assert.notOk(
+      controller.get('isNewCommentValid'),
+      'New comment should be invalid because because it only has spaces',
+    );
+
+    controller.set('newComment', ' a ');
+    assert.ok(
+      controller.get('isNewCommentValid'),
+      'New comment should be valid because there a non-space character in the string.',
+    );
   });
 
   test('`createComment` method creates a new comment record', async function(assert) {

@@ -49,6 +49,17 @@ export default Controller.extend({
     },
   }),
 
+  /**
+   * Validate the new comment to prevent creating empty comments.
+   * @returns {Boolean}
+   */
+  isNewCommentValid: computed('newComment', function() {
+    /**
+     * Make sure the string isn't just whitespace.
+     */
+    return !!this.newComment.trim();
+  }),
+
   actions: {
     async createComment(article, message) {
       await this.store
