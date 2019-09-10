@@ -3,7 +3,6 @@ import { Response } from 'ember-cli-mirage';
 export default function() {
   this.namespace = 'api'; // make this `/api`, for example, if your API is namespaced
   this.timing = 400; // delay for each request, automatically set to 0 during testing
-  this.logging = true;
   /**
    * Authentication
    */
@@ -15,7 +14,7 @@ export default function() {
   /**
    * User registration
    */
-  this.post('/users', (schema, request) => {});
+  // this.post('/users', (schema, request) => {});
 
   /**
    * Get current user
@@ -46,12 +45,12 @@ export default function() {
   /**
    * Get feed articles
    */
-  this.get('/articles/feed', (schema, request) => {});
+  // this.get('/articles/feed', (schema, request) => {});
 
   /**
    * Create article
    */
-  this.post('/articles', (schema, request) => {});
+  // this.post('/articles', (schema, request) => {});
 
   /**
    * Get an article by ID
@@ -67,12 +66,19 @@ export default function() {
   /**
    * Update an article by ID
    */
-  this.put('/articles/:slug', (schema, request) => {});
+  // this.put('/articles/:slug', (schema, request) => {});
 
   /**
    * Delete an article by ID
    */
-  this.delete('/articles/:slug', (schema, request) => {});
+  this.delete('/articles/:slug', (schema, request) => {
+    const slug = request.params.slug;
+    const article = schema.articles.findBy({
+      slug,
+    });
+
+    return article.destroy();
+  });
 
   /**
    * Favorite an article by ID
