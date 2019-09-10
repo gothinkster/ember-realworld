@@ -154,7 +154,7 @@ module('Acceptance | article', function(hooks) {
       author: profile,
     });
 
-    await server.createList('comments', 1, {
+    await server.createList('comment', 1, {
       article,
       author: userProfile,
     });
