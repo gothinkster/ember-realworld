@@ -103,7 +103,7 @@ module('Unit | Controller | article', function(hooks) {
   });
 
   test('`isNewCommentValid` validates the new comment', function(assert) {
-    assert.expect(3);
+    assert.expect(4);
 
     const controller = this.owner.lookup('controller:article');
     controller.set('model', article);
