@@ -11,16 +11,29 @@ export default Component.extend({
   isLoggedIn: false,
 
   /**
-   * Method executed when "favorite" button is clicked.
+   * Flag to determine whether to render edit article and delete article buttons or not
+   * @type {Boolean}
+   */
+  canEdit: false,
+
+  /**
+   * Method executed when "favorite article" button is clicked.
    * @method
    * @name onFavoriteArticle
    * @param {Object} article The article record to be favorited
    */
 
   /**
-   * Method executed when "follow" button is clicked.
+   * Method executed when "follow author" button is clicked.
    * @method
    * @name onFollowAuthor
    * @param {Object} author The author record that is followed
+   */
+
+  /**
+   * Method executed when "delete article" button is clicked.
+   * @method
+   * @name onDeleteArticle
+   * @param {Object} article The article record to be deleted
    */
 });

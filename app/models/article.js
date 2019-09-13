@@ -26,12 +26,14 @@ export default DS.Model.extend({
   },
 
   async favoriteOperation(operation) {
-    const { article } = await this.session.fetch(
+    const payload = await this.session.fetch(
       `/articles/${this.id}/favorite`,
       operation === 'unfavorite' ? 'DELETE' : 'POST',
     );
-    this.store.pushPayload({
-      articles: [Object.assign(article, { id: article.slug })],
-    });
+    const store = this.store;
+    const serializer = store.serializerFor('article');
+    const primaryModelClass = store.modelFor('article');
+
+    store.push(serializer.normalizeSingleResponse(store, primaryModelClass, payload, this.id));
   },
 });

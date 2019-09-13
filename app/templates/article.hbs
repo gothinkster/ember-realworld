@@ -5,7 +5,9 @@
       {{article-meta
         article=model 
         isLoggedIn=session.isLoggedIn
+        canEdit=(eq session.user.username model.author.username)
         onFavoriteArticle=(action "favoriteArticle") 
+        onDeleteArticle=(action "deleteArticle")
         onFollowAuthor=(action "followAuthor")
       }}
     </div>
@@ -22,16 +24,19 @@
       {{article-meta
         article=model 
         isLoggedIn=session.isLoggedIn
+        canEdit=(eq session.user.username model.author.username)
         onFavoriteArticle=(action "favoriteArticle") 
+        onDeleteArticle=(action "deleteArticle")
         onFollowAuthor=(action "followAuthor")
       }}
     </div>
     <div class="row">
       <div class="col-xs-12 col-md-8 offset-md-2">
         {{#if session.isLoggedIn}}
-          <form class="card comment-form" {{action "createComment" model newComment on="submit" }}>
+          <form class="card comment-form" data-test-article-comment-form
+            {{action "createComment" model newComment on="submit" }}>
             <div class="card-block">
-              {{textarea class="form-control" placeholder="Write a comment..." rows="3" value=newComment}}
+              {{textarea class="form-control" placeholder="Write a comment..." rows="3" value=newComment data-test-article-comment-textarea=""}}
             </div>
             <div class="card-footer">
               <img class="comment-author-img" alt="">
@@ -47,7 +52,7 @@
           </p>
         {{/if}}
         {{#each comments key="id" as | comment |}}
-          <div class="card">
+          <div class="card" data-test-article-comment>
             <div class="card-block">
               <p class="card-text">{{comment.body}}</p>
             </div>
@@ -63,7 +68,8 @@
                   {{!-- API doesn't seem to support editing comments.
                   <i class="ion-edit"></i>
                   --}}
-                  <button class="ion-trash-a" type="button" {{action "deleteComment" comment}}></button>
+                  <button class="ion-trash-a" type="button" data-test-article-comment-delete-button
+                    {{action "deleteComment" comment}}></button>
                 </span>
               {{/if}}
             </div>
