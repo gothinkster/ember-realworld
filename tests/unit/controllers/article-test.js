@@ -112,15 +112,12 @@ module('Unit | Controller | article', function(hooks) {
     assert.notOk(controller.get('isNewCommentValid'), 'New comment should be invalid because it is an empty string');
 
     controller.set('newComment', '   ');
-    assert.notOk(
-      controller.get('isNewCommentValid'),
-      'New comment should be invalid because because it only has spaces',
-    );
+    assert.notOk(controller.get('isNewCommentValid'), 'New comment should be invalid because it only has spaces');
 
     controller.set('newComment', ' a ');
     assert.ok(
       controller.get('isNewCommentValid'),
-      'New comment should be valid because there a non-space character in the string.',
+      'New comment should be valid because there is a non-space character in the string.',
     );
   });
 
