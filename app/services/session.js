@@ -3,7 +3,7 @@ import { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
 import ENV from 'realworld-ember/config/environment';
 
-const STORAGE_KEY = 'realworld.ember-classic.token';
+export const STORAGE_KEY = 'realworld.ember-classic.token';
 
 export default Service.extend({
   store: service(),

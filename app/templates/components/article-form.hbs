@@ -1,0 +1,34 @@
+<form {{action "submit" on="submit"}}>
+  {{#if errors}}
+    <ul class="error-messages">
+      {{#each errors key="@index" as | error |}}
+        <li data-test-article-form-error-item>{{error.attribute}} {{error.message}}</li>
+      {{/each}}
+    </ul>
+  {{/if}}
+  <fieldset class="form-group">
+    {{input value=title class="form-control form-control-lg" type="text" placeholder="Post Title" data-test-article-form-input-title="" input=(action "change" "title")}}
+  </fieldset>
+  <fieldset class="form-group">
+    {{input value=description class="form-control" type="text" placeholder="What's this article about?" data-test-article-form-input-description="" input=(action "change" "description")}}
+  </fieldset>
+  <fieldset class="form-group">
+    {{textarea value=body class="form-control" rows="8" placeholder="Write your post (in markdown)" data-test-article-form-input-body="" input=(action "change" "body")}}
+  </fieldset>
+  <fieldset class="form-group">
+    {{input value=newTags class="form-control" type="text" placeholder="Enter tags" data-test-article-form-input-tags="" key-down=(action "addTags" tags)}}
+    <div class="tag-list">
+      {{#each tags as |tag|}}
+        <span class="tag-default tag-pill">
+          {{! template-lint-disable no-invalid-interactive}}
+          <i class="ion-close-round" data-test-article-form-tag-remove-button {{action "removeTag" tags tag}}></i>
+          {{tag}}
+        </span>
+      {{/each}}
+    </div>
+  </fieldset>
+  <button class="btn btn-lg btn-primary pull-xs-right" disabled={{disableSubmit}} type="submit"
+    data-test-article-form-submit-button>
+    {{if isNew "Create" "Publish"}} Post
+  </button>
+</form>

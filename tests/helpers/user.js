@@ -1,14 +1,16 @@
-const STORAGE_KEY = 'realworld.ember-classic.token';
+import { STORAGE_KEY } from 'realworld-ember/services/session';
 
-export function setupLoggedInUser(hooks, token) {
+export const TOKEN = 'auth-token';
+
+export function setupLoggedInUser(hooks, token = TOKEN) {
   const originalToken = localStorage.getItem(STORAGE_KEY);
 
   hooks.beforeEach(function() {
-    localStorage.setItem(STORAGE_KEY, token);
+    localStorage.setItem(STORAGE_KEY, token || '');
   });
 
   hooks.afterEach(function() {
-    localStorage.setItem(STORAGE_KEY, originalToken);
+    localStorage.setItem(STORAGE_KEY, originalToken || '');
   });
 }
 
@@ -20,6 +22,6 @@ export function setupLoggedOutUser(hooks) {
   });
 
   hooks.afterEach(function() {
-    localStorage.setItem(STORAGE_KEY, originalToken);
+    localStorage.setItem(STORAGE_KEY, originalToken || '');
   });
 }
