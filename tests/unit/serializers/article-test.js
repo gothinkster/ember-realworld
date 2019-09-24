@@ -8,11 +8,18 @@ module('Unit | Serializer | article', function(hooks) {
 
   // Replace this with your real tests.
   test('it serializes records', function(assert) {
+    assert.expect(2);
+
     const record = run(() => this.owner.lookup('service:store').createRecord('article', { tagList: [] }));
 
     const serializedRecord = record.serialize();
 
     assert.ok(serializedRecord);
+    assert.equal(
+      serializedRecord.tagList[0],
+      '',
+      'An empty `tagList` array should be serialized to an array with a single empty string - a bug in the Conduit API',
+    );
   });
 
   test('`normalizeArrayResponse` normalizses an array payload', function(assert) {

@@ -3,7 +3,7 @@
     {{article-author article=article}}
     {{favorite-article article=article isIconOnly=true class="pull-xs-right"}}
   </div>
-  {{#link-to "article" article.id class="preview-link" }}
+  {{#link-to "article" article class="preview-link" }}
     <h1 data-test-article-title>{{article.title}}</h1>
     <p data-test-article-description>{{article.description}}</p>
     <span>Read more...</span>
