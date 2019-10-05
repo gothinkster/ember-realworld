@@ -3,29 +3,27 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-12 col-md-10 offset-md-1">
-          <img src={{model.user.image}} class="user-img" alt="user image">
-          <h4>{{model.user.username}}</h4>
+          <img src={{model.image}} class="user-img" alt="user image">
+          <h4>{{model.username}}</h4>
           <p>
-            {{model.user.bio}}
+            {{model.bio}}
           </p>
-          {{#if (and session.isLoggedIn (eq model.user.username session.user.username))}}
-            {{#link-to "settings"}}
-              <button class="btn btn-sm btn-outline-secondary action-btn">
+          {{#if session.isLoggedIn}}
+            {{#if (eq model.username session.user.username)}}
+              {{#link-to "settings" class="btn btn-sm btn-outline-secondary action-btn" data-test-edit-profile-button=""}}
                 <i class="ion-gear-a"></i> Edit Profile Settings
-              </button>
-            {{/link-to}}
-          {{else}}
-            {{#if model.user.following}}
-              <button onclick={{perform unFollowUser model.user.username}} disabled={{waitingForFollowing}}
-                class="btn btn-sm btn-outline-secondary action-btn">
-                <i class="ion-plus-round"></i> &nbsp; Unfollow {{model.user.username}}
-              </button>
+              {{/link-to}}
             {{else}}
-              <button onclick={{perform followUser model.user.username}} disabled={{waitingForFollowing}}
-                class="btn btn-sm btn-outline-secondary action-btn">
-                <i class="ion-plus-round"></i> &nbsp; Follow {{model.user.username}}
+              <button onclick={{perform (if model.following unFollowUser followUser) model}}
+                disabled={{waitingForFollowing}} class="btn btn-sm btn-outline-secondary action-btn"
+                data-test-follow-profile-button>
+                <i class="ion-plus-round"></i> &nbsp; {{if model.following "Unfollow" "Follow"}} {{model.username}}
               </button>
             {{/if}}
+          {{else}}
+            {{#link-to "login" class="btn btn-sm btn-outline-secondary action-btn" data-test-follow-profile-button=""}}
+              <i class="ion-plus-round"></i> &nbsp; {{if model.following "Unfollow" "Follow"}} {{model.username}}
+            {{/link-to}}
           {{/if}}
         </div>
       </div>
@@ -37,12 +35,12 @@
         <div class="articles-toggle">
           <ul class="nav nav-pills outline-active">
             <li class="nav-item">
-              {{#link-to "profile.index" class="nav-link" }}
+              {{#link-to "profile.index" class="nav-link" data-test-profile-nav-link="my-articles"}}
                 My Articles
               {{/link-to}}
             </li>
             <li class="nav-item">
-              {{#link-to "profile.favorites" class="nav-link" }}
+              {{#link-to "profile.favorites" class="nav-link" data-test-profile-nav-link="favorite-articles"}}
                 Favorited Articles
               {{/link-to}}
             </li>
