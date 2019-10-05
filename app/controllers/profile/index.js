@@ -9,7 +9,9 @@ export default Controller.extend({
 
   actions: {
     async favoriteArticle(article) {
-      return article.get('favorited') ? article.unfavorite() : article.favorite();
+      await (article.get('favorited') ? article.unfavorite() : article.favorite());
+
+      return this.articles.reload();
     },
   },
 });
