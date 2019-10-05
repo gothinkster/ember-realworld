@@ -1,8 +1,10 @@
 import Route from '@ember/routing/route';
 
 export default Route.extend({
-  model() {
-    const profile = this.modelFor('profile');
-    return profile.loadArticles().then(() => profile);
+  async afterModel(profile) {
+    /**
+     * Reload the data when visiting the route, otherwise the data remains stale.
+     */
+    await profile.get('articles').reload();
   },
 });
