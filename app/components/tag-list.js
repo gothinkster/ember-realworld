@@ -10,7 +10,11 @@ export default Component.extend({
     this.loadTags.perform();
   },
   loadTags: task(function*() {
-    const tags = yield this.store.findAll('tag', { reload: true });
+    /**
+     * Query for popular tags.
+     * Using findAll would return a live array that would get populated with tags from articles, which may/may-not be popular tags.
+     */
+    const tags = yield this.store.query('tag', {});
     this.set('tags', tags);
   }).drop(),
 });
