@@ -15,11 +15,10 @@
         <i class="ion-plus-round"></i> &nbsp; {{if article.author.following "Unfollow" "Follow"}} {{article.author.id}}
       </button>
       &nbsp;&nbsp;
-      <button class="btn btn-sm {{if article.favorited "btn-primary" "btn-outline-primary"}}"
-        {{action onFavoriteArticle article}} data-test-favorite-article-button>
-        <i class="ion-heart"></i> &nbsp; {{if article.favorited "Unfavorite" "Favorite"}} Post
+      {{#favorite-article-button class=(if article.favorited "btn-primary" "btn-outline-primary") onClick=(action onFavoriteArticle article)}}
+        {{if article.favorited "Unfavorite" "Favorite"}} Post
         <span class="counter" data-test-article-favorites-count>{{article.favoritesCount}}</span>
-      </button>
+      {{/favorite-article-button}}
     {{/if}}
   {{else}}
     {{#link-to "login" class="btn btn-sm btn-outline-secondary" data-test-follow-author-button-login=""}}

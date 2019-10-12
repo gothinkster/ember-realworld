@@ -32,7 +32,7 @@
           </ul>
         </div>
         {{#each model.articles as |article|}}
-          {{feed-item article=article}}
+          {{feed-item isLoggedIn=session.isLoggedIn article=article onFavoriteArticle=(action "favoriteArticle")}}
         {{/each}}
         <nav>
           {{pagination-list
