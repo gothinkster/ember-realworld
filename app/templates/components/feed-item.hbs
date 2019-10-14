@@ -1,7 +1,16 @@
 <div class="article-preview" data-test-article-preview>
   <div class="article-meta">
-    {{article-author article=article}}
-    {{favorite-article article=article isIconOnly=true class="pull-xs-right"}}
+    {{article-author article=article tagName=""}}
+    {{#if isLoggedIn}}
+      {{#favorite-article-button class=(concat "pull-xs-right " (if article.favorited "btn-primary" "btn-outline-primary")) onClick=(action onFavoriteArticle article)}}
+        <span class="counter" data-test-article-favorites-count>{{article.favoritesCount}}</span>
+      {{/favorite-article-button}}
+    {{else}}
+      {{#link-to "login" class="pull-xs-right btn btn-sm btn-primary" data-test-favorite-article-button-login=""}}
+        <i class="ion-heart"></i> &nbsp;
+        <span class="counter" data-test-article-favorites-count>{{article.favoritesCount}}</span>
+      {{/link-to}}
+    {{/if}}
   </div>
   {{#link-to "article" article class="preview-link" }}
     <h1 data-test-article-title>{{article.title}}</h1>

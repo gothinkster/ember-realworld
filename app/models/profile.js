@@ -7,15 +7,19 @@ export default DS.Model.extend({
   bio: DS.attr('string'),
   image: DS.attr('string'),
   following: DS.attr('boolean'),
-  articles: DS.hasMany('article', { async: false, inverse: 'author' }),
+  /**
+   * Articles by the profile owner.
+   * Inverse option is `null` to prevent a profile from being set on the article incorrectly when a `hasMany` relationship loads articles not owned
+   * by the profile, such as `favoriteArticles`.
+   */
+  articles: DS.hasMany('article', { inverse: null }),
+  /**
+   * Articles favorited by the profile owner.
+   * Inverse option is `null` to prevent a profile from being set on the article incorrectly when a `hasMany` relationship loads articles not owned
+   * by the profile, such as `favoriteArticles`.
+   */
+  favoriteArticles: DS.hasMany('article', { inverse: null }),
   username: DS.attr('string'),
-
-  loadArticles() {
-    return this.store.query('article', { author: this.id }).then(articles => {
-      this.set('articles', articles);
-      return articles;
-    });
-  },
 
   async follow() {
     await this.followOperation('follow');

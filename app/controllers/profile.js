@@ -3,28 +3,23 @@ import { inject as service } from '@ember/service';
 import { task } from 'ember-concurrency';
 
 export default Controller.extend({
-  profiles: service(),
   session: service(),
 
   waitingForFollowing: false,
 
-  followUser: task(function*(userName) {
+  followUser: task(function*(profile) {
     this.toggleProperty('waitingForFollowing');
 
-    const result = yield this.profiles.followUser(userName);
-    const isFollowing = result.profile.following;
-    this.set('model.user.following', isFollowing);
-
-    this.toggleProperty('waitingForFollowing');
+    yield profile.follow().finally(() => {
+      this.toggleProperty('waitingForFollowing');
+    });
   }).drop(),
 
-  unFollowUser: task(function*(userName) {
+  unFollowUser: task(function*(profile) {
     this.toggleProperty('waitingForFollowing');
 
-    const result = yield this.profiles.unFollowUser(userName);
-    const isFollowing = result.profile.following;
-    this.set('model.user.following', isFollowing);
-
-    this.toggleProperty('waitingForFollowing');
+    yield profile.unfollow().finally(() => {
+      this.toggleProperty('waitingForFollowing');
+    });
   }).drop(),
 });

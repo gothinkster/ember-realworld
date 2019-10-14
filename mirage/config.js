@@ -91,18 +91,34 @@ export default function() {
   });
 
   this.get('/articles', (schema, request) => {
-    const allArticles = schema.articles.all(),
-      params = request.queryParams,
-      limit = parseInt(params.limit),
-      page = parseInt(params.offset) / limit,
-      start = page * limit,
-      end = start + limit,
-      newArticles = allArticles.models.slice(start, end),
-      newSchema = {};
-    newSchema.articles = newArticles;
-    newSchema.articlesCount = allArticles.length;
+    const params = request.queryParams;
+    if (params.author) {
+      const { author } = params;
 
-    return newSchema;
+      return schema.articles.all().filter(article => article.author.username === author);
+    } else if (params.favorited) {
+      /**
+       * TODO: Currently there is no way to identify articles favorited by different profiles.
+       * This could cause some confusion and difficulty in testing.
+       *
+       * Consider creating a model that contains an array of favorite articles per user.
+       */
+      const { favorited } = params;
+
+      return schema.articles.all().filter(article => article.favorited && article.author.id !== favorited);
+    } else {
+      const allArticles = schema.articles.all(),
+        limit = parseInt(params.limit),
+        page = parseInt(params.offset) / limit,
+        start = page * limit,
+        end = start + limit,
+        newArticles = allArticles.models.slice(start, end),
+        newSchema = {};
+      newSchema.articles = newArticles;
+      newSchema.articlesCount = allArticles.length;
+
+      return newSchema;
+    }
   });
 
   /**
@@ -277,6 +293,12 @@ export default function() {
     return {
       tags: ['emberjs', 'tomster', 'wycats', 'tomdale', 'ember-cli', 'training', 'dragons'],
     };
+  });
+
+  this.get('/profiles/:username', (schema, request) => {
+    const username = request.params.username;
+
+    return schema.profiles.findBy({ username });
   });
 
   this.post('/profiles/:username/follow', (schema, request) => {

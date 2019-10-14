@@ -12,11 +12,16 @@ export default DS.Model.extend({
   body: attr('string', { defaultValue: '' }),
   createdAt: attr('date'),
   updatedAt: attr('date'),
-  tagList: hasMany('tag', { async: false }),
-  description: attr('string', { defaultValue: '' }),
-  author: belongsTo('profile', { async: false }),
-  favorited: attr('boolean', { defaultValue: false }),
-  favoritesCount: attr('number', { defaultValue: 0 }),
+  tagList: hasMany('tag'),
+  description: attr('string'),
+  /**
+   * Author of the article.
+   * Inverse option is `null` to prevent a profile from being set on the article incorrectly when a `hasMany` relationship loads articles not owned
+   * by the profile, such as `favoriteArticles`.
+   */
+  author: belongsTo('profile', { async: false, inverse: null }),
+  favorited: attr('boolean'),
+  favoritesCount: attr('number'),
   comments: hasMany('comment', { inverse: 'article' }),
 
   async favorite() {
