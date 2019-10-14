@@ -38,7 +38,9 @@ module('Unit | Serializer | article', function(hooks) {
         {
           id: 'foo',
           type: 'article',
-          attributes: {},
+          attributes: {
+            slug: 'foo',
+          },
           relationships: {
             tagList: { data: [{ id: 'tag', type: 'tag' }] },
             comments: { links: { related: 'comments' } },
@@ -67,7 +69,9 @@ module('Unit | Serializer | article', function(hooks) {
       data: {
         id: 'foo',
         type: 'article',
-        attributes: {},
+        attributes: {
+          slug: 'foo',
+        },
         relationships: {
           tagList: { data: [{ id: 'tag', type: 'tag' }] },
           comments: { links: { related: 'comments' } },

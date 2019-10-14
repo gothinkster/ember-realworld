@@ -7,6 +7,7 @@ const { attr, belongsTo, hasMany } = DS;
 export default DS.Model.extend({
   session: service(),
   store: service(),
+  slug: attr('string'),
   title: attr('string', { defaultValue: '' }),
   body: attr('string', { defaultValue: '' }),
   createdAt: attr('date'),

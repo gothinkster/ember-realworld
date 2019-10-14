@@ -17,10 +17,10 @@ Router.map(function() {
   });
   this.route('settings');
 
-  this.route('article', { path: '/article/:id' });
+  this.route('article', { path: '/article/:slug' });
   this.route('editor', function() {
     this.route('new', { path: '/' });
-    this.route('article', { path: '/:id' });
+    this.route('article', { path: '/:slug' });
   });
   this.route('error', { path: '/*path' });
 });

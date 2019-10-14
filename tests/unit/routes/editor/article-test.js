@@ -11,11 +11,11 @@ module('Unit | Route | editor/article', function(hooks) {
     assert.ok(route instanceof EditorNewRoute);
   });
 
-  test('`model` returns promise that resolves with an article record by ID', async function(assert) {
+  test('`model` returns promise that resolves with an article record by `slug`', async function(assert) {
     const route = this.owner.lookup('route:editor/article');
     const findRecordStub = this.stub(route.store, 'findRecord').resolves();
 
-    await route.model({ id: 'foo' });
+    await route.model({ slug: 'foo' });
 
     assert.ok(findRecordStub.calledOnceWith('article', 'foo'));
   });

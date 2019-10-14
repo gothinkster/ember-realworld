@@ -5,7 +5,7 @@ export default Route.extend({
   session: service(),
   store: service(),
 
-  model({ id }) {
-    return this.store.findRecord('article', id);
+  model({ slug }) {
+    return this.store.findRecord('article', slug);
   },
 });
