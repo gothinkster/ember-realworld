@@ -60,9 +60,11 @@ module('Acceptance | settings', function(hooks) {
         newSettings.username,
         'Settings username input should be different',
       );
-      assert
-        .dom('[data-test-settings-form-input-password]')
-        .hasValue('', 'Settings password input should start as an empty string');
+      assert.notEqual(
+        find('[data-test-settings-form-input-password]').value,
+        newSettings.password,
+        'Settings password input should be different',
+      );
       assert.notEqual(
         find('[data-test-settings-form-input-email]').value,
         newSettings.email,
