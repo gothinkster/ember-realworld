@@ -3,13 +3,13 @@
     <div class="row">
       <div class="col-md-6 offset-md-3 col-xs-12">
         <h1 class="text-xs-center">Your Settings</h1>
-        {{! The password as an empty string so user doesn't change the existing one by accidentally adding/removing characters}}
         {{settings-form
           errors=user.errors
           image=user.image
           username=user.username
           bio=user.bio
           email=user.email
+          password=user.password
           onSubmit=(action "saveSettings" user)
           onChange=(action "changeAttr" user)
           disableSubmit=(not user.hasDirtyAttributes)
