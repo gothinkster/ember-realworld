@@ -3,32 +3,21 @@
     <div class="row">
       <div class="col-md-6 offset-md-3 col-xs-12">
         <h1 class="text-xs-center">Your Settings</h1>
-        <form>
-          <fieldset>
-            <fieldset class="form-group">
-              <input class="form-control" type="text" placeholder="URL of profile picture">
-            </fieldset>
-            <fieldset class="form-group">
-              <input class="form-control form-control-lg" type="text" placeholder="Your Name">
-            </fieldset>
-            <fieldset class="form-group">
-              <textarea class="form-control form-control-lg" rows="8" placeholder="Short bio about you"></textarea>
-            </fieldset>
-            <fieldset class="form-group">
-              <input class="form-control form-control-lg" type="text" placeholder="Email">
-            </fieldset>
-            <fieldset class="form-group">
-              <input class="form-control form-control-lg" type="password" placeholder="Password">
-            </fieldset>
-            <button type="submit" class="btn btn-lg btn-primary pull-xs-right">
-              Update Settings
-            </button>
-          </fieldset>
-        </form>
-        {{#if session.isLoggedIn}}
-          <hr>
-          <button {{action "signOut"}} class="btn btn-outline-danger">Or click here to logout.</button>
-        {{/if}}
+        {{! The password as an empty string so user doesn't change the existing one by accidentally adding/removing characters}}
+        {{settings-form
+          errors=user.errors
+          image=user.image
+          username=user.username
+          bio=user.bio
+          email=user.email
+          onSubmit=(action "saveSettings" user)
+          onChange=(action "changeAttr" user)
+          disableSubmit=(not user.hasDirtyAttributes)
+        }}
+        <hr>
+        <button {{action "signOut"}} type="button" class="btn btn-outline-danger" data-test-settings-logout-button>
+          Or click here to logout.
+        </button>
       </div>
     </div>
   </div>

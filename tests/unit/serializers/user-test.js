@@ -8,10 +8,12 @@ module('Unit | Serializer | user', function(hooks) {
 
   // Replace this with your real tests.
   test('it serializes records', function(assert) {
-    const record = run(() => this.owner.lookup('service:store').createRecord('user'));
+    assert.expect(2);
+    const record = run(() => this.owner.lookup('service:store').createRecord('user', { id: 'foo' }));
 
     const serializedRecord = record.serialize();
 
     assert.ok(serializedRecord);
+    assert.equal(serializedRecord.id, 'foo', 'Expect the serialized record to contain the record ID');
   });
 });
