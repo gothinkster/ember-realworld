@@ -5,10 +5,10 @@
         {{article-form
           isNew=model.isNew
           errors=model.errors
-          title=draftArticle.title
-          description=draftArticle.description
-          body=draftArticle.body
-          tags=draftArticle.tags
+          title=(readonly draftArticle.title)
+          description=(readonly draftArticle.description)
+          body=(readonly draftArticle.body)
+          tags=(readonly draftArticle.tags)
           disableSubmit=(and (not isValid) (not draftArticle.hasDirtyAttributes))
           onSubmit=(action "saveArticle" draftArticle)
           onChange=(action "changeAttr" draftArticle)
