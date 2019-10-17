@@ -59,7 +59,7 @@ module('Unit | Controller | settings', function(hooks) {
   });
 
   test('`changeAttr` action sets a the value for a key on the `user` record', function(assert) {
-    assert.expect(2);
+    assert.expect(4);
 
     const controller = this.owner.lookup('controller:settings');
     const user = EmberObject.create({ foo: 'foo' });
@@ -67,7 +67,16 @@ module('Unit | Controller | settings', function(hooks) {
     assert.equal(user.foo, 'foo', 'Expect a key/value to be unchanged before executing `changeAttr` action');
 
     controller.actions.changeAttr.call(controller, user, 'foo', 'bar');
-
     assert.equal(user.foo, 'bar', 'Expect a key/value to be changed when `changeAttr` action is executed');
+
+    controller.actions.changeAttr.call(controller, user, 'bio', ' ');
+    assert.equal(user.bio, null, 'Expect `bio` to be set as `null` when value is a trimmed empty string');
+
+    controller.actions.changeAttr.call(controller, user, 'password', ' ');
+    assert.equal(
+      user.password,
+      undefined,
+      'Expect `password` to be set as `undefined` when value is a trimmed empty string',
+    );
   });
 });
