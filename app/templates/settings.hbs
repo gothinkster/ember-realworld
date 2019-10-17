@@ -5,11 +5,11 @@
         <h1 class="text-xs-center">Your Settings</h1>
         {{settings-form
           errors=user.errors
-          image=user.image
-          username=user.username
-          bio=user.bio
-          email=user.email
-          password=user.password
+          image=(readonly user.image)
+          username=(readonly user.username)
+          bio=(readonly user.bio)
+          email=(readonly user.email)
+          password=(readonly user.password)
           onSubmit=(action "saveSettings" user)
           onChange=(action "changeAttr" user)
           disableSubmit=(not user.hasDirtyAttributes)
