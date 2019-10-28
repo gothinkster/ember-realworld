@@ -1,9 +1,62 @@
 import { Response } from 'ember-cli-mirage';
+import { isBlank, isPresent } from '@ember/utils';
+
+export const validateArticleTitle = (title = '') => {
+  const errors = [];
+
+  title = title.trim();
+
+  if (isBlank(title)) {
+    errors.push["can't be blank"];
+  }
+
+  if (title.length < 0) {
+    errors.push('is too short (minimum is 1 character)');
+  }
+
+  if (title.length > 200) {
+    errors.push('is too long (maximum is 200 characters)');
+  }
+
+  return errors;
+};
+
+export const validateArticleBody = (body = '') => {
+  const errors = [];
+
+  body = body.trim();
+
+  if (isBlank(body)) {
+    errors.push["can't be blank"];
+  }
+
+  return errors;
+};
+
+export const validateArticleDescription = (description = '') => {
+  const errors = [];
+
+  description = description.trim();
+
+  if (isBlank(description)) {
+    errors.push["can't be blank"];
+  }
+
+  if (description.length < 0) {
+    errors.push('is too short (minimum is 1 character)');
+  }
+
+  if (description.length > 500) {
+    errors.push('is too long (maximum is 500 characters)');
+  }
+
+  return errors;
+};
 
 export default function() {
   this.namespace = 'api'; // make this `/api`, for example, if your API is namespaced
   this.timing = 400; // delay for each request, automatically set to 0 during testing
-  this.logging = true;
+
   /**
    * Authentication
    */
@@ -21,11 +74,20 @@ export default function() {
    * Get current user
    */
   this.get('/user', (schema, request) => {
-    if (request.requestHeaders.authorization === 'Token auth-token') {
-      return schema.users.findBy({ email: 'email@example.com' });
-    } else {
-      return new Response(401, {}, {});
+    const { authorization } = request.requestHeaders;
+    if (authorization) {
+      const [authType, token] = request.requestHeaders.authorization.split(' ');
+
+      if (authType === 'Token' && token) {
+        const user = schema.users.findBy({ token });
+
+        if (user) {
+          return user;
+        }
+      }
     }
+
+    return new Response(401, {}, {});
   });
 
   this.get('/articles', (schema, request) => {
@@ -67,7 +129,34 @@ export default function() {
   /**
    * Create article
    */
-  // this.post('/articles', (schema, request) => {});
+  this.post('/articles', (schema, request) => {
+    const {
+      article: { title, body, description, tagList },
+    } = JSON.parse(request.requestBody);
+    const errors = {
+      title: validateArticleTitle(title),
+      description: validateArticleDescription(description),
+      body: validateArticleBody(body),
+    };
+
+    const filteredErrors = Object.entries(errors).reduce((acc, [key, arr]) => {
+      if (arr.length) {
+        acc[key] = arr;
+      }
+      return acc;
+    }, {});
+
+    if (Object.keys(filteredErrors).length) {
+      return new Response(422, {}, { errors: filteredErrors });
+    }
+
+    return server.create('article', {
+      title,
+      body,
+      description,
+      tagList: tagList.filter(isPresent).invoke('trim'),
+    });
+  });
 
   /**
    * Get an article by ID
@@ -83,7 +172,39 @@ export default function() {
   /**
    * Update an article by ID
    */
-  // this.put('/articles/:slug', (schema, request) => {});
+  this.put('/articles/:slug', (schema, request) => {
+    const slug = request.params.slug;
+    const {
+      article: { title, body, description, tagList },
+    } = JSON.parse(request.requestBody);
+    const errors = {
+      title: validateArticleTitle(title),
+      description: validateArticleDescription(description),
+      body: validateArticleBody(body),
+    };
+
+    const filteredErrors = Object.entries(errors).reduce((acc, [key, arr]) => {
+      if (arr.length) {
+        acc[key] = arr;
+      }
+      return acc;
+    }, {});
+
+    if (Object.keys(filteredErrors).length) {
+      return new Response(422, {}, { errors: filteredErrors });
+    }
+
+    return schema.articles
+      .findBy({
+        slug,
+      })
+      .update({
+        title,
+        body,
+        description,
+        tagList: tagList.filter(isPresent).invoke('trim'),
+      });
+  });
 
   /**
    * Delete an article by ID

@@ -56,6 +56,7 @@
     "ember-source": "~3.9.0",
     "ember-test-selectors": "2.1.0",
     "ember-truth-helpers": "^2.1.0",
+    "ember-window-mock": "^0.5.4",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-ember": "^6.3.0",
