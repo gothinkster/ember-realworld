@@ -71,4 +71,48 @@ module('Unit | Model | article', function(hooks) {
       assert.notOk(article.favorited, 'The article is no longer favorited');
     });
   });
+
+  module('`tags` computed property', function() {
+    test('returns an array that is mapped by value from the `tagList`', function(assert) {
+      assert.expect(1);
+
+      const mockArticle = server.create('article', {
+        title: 'This is the title',
+        body: 'This is the body',
+        tagList: ['foo'],
+      });
+      const serializer = store.serializerFor('article');
+      store.pushPayload('article', {
+        article: serializer.normalizeArticle(mockArticle.toJSON()),
+      });
+      const article = store.peekRecord('article', mockArticle.slug);
+
+      assert.equal(article.tags[0], article.tagList.objectAt(0).value);
+    });
+
+    test('updates the `tagList` from an array of strings', function(assert) {
+      assert.expect(2);
+
+      const mockArticle = server.create('article', {
+        title: 'This is the title',
+        body: 'This is the body',
+        tagList: ['foo'],
+      });
+      const serializer = store.serializerFor('article');
+      store.pushPayload('article', {
+        article: serializer.normalizeArticle(mockArticle.toJSON()),
+      });
+      const article = store.peekRecord('article', mockArticle.slug);
+
+      assert.equal(article.tagList.objectAt(0).value, 'foo', 'The `tagList` starts off with the expected strings');
+
+      article.set('tags', ['bar']);
+
+      assert.equal(
+        article.tagList.objectAt(0).value,
+        'bar',
+        'The `tagList` is related by a different array with different values',
+      );
+    });
+  });
 });

@@ -4,7 +4,10 @@ export default DS.RESTSerializer.extend(DS.EmbeddedRecordsMixin, {
   primaryKey: 'slug',
   attrs: {
     author: { embedded: 'always' },
-    tagList: { embedded: 'always' },
+    tagList: {
+      serialize: 'ids',
+      deserialize: 'records',
+    },
   },
 
   normalizeArrayResponse(store, primaryModelClass, payload, id, requestType) {
@@ -43,5 +46,19 @@ export default DS.RESTSerializer.extend(DS.EmbeddedRecordsMixin, {
     };
 
     return article;
+  },
+
+  serialize() {
+    const json = this._super(...arguments);
+    const { tagList } = json;
+    /**
+     * If the tagList is empty, the API requires that the tagList be an array that is not empty
+     * so we add an empty string here.
+     */
+    if (!tagList || !tagList.length) {
+      json.tagList = [''];
+    }
+
+    return json;
   },
 });

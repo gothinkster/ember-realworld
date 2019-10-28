@@ -16,7 +16,11 @@
     <div class="row article-content">
       <div class="col-md-12">
         {{articleBody}}
-        <ul class="tag-list"></ul>
+        <ul class="tag-list">
+          {{#each model.tagList key="id" as | tag |}}
+            <li class="tag-default tag-pill tag-outline">{{tag.value}}</li>
+          {{/each}}
+        </ul>
       </div>
     </div>
     <hr>

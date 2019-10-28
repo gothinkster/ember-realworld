@@ -21,6 +21,7 @@ module('Integration | Component | feed item', function(hooks) {
       tagList: ['firstTag', 'secondTag', 'thirdTag'],
       description: 'This is feed item description',
       slug: 'feed-item-title',
+      id: 'feed-item-title',
       title: 'Feed Item Title',
     };
 
