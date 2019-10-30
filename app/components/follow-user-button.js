@@ -2,15 +2,18 @@ import Component from '@ember/component';
 import { get } from '@ember/object';
 
 export default Component.extend({
-  classNames: ['btn', 'btn-sm', 'btn-outline-secondary'],
+  tagName: ['button'],
+  classNames: ['btn', 'btn-sm'],
   classNameBindings: ['following:btn-secondary:btn-outline-secondary'],
-  'data-test-favorite-article-button': true,
+  'data-test-follow-user-button': true,
 
   /**
    * Method executed when "follow user" button is clicked.
+   * 
+   * @method
+   * @name followAction
    */
   click() {
-    const followAction = get(this, 'followAction');
-    followAction(Ember.get(this, 'author'));
+    return this.followAction();
   },
 });

@@ -14,7 +14,7 @@
         data-test-follow-author-button {{action onFollowAuthor article.author}}>
         <i class="ion-plus-round"></i> &nbsp; {{if article.author.following "Unfollow" "Follow"}} {{article.author.id}}
       </button> --}}
-      {{follow-user-button following=article.author.following authorId=article.author.id author=article.author followAction=onFollowAuthor}}
+      {{follow-user-button following=article.author.following authorId=article.author.id followAction=(action onFollowAuthor article.author)}}
       &nbsp;&nbsp;
       {{#favorite-article-button class=(if article.favorited "btn-primary" "btn-outline-primary") onClick=(action onFavoriteArticle article)}}
         {{if article.favorited "Unfavorite" "Favorite"}} Post
