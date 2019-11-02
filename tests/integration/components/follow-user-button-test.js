@@ -1,26 +1,27 @@
-import { module, test } from 'qunit';
+import { module } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { click, render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import test from 'ember-sinon-qunit/test-support/test';
 
-module('Integration | Component | follow-user-button', function(hooks) {
+module('Integration | Component | follow-user-button', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
+  test('`onClick` action is triggered from clicking the button', async function (assert) {
+    assert.expect(1);
 
-    await render(hbs`{{follow-user-button}}`);
+    const followAction = this.stub();
 
-    assert.equal(this.element.textContent.trim(), '');
+    this.set('followAction', followAction);
 
     // Template block usage:
     await render(hbs`
-      {{#follow-user-button}}
-        template block text
-      {{/follow-user-button}}
+      {{follow-user-button followAction=followAction}}
     `);
 
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    await click('[data-test-follow-author-button]');
+
+    assert.ok(followAction.calledOnce, 'Clicking on button should trigger `onClick` action');
   });
+
 });
