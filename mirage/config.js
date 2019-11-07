@@ -1,6 +1,38 @@
 import { Response } from 'ember-cli-mirage';
 import { isBlank, isPresent } from '@ember/utils';
 
+export const validateUserUsername = (username = '') => {
+  const errors = [];
+
+  username = username.trim();
+
+  if (isBlank(username)) {
+    errors.push["can't be blank"];
+  }
+
+  if (username.length < 0) {
+    errors.push('is too short (minimum is 1 character)');
+  }
+
+  if (username.length > 20) {
+    errors.push('is too long (maximum is 20 characters)');
+  }
+
+  return errors;
+};
+
+export const validateUserEmail = (email = '') => {
+  const errors = [];
+
+  email = email.trim();
+
+  if (isBlank(email)) {
+    errors.push["can't be blank"];
+  }
+
+  return errors;
+};
+
 export const validateArticleTitle = (title = '') => {
   const errors = [];
 
@@ -88,6 +120,41 @@ export default function() {
     }
 
     return new Response(401, {}, {});
+  });
+
+  /**
+   * Update current user
+   */
+  this.put('/user', (schema, request) => {
+    const body = JSON.parse(request.requestBody);
+    const { user: userData } = body;
+    const { id, ...settingsData } = userData;
+    const { email, username } = userData;
+    const user = schema.users.find(id);
+
+    const errors = {
+      username: validateUserUsername(username),
+      email: validateUserEmail(email),
+    };
+
+    const filteredErrors = Object.entries(errors).reduce((acc, [key, arr]) => {
+      if (arr.length) {
+        acc[key] = arr;
+      }
+      return acc;
+    }, {});
+
+    if (Object.keys(filteredErrors).length) {
+      return new Response(422, {}, { errors: filteredErrors });
+    }
+
+    /**
+     * Look up profile by the user's old username in order to update it.
+     */
+    const profile = schema.profiles.findBy({ username: user.username });
+    profile.update(settingsData);
+
+    return user.update(settingsData);
   });
 
   this.get('/articles', (schema, request) => {

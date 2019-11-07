@@ -14,7 +14,8 @@
     "Alon Bukai",
     "Alex LaFroscia",
     "Jonathan Goldman",
-    "Laura Kajpust"
+    "Laura Kajpust",
+    "Garrick Cheung"
   ],
   "scripts": {
     "build": "ember build",
