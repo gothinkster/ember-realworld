@@ -4,10 +4,10 @@ import { click, render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import test from 'ember-sinon-qunit/test-support/test';
 
-module('Integration | Component | follow-user-button', function (hooks) {
+module('Integration | Component | follow-user-button', function(hooks) {
   setupRenderingTest(hooks);
 
-  test('`onClick` action is triggered from clicking the button', async function (assert) {
+  test('`onClick` action is triggered from clicking the button', async function(assert) {
     assert.expect(1);
 
     const onClick = this.stub();
@@ -24,11 +24,11 @@ module('Integration | Component | follow-user-button', function (hooks) {
     assert.ok(onClick.calledOnce, 'Clicking on button should trigger `onClick` action');
   });
 
-  test('`class` arg is appended to button `class` attribute', async function (assert) {
+  test('`class` arg is appended to button `class` attribute', async function(assert) {
     assert.expect(2);
 
     const classNames = 'foo bar';
-    const onClick = () => { };
+    const onClick = () => {};
 
     this.setProperties({
       classNames,
