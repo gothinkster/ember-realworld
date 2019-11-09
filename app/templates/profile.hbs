@@ -14,7 +14,7 @@
                 <i class="ion-gear-a"></i> Edit Profile Settings
               {{/link-to}}
             {{else}}
-              {{#follow-user-button data-test-follow-profile-button disabled=waitingForFollowing class="btn btn-sm btn-outline-secondary action-btn" followAction=(perform (if model.following unFollowUser followUser) model)}}
+              {{#follow-user-button data-test-follow-profile-button disabled=waitingForFollowing class="btn btn-sm btn-outline-secondary action-btn" onClick=(perform (if model.following unFollowUser followUser) model)}}
                 {{if model.following "Unfollow" "Follow"}} {{model.username}}
               {{/follow-user-button}}
             {{/if}}

@@ -10,9 +10,9 @@ export default Component.extend({
    * Method executed when "follow user" button is clicked.
    * 
    * @method
-   * @name followAction
+   * @name onClick
    */
   click() {
-    return this.followAction();
+    return this.onClick();
   },
 });

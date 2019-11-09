@@ -10,34 +10,34 @@ module('Integration | Component | follow-user-button', function (hooks) {
   test('`onClick` action is triggered from clicking the button', async function (assert) {
     assert.expect(1);
 
-    const followAction = this.stub();
+    const onClick = this.stub();
 
-    this.set('followAction', followAction);
+    this.set('onClick', onClick);
 
     // Template block usage:
     await render(hbs`
-      {{follow-user-button followAction=followAction}}
+      {{follow-user-button onClick=onClick}}
     `);
 
     await click('[data-test-follow-author-button]');
 
-    assert.ok(followAction.calledOnce, 'Clicking on button should trigger `onClick` action');
+    assert.ok(onClick.calledOnce, 'Clicking on button should trigger `onClick` action');
   });
 
   test('`class` arg is appended to button `class` attribute', async function (assert) {
     assert.expect(2);
 
     const classNames = 'foo bar';
-    const followAction = () => { };
+    const onClick = () => { };
 
     this.setProperties({
       classNames,
-      followAction,
+      onClick,
     });
 
     // Template block usage:
     await render(hbs`
-      {{#follow-user-button class=classNames followAction=followAction}}
+      {{#follow-user-button class=classNames onClick=onClick}}
         template block text
       {{/follow-user-button}}
     `);

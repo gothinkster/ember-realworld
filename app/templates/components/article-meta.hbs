@@ -10,7 +10,7 @@
         <i class="ion-trash-a"></i> &nbsp; Delete Article
       </button>
     {{else}}
-      {{#follow-user-button class="btn btn-sm" followAction=(action onFollowAuthor article.author)}}
+      {{#follow-user-button class="btn btn-sm" onClick=(action onFollowAuthor article.author)}}
         {{if article.author.following "Unfollow" "Follow"}} {{article.author.id}}
       {{/follow-user-button}}
       &nbsp;&nbsp;
