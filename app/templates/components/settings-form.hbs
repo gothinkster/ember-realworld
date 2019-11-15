@@ -1,0 +1,37 @@
+<form {{action "submit" on="submit" }}>
+  {{#if errors}}
+    <ul class="error-messages">
+      {{#each errors key="@index" as | error |}}
+        <li data-test-settings-form-error-item>{{error.attribute}} {{error.message}}</li>
+      {{/each}}
+    </ul>
+  {{/if}}
+  <fieldset>
+    <fieldset class="form-group">
+      {{input class="form-control" type="text" placeholder="URL of profile picture" data-test-settings-form-input-image=""
+        value=image input=(action "change" "image")}}
+    </fieldset>
+    <fieldset class="form-group">
+      {{input class="form-control form-control-lg" type="text" placeholder="Your Name" data-test-settings-form-input-username=""
+        value=username input=(action "change" "username")}}
+    </fieldset>
+    <fieldset class="form-group">
+      {{! template-lint-disable block-indentation }}
+      {{textarea class="form-control form-control-lg" rows="8" placeholder="Short bio about you"
+        data-test-settings-form-input-bio="" value=bio input=(action "change" "bio")}}
+    </fieldset>
+    <fieldset class="form-group">
+      {{input class="form-control form-control-lg" type="text" placeholder="Email" data-test-settings-form-input-email=""
+        value=email input=(action "change" "email")}}
+    </fieldset>
+    <fieldset class="form-group">
+      {{input class="form-control form-control-lg" type="password" placeholder="Password"
+        data-test-settings-form-input-password="" value=password
+        input=(action "change" "password")}}
+    </fieldset>
+    <button type="submit" class="btn btn-lg btn-primary pull-xs-right" data-test-settings-form-submit-button
+      disabled={{disableSubmit}}>
+      Update Settings
+    </button>
+  </fieldset>
+</form>

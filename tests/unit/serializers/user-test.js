@@ -8,10 +8,24 @@ module('Unit | Serializer | user', function(hooks) {
 
   // Replace this with your real tests.
   test('it serializes records', function(assert) {
-    const record = run(() => this.owner.lookup('service:store').createRecord('user'));
+    assert.expect(5);
+    const record = run(() => this.owner.lookup('service:store').createRecord('user', { id: 'foo' }));
 
-    const serializedRecord = record.serialize();
-
+    let serializedRecord = record.serialize();
     assert.ok(serializedRecord);
+    assert.equal(serializedRecord.id, 'foo', 'Expect the serialized record to contain the record ID');
+    assert.equal(serializedRecord.password, null, 'falsey `password` should be removed from the serialized record');
+
+    record.set('password', ' ');
+    serializedRecord = record.serialize();
+    assert.equal(
+      serializedRecord.password,
+      null,
+      '`password` with only white space should be removed from the serialized record',
+    );
+
+    record.set('password', 'abc');
+    serializedRecord = record.serialize();
+    assert.equal(serializedRecord.password, 'abc', 'truthy `password` should be included in the serialized record');
   });
 });

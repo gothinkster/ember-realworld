@@ -10,10 +10,10 @@ module('Unit | Route | article', function(hooks) {
 
     const route = this.owner.lookup('route:article');
     const findRecordStub = this.stub(route.store, 'findRecord').resolves();
-    const slug = 1;
+    const slug = '1';
 
     await route.model({ slug });
 
-    assert.ok(findRecordStub.calledOnceWith('article', slug), 'Find an `article` record by ID (slug)');
+    assert.ok(findRecordStub.calledOnceWith('article', slug), 'Find an `article` record by `slug`');
   });
 });
