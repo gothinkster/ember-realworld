@@ -10,10 +10,9 @@
         <i class="ion-trash-a"></i> &nbsp; Delete Article
       </button>
     {{else}}
-      <button class="btn btn-sm {{if article.author.following "btn-secondary" "btn-outline-secondary"}}"
-        data-test-follow-author-button {{action onFollowAuthor article.author}}>
-        <i class="ion-plus-round"></i> &nbsp; {{if article.author.following "Unfollow" "Follow"}} {{article.author.id}}
-      </button>
+      {{#follow-user-button following=article.author.following onClick=(action onFollowAuthor article.author)}}
+        {{if article.author.following "Unfollow" "Follow"}} {{article.author.id}}
+      {{/follow-user-button}}
       &nbsp;&nbsp;
       {{#favorite-article-button class=(if article.favorited "btn-primary" "btn-outline-primary") onClick=(action onFavoriteArticle article)}}
         {{if article.favorited "Unfavorite" "Favorite"}} Post
