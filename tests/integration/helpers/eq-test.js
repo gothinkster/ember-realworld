@@ -12,10 +12,10 @@ module('Integration | Helper | eq', function(hooks) {
     this.set('inputValueB', '1234');
 
     await render(hbs`{{eq inputValueA inputValueB}}`);
-    assert.equal(this.element.textContent.trim(), 'true');
+    assert.dom(this.element).hasText('true');
 
     this.set('inputValueB', '123');
     await render(hbs`{{eq inputValueA inputValueB}}`);
-    assert.equal(this.element.textContent.trim(), 'false');
+    assert.dom(this.element).hasText('false');
   });
 });
