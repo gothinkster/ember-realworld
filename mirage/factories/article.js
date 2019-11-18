@@ -1,4 +1,5 @@
-import { Factory, association, faker } from 'ember-cli-mirage';
+import { Factory, association } from 'ember-cli-mirage';
+import faker from 'faker';
 
 const tags = ['emberjs', 'tomster', 'wycats', 'tomdale', 'ember-cli', 'training', 'dragons'];
 
