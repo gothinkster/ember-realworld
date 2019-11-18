@@ -66,7 +66,7 @@ module('Unit | Controller | profile', function(hooks) {
 
       try {
         await executedTask;
-      } catch {
+      } catch (e) {
         assert.notOk(
           controller.waitingForFollowing,
           '`waitingForFollowing` property should be set to `false` after the task completes',
@@ -136,7 +136,7 @@ module('Unit | Controller | profile', function(hooks) {
 
       try {
         await executedTask;
-      } catch {
+      } catch (e) {
         assert.notOk(
           controller.waitingForFollowing,
           '`waitingForFollowing` property should be set to `false` after the task completes',
