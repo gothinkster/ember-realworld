@@ -1,0 +1,38 @@
+<div class="home-page">
+  <div class="banner">
+    <div class="container">
+      <h1 class="logo-font">conduit</h1>
+      <p>A place to share your knowledge.</p>
+    </div>
+  </div>
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="feed-toggle">
+          <ul class="nav nav-pills outline-active">
+            {{#if session.isLoggedIn}}
+              <li class="nav-item">
+                {{#link-to "home" (query-params feed="your" page=1 tag=null) class=(concat "nav-link " (unless feed disabled)) data-test-feed="your"}}
+                  Your Feed
+                {{/link-to}}
+              </li>
+            {{/if}}
+            <li class="nav-item">
+              {{#link-to "home" (query-params feed=null page=1 tag=null) class="nav-link" data-test-feed="global"}}
+                Global Feed
+              {{/link-to}}
+            </li>
+            {{#if tag}}
+              <li class="nav-item">
+                {{#link-to "home" (query-params feed=null page=1 tag=tag) class="nav-link" data-test-feed=tag}}
+                  {{tag}}
+                {{/link-to}}
+              </li>
+            {{/if}}
+          </ul>
+        </div>
+        Loading...
+      </div>
+    </div>
+  </div>
+</div>
