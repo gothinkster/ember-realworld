@@ -15,26 +15,22 @@ export default Route.extend({
     },
   },
 
-  model({ feed, page, tag }) {
+  async model({ feed, page, tag }) {
     const NUMBER_OF_ARTICLES = 10;
     if (feed === 'your') {
-      return this.session.user.fetchFeed(page).then(({ articles, meta }) => {
-        meta.pageSize = NUMBER_OF_ARTICLES;
-        return { articles, meta };
-      });
+      const { articles, meta } = await this.session.user.fetchFeed(page);
+      meta.pageSize = NUMBER_OF_ARTICLES;
+      return { articles, meta };
     } else {
       const offset = (parseInt(page, 10) - 1) * NUMBER_OF_ARTICLES;
-      return this.store
-        .query('article', {
-          limit: NUMBER_OF_ARTICLES,
-          feed,
-          offset,
-          tag,
-        })
-        .then(articles => {
-          articles.meta.pageSize = NUMBER_OF_ARTICLES;
-          return { articles, meta: articles.meta };
-        });
+      const articles = await this.store.query('article', {
+        limit: NUMBER_OF_ARTICLES,
+        feed,
+        offset,
+        tag,
+      });
+      articles.meta.pageSize = NUMBER_OF_ARTICLES;
+      return { articles, meta: articles.meta };
     }
   },
 });

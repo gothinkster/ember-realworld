@@ -42,8 +42,8 @@ export default Service.extend({
     });
   },
 
-  logIn(email, password) {
-    return fetch(`${ENV.API.host}/api/users/login`, {
+  async logIn(email, password) {
+    const login = await fetch(`${ENV.API.host}/api/users/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -54,52 +54,49 @@ export default Service.extend({
           password,
         },
       }),
-    })
-      .then(login => login.json())
-      .then(userPayload => {
-        if (userPayload.errors) {
-          const errors = this.processLoginErrors(userPayload.errors);
-          return {
-            errors,
-          };
-        } else {
-          this.store.pushPayload({
-            users: [userPayload.user],
-          });
-          this.setToken(userPayload.user.token);
-          this.set('user', this.store.peekRecord('user', userPayload.user.id));
-          return this.user;
-        }
+    });
+    const userPayload = await login.json();
+    if (userPayload.errors) {
+      const errors = this.processLoginErrors(userPayload.errors);
+      return {
+        errors,
+      };
+    } else {
+      this.store.pushPayload({
+        users: [userPayload.user],
       });
+      this.setToken(userPayload.user.token);
+      this.set('user', this.store.peekRecord('user', userPayload.user.id));
+      return this.user;
+    }
   },
 
   logOut() {
     this.removeToken();
   },
 
-  fetchUser() {
-    return this.fetch('/user').then(({ user }) => {
-      // Only push the user into the store if user is truthy
-      // Otherwise store will throw errors where a type cannot be looked up on undefined.
-      if (user) {
-        this.store.pushPayload({
-          users: [user],
-        });
-        this.set('user', this.store.peekRecord('user', user.id));
-        return this.user;
-      }
-    });
+  async fetchUser() {
+    const { user } = await this.fetch('/user');
+    // Only push the user into the store if user is truthy
+    // Otherwise store will throw errors where a type cannot be looked up on undefined.
+    if (user) {
+      this.store.pushPayload({
+        users: [user],
+      });
+      this.set('user', this.store.peekRecord('user', user.id));
+      return this.user;
+    }
   },
 
-  fetch(url, method = 'GET') {
-    return fetch(`${ENV.API.host}/api${url}`, {
+  async fetch(url, method = 'GET') {
+    const response = await fetch(`${ENV.API.host}/api${url}`, {
       method,
       headers: {
         Authorization: this.token ? `Token ${this.token}` : '',
       },
-    })
-      .then(response => response.json())
-      .then(payload => payload);
+    });
+    const payload = await response.json();
+    return payload;
   },
 
   getStoredToken() {
