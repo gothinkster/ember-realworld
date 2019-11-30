@@ -17,7 +17,8 @@
     "Laura Kajpust",
     "Garrick Cheung",
     "Pat O' Callaghan",
-    "Chris Manson"
+    "Chris Manson",
+    "Ryan Mark"
   ],
   "scripts": {
     "build": "ember build",
