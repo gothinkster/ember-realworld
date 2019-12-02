@@ -10,16 +10,20 @@ export default Controller.extend({
   followUser: task(function*(profile) {
     this.toggleProperty('waitingForFollowing');
 
-    yield profile.follow().finally(() => {
+    try {
+      yield profile.follow();
+    } finally {
       this.toggleProperty('waitingForFollowing');
-    });
+    }
   }).drop(),
 
   unFollowUser: task(function*(profile) {
     this.toggleProperty('waitingForFollowing');
 
-    yield profile.unfollow().finally(() => {
+    try {
+      yield profile.unfollow();
+    } finally {
       this.toggleProperty('waitingForFollowing');
-    });
+    }
   }).drop(),
 });
