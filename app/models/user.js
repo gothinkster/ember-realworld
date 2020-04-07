@@ -1,34 +1,28 @@
-import DS from 'ember-data';
+import Model, { attr } from '@ember-data/model';
 import { inject as service } from '@ember/service';
 
-export default DS.Model.extend({
-  session: service(),
-  username: DS.attr('string'),
-  email: DS.attr('string'),
-  bio: DS.attr('string'),
-  image: DS.attr('string'),
-  following: DS.attr('boolean'),
-  password: DS.attr('string'),
-  token: DS.attr('string'),
-  createdAt: DS.attr('string'),
-  updatedAt: DS.attr('string'),
+export default class UserModel extends Model {
+  @service session;
+
+  @attr bio;
+  @attr email;
+  @attr image;
+  @attr password;
+  @attr token;
+  @attr username;
+  @attr('date') createdAt;
+  @attr('date') updatedAt;
 
   async fetchFeed(page = 1) {
-    const { articles, articlesCount } = await this.session.fetch(`/articles/feed?page=${page}`);
+    let { articles } = await this.session.fetch(`/articles/feed?page=${page}`);
     if (!articles.length) {
       return [];
     }
-    const ids = articles.map(article => article.slug);
-    const normalizedArticles = articles.map(article =>
-      Object.assign({}, article, {
-        id: article.slug,
-        tagList: article.tagList.map(tag => ({ value: tag })),
-      }),
+    let ids = articles.map(article => article.slug);
+    let normalizedArticles = articles.map(article =>
+      Object.assign({}, article, { id: article.slug }),
     );
     this.store.pushPayload({ articles: normalizedArticles });
-    return {
-      articles: this.store.peekAll('article').filter(article => ids.includes(article.id)),
-      meta: { articlesCount },
-    };
-  },
-});
+    return this.store.peekAll('article').filter(article => ids.includes(article.id));
+  }
+}

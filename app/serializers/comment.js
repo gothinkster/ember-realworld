@@ -1,7 +1,7 @@
-import DS from 'ember-data';
+import RESTSerializer, { EmbeddedRecordsMixin } from '@ember-data/serializer/rest';
 
-export default DS.RESTSerializer.extend(DS.EmbeddedRecordsMixin, {
-  attrs: {
+export default class CommentSerializer extends RESTSerializer.extend(EmbeddedRecordsMixin) {
+  attrs = {
     author: { embedded: 'always' },
-  },
-});
+  };
+}

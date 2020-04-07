@@ -1,0 +1,5 @@
+<LinkTo @route="profile" @model={{@author.id}}><img src={{@author.image}} alt={{@author.username}}></LinkTo>
+<div class="info">
+  <LinkTo @route="profile" @model={{@author.id}} class="author">{{@author.id}}</LinkTo>
+  <span class="date">{{format-date @updatedAt}}</span>
+</div>

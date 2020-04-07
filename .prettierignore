@@ -1,2 +1,10 @@
+# unconventional js
+script
+.circleci
+*.hbs
+
+# dependencies
+/node_modules/
+
 dist
 tmp

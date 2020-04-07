@@ -1,0 +1,11 @@
+<p>Popular Tags</p>
+{{#if this.loadTags.isRunning}}
+  <p>Loading...</p>
+{{else}}
+  <div class="tag-list">
+    {{#each this.tags as |tag| }}
+      <LinkTo @route="index" @query={{hash feed=null author=null tag=tag page=1}} class="tag-pill tag-default"
+        data-test-tag={{tag}}>{{tag}}</LinkTo>
+    {{/each}}
+  </div>
+{{/if}}

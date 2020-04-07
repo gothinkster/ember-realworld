@@ -2,14 +2,18 @@
 
 module.exports = function(environment) {
   const ENV = {
-    modulePrefix: 'realworld-ember',
+    modulePrefix: 'ember-realworld',
     environment: environment,
     rootURL: '/',
-    locationType: 'auto',
+    locationType: 'history',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
         // e.g. EMBER_NATIVE_DECORATOR_SUPPORT: true
+        EMBER_NATIVE_DECORATOR_SUPPORT: true,
+        EMBER_METAL_TRACKED_PROPERTIES: true,
+        EMBER_GLIMMER_ANGLE_BRACKET_NESTED_LOOKUP: true,
+        EMBER_GLIMMER_ANGLE_BRACKET_BUILT_INS: true,
       },
       EXTEND_PROTOTYPES: {
         // Prevent Ember Data from overriding Date.parse.
@@ -18,12 +22,7 @@ module.exports = function(environment) {
     },
 
     APP: {
-      // Here you can pass flags/options to your application instance
-      // when it is created
-    },
-
-    API: {
-      host: 'https://conduit.productionready.io',
+      apiHost: 'https://conduit.productionready.io/api',
     },
 
     'ember-cli-mirage': {
@@ -49,14 +48,11 @@ module.exports = function(environment) {
 
     ENV.APP.rootElement = '#ember-testing';
     ENV.APP.autoboot = false;
-
-    // Enable mocking by removing the host
-    ENV.API.host = '';
+    ENV.APP.apiHost = '';
   }
 
-  if (environment === 'production') {
-    // Some prod-only config
-  }
+  // if (environment === 'production') {
+  // }
 
   return ENV;
 };

@@ -1,27 +1,24 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
+import { inject as service } from '@ember/service';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  image: '',
-  username: '',
-  bio: '',
-  email: '',
-  password: '',
+export default class SettingsFormComponent extends Component {
+  @service session;
 
-  actions: {
-    submit() {
-      const { image, username, bio, email, password } = this;
+  willDestroy() {
+    super.willDestroy(...arguments);
+    if (this.session.user.hasDirtyAttributes) {
+      this.session.user.rollbackAttributes();
+    }
+  }
 
-      return this.onSubmit({
-        image,
-        username,
-        bio,
-        email,
-        password,
-      });
-    },
-
-    change(field, event) {
-      return this.onChange(field, event.target.value);
-    },
-  },
-});
+  @action
+  async submit(e) {
+    e.preventDefault();
+    try {
+      await this.session.user.save();
+    } catch {
+      // Catch any save errors
+    }
+  }
+}

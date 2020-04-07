@@ -1,5 +1,13 @@
 import { module, test } from 'qunit';
-import { find, fillIn, visit, currentURL, click, settled, currentRouteName } from '@ember/test-helpers';
+import {
+  find,
+  fillIn,
+  visit,
+  currentURL,
+  click,
+  settled,
+  currentRouteName,
+} from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 import { setupLoggedInUser, setupLoggedOutUser } from '../helpers/user';
@@ -8,33 +16,32 @@ import { all } from 'rsvp';
 module('Acceptance | settings', function(hooks) {
   setupApplicationTest(hooks);
   setupMirage(hooks);
-  setupLoggedOutUser(hooks);
 
-  test('visiting /settings redirects to login', async function(assert) {
-    await visit('/settings');
+  module('logged-out user', function() {
+    setupLoggedOutUser(hooks);
 
-    assert.equal(currentURL(), '/login');
+    test('visiting /settings redirects to login', async function(assert) {
+      await visit('/settings');
+
+      assert.equal(currentURL(), '/login');
+    });
   });
 
   module('logged-in user', function(hooks) {
     setupLoggedInUser(hooks, 'token');
 
-    let user;
-
     hooks.beforeEach(function() {
-      user = server.create('user', {
+      this.server.create('user', {
         email: 'bob@example.com',
         password: 'password123',
       });
 
-      server.get('/user', schema => {
+      this.server.get('/user', schema => {
         return schema.users.first();
       });
     });
 
     test('can edit their settings', async function(assert) {
-      assert.expect(10);
-
       await visit('/settings');
 
       const newSettings = {
@@ -78,28 +85,46 @@ module('Acceptance | settings', function(hooks) {
         }),
       );
 
-      await click('[data-test-settings-form-submit-button]');
+      await click('[data-test-settings-form-button]');
       await settled();
 
-      user.reload();
-
-      newSettingsEntries.forEach(([key, value]) => {
-        assert.equal(user[key], value, `Expected user ${key} to be updated`);
-      });
+      assert
+        .dom('[data-test-settings-form-input-image]')
+        .hasValue(newSettings.image, 'Settings image input should be updated');
+      assert
+        .dom('[data-test-settings-form-input-bio]')
+        .hasValue(newSettings.bio, 'Settings bio input should be updated');
+      assert
+        .dom('[data-test-settings-form-input-username]')
+        .hasValue(newSettings.username, 'Settings username input should be updated');
+      assert
+        .dom('[data-test-settings-form-input-password]')
+        .hasValue(newSettings.password, 'Settings password input should be updated');
+      assert
+        .dom('[data-test-settings-form-input-email]')
+        .hasValue(newSettings.email, 'Settings email input should be updated');
     });
 
     test('shows settings errors from server', async function(assert) {
-      assert.expect(2);
-
       await visit('/settings');
 
       await fillIn('[data-test-settings-form-input-username]', Array(22).join('a'));
       await fillIn('[data-test-settings-form-input-email]', '');
 
-      await click('[data-test-settings-form-submit-button]');
+      await click('[data-test-settings-form-button]');
 
-      assert.dom('[data-test-settings-form-error-item]').exists();
-      assert.equal(currentRouteName(), 'settings', 'Should not navigate away from the page when there are errors');
+      assert
+        .dom('[data-test-settings-form-error-item]')
+        .exists({ count: 2 }, 'Two errors are visible');
+      assert
+        .dom('[data-test-settings-form-error-item="0"]')
+        .hasText('username is too long (maximum is 20 characters)');
+      assert.dom('[data-test-settings-form-error-item="1"]').hasText("email can't be blank");
+      assert.equal(
+        currentRouteName(),
+        'settings',
+        'Should not navigate away from the page when there are errors',
+      );
     });
   });
 });

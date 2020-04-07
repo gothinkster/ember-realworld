@@ -1,20 +1,20 @@
-import Component from '@ember/component';
-import { task } from 'ember-concurrency';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
+import { task } from 'ember-concurrency-decorators';
 
-export default Component.extend({
-  store: service(),
-  init() {
-    this._super(...arguments);
-    this.set('tags', []);
+export default class TagListComponent extends Component {
+  @service session;
+  @tracked tags = [];
+
+  constructor() {
+    super(...arguments);
     this.loadTags.perform();
-  },
-  loadTags: task(function*() {
-    /**
-     * Query for popular tags.
-     * Using findAll would return a live array that would get populated with tags from articles, which may/may-not be popular tags.
-     */
-    const tags = yield this.store.query('tag', {});
-    this.set('tags', tags);
-  }).drop(),
-});
+  }
+
+  @task({ restartable: true })
+  *loadTags() {
+    let { tags } = yield this.session.fetch('/tags');
+    this.tags = tags;
+  }
+}
