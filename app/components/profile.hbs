@@ -1,0 +1,41 @@
+<div class="profile-page">
+  <div class="user-info">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-md-10 offset-md-1">
+          <img src={{@profile.image}} alt={{@profile.username}} class="user-img">
+          <h4>{{@profile.id}}</h4>
+          <p>{{@profile.bio}}</p>
+          {{#if (eq @profile.id this.session.user.username)}}
+            <LinkTo @route="settings" class="btn btn-sm btn-outline-secondary action-btn" data-test-edit-profile-button>
+              <i class="ion-gear-a"></i> Edit Profile Settings
+            </LinkTo>
+          {{else}}
+            <FollowProfile @profile={{@profile}} />
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-10 offset-md-1">
+        <div class="articles-toggle">
+          <ul class="nav nav-pills outline-active">
+            <li class="nav-item">
+              <LinkTo @route="profile.index" @model={{@profile.id}} class="nav-link"
+                data-test-profile-tab="my-articles">My Articles</LinkTo>
+            </li>
+            <li class="nav-item">
+              <LinkTo @route="profile.favorites" class="nav-link" data-test-profile-tab="favorite-articles">Favorited
+                Articles</LinkTo>
+            </li>
+          </ul>
+        </div>
+        {{#each @articles as |article|}}
+          <ArticlePreview @article={{article}} />
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,9 +1,10 @@
-<div data-test-error-page class="editor-page">
+<div class="editor-page" data-test-error-page>
   <div class="container page">
     <div class="row">
       <div class="col-md-10 offset-md-1 col-xs-12">
-        <h2>Sorry, but that page does not exist.</h2>
-        <p>Visit the {{#link-to "home"}}homepage{{/link-to}} to find the page you are looking for.</p>
+        <h2>Sorry but that page does not exist.</h2>
+        <p>Try find your page from the <LinkTo @route="index">homepage</LinkTo>
+        </p>
       </div>
     </div>
   </div>

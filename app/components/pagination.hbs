@@ -1,0 +1,9 @@
+<nav>
+  <ul class="pagination">
+    {{#each this.pages as |page|}}
+      <li class="page-item {{if (eq page @current) "active"}}" data-test-page-item={{page}}>
+        <LinkTo @route="index" @query={{hash author=@existingParams.author tag=@existingParams.tag page=page}} class="page-link" data-test-page-item-link={{page}}>{{page}}</LinkTo>
+      </li>
+    {{/each}}
+  </ul>
+</nav>

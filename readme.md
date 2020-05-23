@@ -23,8 +23,8 @@ You will need the following things properly installed on your computer.
 ## Installation
 
 - `git clone <repository-url>` this repository
-- `cd my-app`
-- `yarn install`
+- `cd ember-realworld`
+- `yarn`
 
 ## Running / Development
 
@@ -38,8 +38,8 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 ### Running Tests
 
-- `ember test`
-- `ember test --server`
+- `yarn test`
+- `yarn test --server`
 
 ### Linting
 

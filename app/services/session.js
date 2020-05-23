@@ -1,49 +1,62 @@
 import Service from '@ember/service';
+import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
-import { computed } from '@ember/object';
-import ENV from 'realworld-ember/config/environment';
+import { tracked } from '@glimmer/tracking';
+import ENV from 'ember-realworld/config/environment';
 
-export const STORAGE_KEY = 'realworld.ember-classic.token';
+export default class SessionService extends Service {
+  @service store;
+  @service session;
 
-export default Service.extend({
-  store: service(),
-  token: null,
-  user: null,
+  @tracked token = null;
+  @tracked user = null;
+  static STORAGE_KEY = 'realworld.ember.token';
 
   initSession() {
-    const storedToken = this.getStoredToken();
+    let storedToken = this.getStoredToken();
     if (storedToken) {
-      this.set('token', storedToken);
+      this.token = storedToken;
       return this.fetchUser();
     }
-  },
+  }
 
-  isLoggedIn: computed('token', function() {
+  get isLoggedIn() {
     return !!this.token;
-  }),
+  }
 
-  register(username, email, password) {
-    const user = this.store.createRecord('user', {
+  async fetch(url, method = 'GET') {
+    let response = await fetch(`${ENV.APP.apiHost}${url}`, {
+      method,
+      headers: {
+        Authorization: this.token ? `Token ${this.token}` : '',
+      },
+    });
+    let payload = await response.json();
+    return payload;
+  }
+
+  @action
+  async register(username, email, password) {
+    let user = this.store.createRecord('user', {
       username,
       email,
       password,
     });
-    return new Promise(resolve => {
-      user
-        .save()
-        .then(() => {
-          this.setToken(user.token);
-        })
-        .catch(err => err)
-        .finally(() => {
-          this.set('user', user);
-          resolve(user);
-        });
-    });
-  },
+    try {
+      await user.save();
+      this.setToken(user.token);
+    } catch {
+      // Registration returned errors
+    } finally {
+      this.user = user;
+    }
+    return user;
+  }
 
+  @action
   async logIn(email, password) {
-    const login = await fetch(`${ENV.API.host}/api/users/login`, {
+    // @patocallaghan - It would be nice to encapsulate some of this logic in the User model as a `static` class, but unsure how to access container and store from there
+    let login = await fetch(`${ENV.APP.apiHost}/users/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -55,72 +68,56 @@ export default Service.extend({
         },
       }),
     });
-    const userPayload = await login.json();
+    let userPayload = await login.json();
     if (userPayload.errors) {
-      const errors = this.processLoginErrors(userPayload.errors);
-      return {
-        errors,
-      };
+      let errors = this.processLoginErrors(userPayload.errors);
+      return { errors };
     } else {
       this.store.pushPayload({
         users: [userPayload.user],
       });
       this.setToken(userPayload.user.token);
-      this.set('user', this.store.peekRecord('user', userPayload.user.id));
+      this.user = this.store.peekRecord('user', userPayload.user.id);
       return this.user;
     }
-  },
+  }
 
+  @action
   logOut() {
     this.removeToken();
-  },
+  }
 
   async fetchUser() {
-    const { user } = await this.fetch('/user');
-    // Only push the user into the store if user is truthy
-    // Otherwise store will throw errors where a type cannot be looked up on undefined.
-    if (user) {
-      this.store.pushPayload({
-        users: [user],
-      });
-      this.set('user', this.store.peekRecord('user', user.id));
-      return this.user;
-    }
-  },
-
-  async fetch(url, method = 'GET') {
-    const response = await fetch(`${ENV.API.host}/api${url}`, {
-      method,
-      headers: {
-        Authorization: this.token ? `Token ${this.token}` : '',
-      },
+    let { user } = await this.session.fetch('/user');
+    this.store.pushPayload({
+      users: [user],
     });
-    const payload = await response.json();
-    return payload;
-  },
+    this.user = this.store.peekRecord('user', user.id);
+    return this.user;
+  }
 
   getStoredToken() {
-    return localStorage.getItem(STORAGE_KEY);
-  },
+    return localStorage.getItem(SessionService.STORAGE_KEY);
+  }
 
   setToken(token) {
-    this.set('token', token);
-    localStorage.setItem(STORAGE_KEY, token);
-  },
+    this.token = token;
+    localStorage.setItem(SessionService.STORAGE_KEY, token);
+  }
 
   removeToken() {
-    this.set('token', null);
-    localStorage.removeItem(STORAGE_KEY);
-  },
+    this.token = null;
+    localStorage.removeItem('realworld.ember.token');
+  }
 
   processLoginErrors(errors) {
-    const loginErrors = [];
-    const errorKeys = Object.keys(errors);
+    let loginErrors = [];
+    let errorKeys = Object.keys(errors);
     errorKeys.forEach(attribute => {
       errors[attribute].forEach(message => {
         loginErrors.push(`${attribute} ${message}`);
       });
     });
     return loginErrors;
-  },
-});
+  }
+}

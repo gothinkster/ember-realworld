@@ -1,30 +1,26 @@
 module.exports = {
-  globals: {
-    server: true,
-  },
   root: true,
   parser: 'babel-eslint',
   parserOptions: {
-    ecmaVersion: 2017,
+    ecmaVersion: 2018,
     sourceType: 'module',
+    ecmaFeatures: {
+      legacyDecorators: true,
+    },
   },
   plugins: ['ember', 'prettier'],
-  extends: ['eslint:recommended', 'plugin:ember/recommended', 'plugin:prettier/recommended'],
+  extends: ['eslint:recommended', 'plugin:ember/octane', 'plugin:prettier/recommended'],
   env: {
     browser: true,
   },
   rules: {
-    'prettier/prettier': 'error',
-    'ember/order-in-components': 'error',
-    'ember/order-in-controllers': 'error',
-    'ember/order-in-routes': 'error',
-    'prefer-const': 'error',
-    'no-var': 'error',
+    'ember/use-ember-data-rfc-395-imports': 'error',
   },
   overrides: [
     // node files
     {
       files: [
+        '.ember-cli.js',
         '.eslintrc.js',
         '.template-lintrc.js',
         'ember-cli-build.js',
@@ -36,12 +32,19 @@ module.exports = {
       ],
       parserOptions: {
         sourceType: 'script',
-        ecmaVersion: 2015,
       },
       env: {
         browser: false,
         node: true,
       },
+      plugins: ['node'],
+      rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
+        // add your custom rules and overrides for node files here
+
+        // this can be removed once the following is fixed
+        // https://github.com/mysticatea/eslint-plugin-node/issues/77
+        'node/no-unpublished-require': 'off',
+      }),
     },
   ],
 };

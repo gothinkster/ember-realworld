@@ -1,0 +1,17 @@
+<div class="card" data-test-article-comment>
+  <div class="card-block">
+    <p class="card-text" data-test-article-comment-body>{{@comment.body}}</p>
+  </div>
+  <div class="card-footer">
+    <LinkTo @route="profile" @model={{@comment.author.id}} class="comment-author">
+      <img src={{@comment.author.image}} class="comment-author-img" alt={{@comment.author.username}}>
+    </LinkTo>
+    &nbsp;
+    <LinkTo @route="profile" @model={{@comment.author.id}} class="comment-author">{{@comment.author.id}}</LinkTo>
+    <span class="date-posted">{{format-date @comment.updatedAt}}</span>
+    {{#if (eq this.session.user.username @comment.author.id)}}
+      <a href="" class="mod-options" {{on "click" this.deleteComment}} data-test-article-comment-delete-button><i
+          class="ion-trash-a"></i></a>
+    {{/if}}
+  </div>
+</div>

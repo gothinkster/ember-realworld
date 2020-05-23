@@ -1,0 +1,17 @@
+<div class="article-meta">
+  <ArticleAuthor @author={{@article.author}} @updatedAt={{@article.updatedAt}} />
+  {{#if (eq this.session.user.username @article.author.id)}}
+    <LinkTo class="btn btn-outline-secondary btn-sm" @route="editor.edit" @model={{@article.id}}
+      data-test-edit-article-button>
+      <i class="ion-edit"></i> Edit Article
+    </LinkTo>
+    <button class="btn btn-outline-danger btn-sm" {{on "click" this.deleteArticle}} type="button"
+      data-test-delete-article-button>
+      <i class="ion-trash-a"></i> Delete Article
+    </button>
+  {{else}}
+    <FollowProfile @profile={{@article.author}} />
+    &nbsp;&nbsp;
+    <FavoriteArticle @article={{@article}} />
+  {{/if}}
+</div>

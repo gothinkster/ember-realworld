@@ -1,41 +1,39 @@
-import DS from 'ember-data';
+import Model, { attr, hasMany } from '@ember-data/model';
 import { inject as service } from '@ember/service';
 
-export default DS.Model.extend({
-  session: service(),
-  store: service(),
-  bio: DS.attr('string'),
-  image: DS.attr('string'),
-  following: DS.attr('boolean'),
-  /**
-   * Articles by the profile owner.
-   * Inverse option is `null` to prevent a profile from being set on the article incorrectly when a `hasMany` relationship loads articles not owned
-   * by the profile, such as `favoriteArticles`.
-   */
-  articles: DS.hasMany('article', { inverse: null }),
-  /**
-   * Articles favorited by the profile owner.
-   * Inverse option is `null` to prevent a profile from being set on the article incorrectly when a `hasMany` relationship loads articles not owned
-   * by the profile, such as `favoriteArticles`.
-   */
-  favoriteArticles: DS.hasMany('article', { inverse: null }),
-  username: DS.attr('string'),
+export default class UserModel extends Model {
+  @service session;
+
+  @attr bio;
+  @attr image;
+  @attr following;
+
+  @hasMany('article', { async: false, inverse: 'author' }) articles;
+
+  async loadArticles() {
+    let articles = await this.store.query('article', { author: this.id });
+    this.articles = articles;
+  }
+
+  fetchFavorites() {
+    return this.store.query('article', { favorited: this.id });
+  }
 
   async follow() {
     await this.followOperation('follow');
-  },
+  }
 
   async unfollow() {
     await this.followOperation('unfollow');
-  },
+  }
 
   async followOperation(operation) {
-    const { profile } = await this.session.fetch(
-      `/profiles/${this.username}/follow`,
-      operation === 'unfollow' ? 'DELETE' : 'POST',
+    let { profile } = await this.session.fetch(
+      `/profiles/${this.id}/follow`,
+      operation === 'follow' ? 'POST' : 'DELETE',
     );
     this.store.pushPayload({
       profiles: [Object.assign(profile, { id: profile.username })],
     });
-  },
-});
+  }
+}

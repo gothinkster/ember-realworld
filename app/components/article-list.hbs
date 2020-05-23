@@ -1,0 +1,15 @@
+<div {{did-update (perform this.loadArticles) @feed @page @tag}}>
+  {{#if this.loadArticles.isRunning}}
+    <div class="article-preview">Loading...</div>
+  {{else}}
+    {{#each this.articles as |article|}}
+      <ArticlePreview @article={{article}} />
+    {{else}}
+      <div class="article-preview">No articles are here... yet.</div>
+    {{/each}}
+    {{#if this.articles}}
+      <Pagination @total={{this.articles.meta.articlesCount}} @perPage={{10}} @current={{@page}}
+        @existingParams={{hash author=@feed tag=@tag}} />
+    {{/if}}
+  {{/if}}
+</div>

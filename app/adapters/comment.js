@@ -1,17 +1,19 @@
 import ApplicationAdapter from './application';
 
-export default ApplicationAdapter.extend({
-  pathForType() {
-    return 'articles';
-  },
+export default class AuthorAdapter extends ApplicationAdapter {
+  endpoint(id) {
+    return `${this.host}/articles/${id}/comments`;
+  }
 
-  buildURL(modelName, id, snapshot) {
-    let url = `${this._super(modelName, snapshot.record.get('article.id'), snapshot)}/comments`;
+  urlForCreateRecord(modelName, snapshot) {
+    return this.endpoint(snapshot.record.article.content.id);
+  }
 
-    if (id) {
-      url += `/${id}`;
-    }
+  urlForDeleteRecord(id, modelName, snapshot) {
+    return `${this.endpoint(snapshot.record.article.content.id)}/${id}`;
+  }
 
-    return url;
-  },
-});
+  urlForQuery(query) {
+    return this.endpoint(query.article_id);
+  }
+}

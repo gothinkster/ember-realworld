@@ -1,11 +1,13 @@
 import Route from '@ember/routing/route';
 
-export default Route.extend({
-  templateName: 'profile/index',
-  async afterModel(profile) {
-    /**
-     * Reload the data when visiting the route, otherwise the data remains stale.
-     */
-    await profile.get('favoriteArticles').reload();
-  },
-});
+export default class ProfileFavoritesRoute extends Route {
+  async model() {
+    let profile = this.modelFor('profile');
+    return profile.fetchFavorites();
+  }
+
+  setupController(controller, model) {
+    super.setupController(controller, model);
+    controller.set('profile', this.modelFor('profile'));
+  }
+}

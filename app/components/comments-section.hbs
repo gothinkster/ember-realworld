@@ -1,0 +1,11 @@
+{{#if this.session.isLoggedIn}}
+  <CommentForm @addComment={{this.addComment}} />
+{{/if}}
+
+{{#if this.isLoading}}
+  <p>Loading comments...</p>
+{{else}}
+  {{#each @article.comments as |comment|}}
+    <Comment @comment={{comment}} />
+  {{/each}}
+{{/if}}

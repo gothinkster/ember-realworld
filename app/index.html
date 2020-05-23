@@ -3,29 +3,26 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>RealworldEmber</title>
+    <title>Conduit</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Import Ionicon icons & Google Fonts our Bootstrap theme relies on -->
+    {{content-for "head"}}
+
     <link href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
     <link href="//fonts.googleapis.com/css?family=Titillium+Web:700|Source+Serif+Pro:400,700|Merriweather+Sans:400,700|Source+Sans+Pro:400,300,600,700,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
-    
-    {{content-for "head"}}
-    
-    <!-- Import the custom Bootstrap 4 theme from our hosted CDN -->
     <link rel="stylesheet" href="//demo.productionready.io/main.css">
-    <link integrity="" rel="stylesheet" href="/assets/vendor.css">
-    <link integrity="" rel="stylesheet" href="/assets/realworld-ember.css">
-    <link rel="icon" type="image/png" href="/assets/ember.ico">
+    <link rel="stylesheet" href="{{rootURL}}assets/vendor.css">
+    <link rel="stylesheet" href="{{rootURL}}assets/ember-realworld.css">
+    <link rel="icon" type="image/png" href="{{rootURL}}assets/ember.ico">
 
     {{content-for "head-footer"}}
   </head>
   <body>
     {{content-for "body"}}
 
-    <script src="/assets/vendor.js"></script>
-    <script src="/assets/realworld-ember.js"></script>
+    <script src="{{rootURL}}assets/vendor.js"></script>
+    <script src="{{rootURL}}assets/ember-realworld.js"></script>
 
     {{content-for "body-footer"}}
   </body>

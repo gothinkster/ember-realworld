@@ -1,0 +1,27 @@
+<h1 class="text-xs-center">Sign up</h1>
+<p class="text-xs-center">
+  <LinkTo @route="login">Have an account?</LinkTo>
+</p>
+
+{{#if (not this.user.isValid)}}
+  <ul class="error-messages">
+    {{#each this.user.errors as |error|}}
+      <li>{{error.attribute}} {{error.message}}</li>
+    {{/each}}
+  </ul>
+{{/if}}
+
+<form>
+  <fieldset class="form-group">
+    <Input class="form-control form-control-lg" type="text" placeholder="Your Name" @value={{this.username}} />
+  </fieldset>
+  <fieldset class="form-group">
+    <Input class="form-control form-control-lg" type="text" placeholder="Email" @value={{this.email}} />
+  </fieldset>
+  <fieldset class="form-group">
+    <Input class="form-control form-control-lg" type="password" placeholder="Password" @value={{this.password}} />
+  </fieldset>
+  <button class="btn btn-lg btn-primary pull-xs-right" {{on "click" this.submit}} disabled={{or (not this.username) (not this.email) ( not this.password)}} type="button">
+    Sign up
+  </button>
+</form>

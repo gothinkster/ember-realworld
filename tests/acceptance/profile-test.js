@@ -7,77 +7,78 @@ import { setupLoggedInUser, setupLoggedOutUser } from '../helpers/user';
 module('Acceptance | profile', function(hooks) {
   setupApplicationTest(hooks);
   setupMirage(hooks);
-  setupLoggedOutUser(hooks);
 
-  test('visiting /profile', async function(assert) {
-    await visit('/profile');
-
-    assert.equal(currentURL(), '/profile');
-  });
-
-  test('visiting any user profile will see a link to follow the profile owner but links to login', async function(assert) {
-    assert.expect(1);
-
-    const profileOwner = server.create('profile');
-
-    await visit(`/profile/${profileOwner.username}`);
-    await click('[data-test-follow-profile-button]');
-
-    assert.equal(currentURL(), '/login');
-  });
-
-  test('sees a tab navigation to articles written by and favorited by the profile owner', async function(assert) {
-    assert.expect(3);
-
-    const profileOwner = server.create('profile');
-    const otherUser = server.create('profile');
-
-    /**
-     * Articles written by profile owner.
-     */
-    server.createList('article', 2, {
-      author: profileOwner,
-      favorited: false,
-    });
-    /**
-     * Articles favorited by profile owner, not written by profile owner.
-     */
-    server.createList('article', 3, {
-      author: otherUser,
-      favorited: true,
+  module('logged out user', function(hooks) {
+    hooks.beforeEach(function() {
+      setupLoggedOutUser(hooks);
     });
 
-    await visit(`/profile/${profileOwner.username}`);
-    await click('[data-test-profile-nav-link="favorite-articles"]');
+    test('visiting /profile/username', async function(assert) {
+      const profileOwner = this.server.create('profile');
+      await visit(`/profile/${profileOwner.username}`);
 
-    assert.equal(currentURL(), `/profile/${profileOwner.username}/favorites`);
-    assert
-      .dom('[data-test-article-title]')
-      .exists({ count: 3 }, 'Expected a list of 3 articles favorited by profile owner');
-
-    await click('[data-test-profile-nav-link="my-articles"]');
-    assert
-      .dom('[data-test-article-title]')
-      .exists({ count: 2 }, 'Expected a list of 2 articles created by profile owner');
-  });
-
-  test("clicking on an article's favorite button redirects user to login page", async function(assert) {
-    assert.expect(1);
-
-    const profileOwner = server.create('profile');
-    /**
-     * Articles written by profile owner.
-     */
-    server.create('article', 1, {
-      author: profileOwner,
-      favorited: false,
+      assert
+        .dom('[data-test-edit-profile-button]')
+        .doesNotExist('A logged-out user does not show the edit profile button');
     });
 
-    await visit(`/profile/${profileOwner.username}`);
+    test('visiting any user profile will see a link to follow the profile owner but links to login', async function(assert) {
+      const profileOwner = this.server.create('profile');
 
-    await click('[data-test-favorite-article-button-login]');
+      await visit(`/profile/${profileOwner.username}`);
+      await click('[data-test-follow-author-button]');
 
-    assert.equal(currentURL(), '/login');
+      assert.equal(currentURL(), '/login');
+    });
+
+    test('sees a tab navigation to articles written by and favorited by the profile owner', async function(assert) {
+      const profileOwner = this.server.create('profile');
+      const otherUser = this.server.create('profile');
+
+      /**
+       * Articles written by profile owner.
+       */
+      this.server.createList('article', 2, {
+        author: profileOwner,
+        favorited: false,
+      });
+      /**
+       * Articles favorited by profile owner, not written by profile owner.
+       */
+      this.server.createList('article', 3, {
+        author: otherUser,
+        favorited: true,
+      });
+
+      await visit(`/profile/${profileOwner.username}`);
+      await click('[data-test-profile-tab="favorite-articles"]');
+
+      assert.equal(currentURL(), `/profile/${profileOwner.username}/favorites`);
+      assert
+        .dom('[data-test-article-title]')
+        .exists({ count: 3 }, 'Expected a list of 3 articles favorited by profile owner');
+
+      await click('[data-test-profile-tab="my-articles"]');
+      assert
+        .dom('[data-test-article-title]')
+        .exists({ count: 2 }, 'Expected a list of 2 articles created by profile owner');
+      assert.equal(currentURL(), `/profile/${profileOwner.username}`);
+    });
+
+    test("clicking on an article's favorite button redirects user to login page", async function(assert) {
+      const profileOwner = this.server.create('profile');
+      /**
+       * Articles written by profile owner.
+       */
+      this.server.create('article', 1, {
+        author: profileOwner,
+        favorited: false,
+      });
+
+      await visit(`/profile/${profileOwner.username}`);
+      await click('[data-test-favorite-article-button]');
+      assert.equal(currentURL(), '/login');
+    });
   });
 
   module('logged in user', function(hooks) {
@@ -86,11 +87,11 @@ module('Acceptance | profile', function(hooks) {
     let user;
 
     hooks.beforeEach(function() {
-      user = server.create('user', {
+      user = this.server.create('user', {
         email: 'bob@example.com',
         password: 'password123',
       });
-      server.get('/user', schema => {
+      this.server.get('/user', schema => {
         return schema.users.first();
       });
     });
@@ -105,39 +106,41 @@ module('Acceptance | profile', function(hooks) {
     });
 
     test('visiting another user profile sees a link to follow the profile owner', async function(assert) {
-      const otherUser = server.create('profile', { following: false });
+      const otherUser = this.server.create('profile', { following: false });
 
       await visit(`/profile/${otherUser.username}`);
-      await click('[data-test-follow-profile-button]');
+      assert
+        .dom('[data-test-follow-author-button]')
+        .includesText(`Follow ${otherUser.username}`, 'The profile is initially unfollowed');
+
+      await click('[data-test-follow-author-button]');
       await settled();
 
-      otherUser.reload();
-      assert.ok(otherUser.following, 'Clicking on follow button should follow the profile owner');
+      assert
+        .dom('[data-test-follow-author-button]')
+        .includesText(`Unfollow ${otherUser.username}`, 'The profile is followed');
 
-      await click('[data-test-follow-profile-button]');
+      await click('[data-test-follow-author-button]');
       await settled();
 
-      otherUser.reload();
-      assert.notOk(otherUser.following, 'Clicking on unfollow button should unfollow the profile owner');
+      assert
+        .dom('[data-test-follow-author-button]')
+        .includesText(`Follow ${otherUser.username}`, 'The profile is unfollowed');
     });
 
     test('favorite an article by the user', async function(assert) {
-      assert.expect(1);
-
-      const profileOwner = server.create('profile');
-      /**
-       * Articles written by profile owner.
-       */
-      const article = server.create('article', 1, {
+      const profileOwner = this.server.create('profile');
+      this.server.create('article', 1, {
         author: profileOwner,
         favorited: false,
       });
 
       await visit(`/profile/${profileOwner.username}`);
-
       await click('[data-test-favorite-article-button]');
-
-      assert.ok(article.favorited, 'Article should be favorited');
+      await settled();
+      assert
+        .dom('[data-test-favorite-article-button="favorited"]')
+        .exists('Article should be favorited');
     });
   });
 });

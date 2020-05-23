@@ -1,32 +1,25 @@
-import DS from 'ember-data';
-import config from '../config/environment';
+import { errorsHashToArray } from '@ember-data/adapter/error';
+import RESTAdapter from '@ember-data/adapter/rest';
 import { inject as service } from '@ember/service';
-import { computed } from '@ember/object';
+import ENV from 'ember-realworld/config/environment';
 
-const { errorsHashToArray, RESTAdapter } = DS;
+export default class ApplicationAdapter extends RESTAdapter {
+  @service session;
 
-export default RESTAdapter.extend({
-  session: service(),
+  host = ENV.APP.apiHost;
 
-  host: config.API.host,
-
-  namespace: 'api',
-
-  headers: computed('session.token', function() {
-    const headers = {};
-
-    if (this.session.token) {
-      headers.Authorization = `Token ${this.session.token}`;
-    }
-
-    return headers;
-  }),
+  headers = {
+    Authorization: this.session.token ? `Token ${this.session.token}` : '',
+  };
 
   handleResponse(status, headers, payload) {
     if (this.isInvalid(...arguments)) {
+      if (typeof payload === 'string') {
+        payload = JSON.parse(payload);
+      }
       payload.errors = errorsHashToArray(payload.errors);
     }
 
-    return this._super(...arguments);
-  },
-});
+    return super.handleResponse(status, headers, payload);
+  }
+}

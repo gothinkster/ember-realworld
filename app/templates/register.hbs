@@ -1,46 +1,11 @@
 <div class="auth-page">
   <div class="container page">
     <div class="row">
+
       <div class="col-md-6 offset-md-3 col-xs-12">
-        <h1 class="text-xs-center">Sign Up</h1>
-        <p class="text-xs-center">
-          {{#link-to "login"}}
-            Have an account?
-          {{/link-to}}
-        </p>
-        {{#if (not this.user.isValid)}}
-          <ul class="error-messages">
-            {{#each this.user.errors as |error|}}
-              <li>{{error.attribute}} {{error.message}}</li>
-            {{/each}}
-          </ul>
-        {{/if}}
-        <form {{action (perform this.register) on="submit"}}>
-          <fieldset class="form-group">
-            {{input
-                class="form-control form-control-lg"
-                placeholder="Username"
-                value=username}}
-          </fieldset>
-          <fieldset class="form-group">
-            {{input
-                class="form-control form-control-lg"
-                type="email"
-                placeholder="Email"
-                value=email}}
-          </fieldset>
-          <fieldset class="form-group">
-            {{input
-                class="form-control form-control-lg"
-                type="password"
-                placeholder="Password"
-                value=password}}
-          </fieldset>
-          <button class="btn btn-lg btn-primary pull-xs-right" disabled={{this.register.isRunning}}>
-            Sign Up
-          </button>
-        </form>
+        <RegisterForm />
       </div>
+
     </div>
   </div>
 </div>

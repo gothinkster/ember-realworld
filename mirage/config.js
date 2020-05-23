@@ -7,7 +7,7 @@ export const validateUserUsername = (username = '') => {
   username = username.trim();
 
   if (isBlank(username)) {
-    errors.push["can't be blank"];
+    errors.push("can't be blank");
   }
 
   if (username.length < 0) {
@@ -27,7 +27,7 @@ export const validateUserEmail = (email = '') => {
   email = email.trim();
 
   if (isBlank(email)) {
-    errors.push["can't be blank"];
+    errors.push("can't be blank");
   }
 
   return errors;
@@ -39,7 +39,7 @@ export const validateArticleTitle = (title = '') => {
   title = title.trim();
 
   if (isBlank(title)) {
-    errors.push["can't be blank"];
+    errors.push("can't be blank");
   }
 
   if (title.length < 0) {
@@ -59,7 +59,7 @@ export const validateArticleBody = (body = '') => {
   body = body.trim();
 
   if (isBlank(body)) {
-    errors.push["can't be blank"];
+    errors.push("can't be blank");
   }
 
   return errors;
@@ -71,7 +71,7 @@ export const validateArticleDescription = (description = '') => {
   description = description.trim();
 
   if (isBlank(description)) {
-    errors.push["can't be blank"];
+    errors.push("can't be blank");
   }
 
   if (description.length < 0) {
@@ -86,7 +86,7 @@ export const validateArticleDescription = (description = '') => {
 };
 
 export default function() {
-  this.namespace = 'api'; // make this `/api`, for example, if your API is namespaced
+  this.namespace = ''; // make this `/api`, for example, if your API is namespaced
   this.timing = 400; // delay for each request, automatically set to 0 during testing
 
   /**
@@ -128,9 +128,8 @@ export default function() {
   this.put('/user', (schema, request) => {
     const body = JSON.parse(request.requestBody);
     const { user: userData } = body;
-    const { id, ...settingsData } = userData;
     const { email, username } = userData;
-    const user = schema.users.find(id);
+    const user = schema.users.find(username);
 
     const errors = {
       username: validateUserUsername(username),
@@ -152,9 +151,9 @@ export default function() {
      * Look up profile by the user's old username in order to update it.
      */
     const profile = schema.profiles.findBy({ username: user.username });
-    profile.update(settingsData);
+    profile.update(userData);
 
-    return user.update(settingsData);
+    return user.update(userData);
   });
 
   this.get('/articles', (schema, request) => {
@@ -172,7 +171,9 @@ export default function() {
        */
       const { favorited } = params;
 
-      return schema.articles.all().filter(article => article.favorited && article.author.id !== favorited);
+      return schema.articles
+        .all()
+        .filter(article => article.favorited && article.author.id !== favorited);
     } else {
       const allArticles = schema.articles.all(),
         limit = parseInt(params.limit),
@@ -217,7 +218,7 @@ export default function() {
       return new Response(422, {}, { errors: filteredErrors });
     }
 
-    return server.create('article', {
+    return this.create('article', {
       title,
       body,
       description,
