@@ -28,4 +28,13 @@ module('Acceptance | login', function(hooks) {
     assert.dom('[data-test-nav-new-post]').exists('Logged in nav is shown');
     assert.dom('[data-test-nav-sign-up]').doesNotExist('Logged out nav is not shown');
   });
+
+  test('visiting /login has link to /register', async function(assert) {
+    await visit('/login');
+
+    await click('[data-test-register-link]');
+    await settled();
+
+    assert.equal(currentURL(), '/register', 'URL after click is Register');
+  });
 });
