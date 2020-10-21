@@ -1,26 +1,30 @@
 import { module, test } from 'qunit';
+import faker from 'faker';
 import { visit, currentURL, fillIn, click, settled } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 import { setupLoggedOutUser } from '../helpers/user';
 
-module('Acceptance | login', function(hooks) {
+module('Acceptance | register', function(hooks) {
   setupApplicationTest(hooks);
   setupMirage(hooks);
   setupLoggedOutUser(hooks);
 
-  test('visiting /login', async function(assert) {
+  test('successful registration', async function(assert) {
     const user = this.server.create('user', {
-      email: 'bob@example.com',
+      name: 'Test User',
+      username: 'test_user',
+      email: faker.internet.email(),
       password: 'password123',
     });
 
-    await visit('/login');
+    await visit('/register');
 
-    await fillIn('[data-test-login-email]', user.email);
-    await fillIn('[data-test-login-password]', user.password);
+    await fillIn('[data-test-register-username]', user.username);
+    await fillIn('[data-test-register-email]', user.email);
+    await fillIn('[data-test-register-password]', user.password);
 
-    await click('[data-test-login-button]');
+    await click('[data-test-register-button]');
     await settled();
 
     assert.equal(currentURL(), '/', 'URL after login is Home');
@@ -29,12 +33,12 @@ module('Acceptance | login', function(hooks) {
     assert.dom('[data-test-nav-sign-up]').doesNotExist('Logged out nav is not shown');
   });
 
-  test('visiting /login has link to /register', async function(assert) {
-    await visit('/login');
+  test('visiting /register has link to /login', async function(assert) {
+    await visit('/register');
 
-    await click('[data-test-register-link]');
+    await click('[data-test-login-link]');
     await settled();
 
-    assert.equal(currentURL(), '/register', 'URL after click is Register');
+    assert.equal(currentURL(), '/login', 'URL after click is Login');
   });
 });

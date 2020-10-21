@@ -100,7 +100,10 @@ export default function() {
   /**
    * User registration
    */
-  // this.post('/users', (schema, request) => {});
+  this.post('/users', (schema, request) => {
+    const attrs = JSON.parse(request.requestBody).user;
+    return schema.users.findBy({ email: attrs.email });
+  });
 
   /**
    * Get current user

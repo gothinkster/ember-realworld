@@ -4,18 +4,13 @@ import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
 
 export default class RegisterFormComponent extends Component {
-  @tracked username;
-  @tracked email;
-  @tracked password;
-  @tracked user;
+  @tracked username = '';
+  @tracked email = '';
+  @tracked password = '';
+  @tracked user = null;
 
   @service session;
   @service router;
-
-  username = '';
-  email = '';
-  password = '';
-  user = null;
 
   @action
   async submit(e) {

@@ -45,8 +45,9 @@ export default class SessionService extends Service {
     try {
       await user.save();
       this.setToken(user.token);
-    } catch {
-      // Registration returned errors
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(e);
     } finally {
       this.user = user;
     }
