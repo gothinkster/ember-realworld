@@ -46,6 +46,7 @@ export default class SessionService extends Service {
       await user.save();
       this.setToken(user.token);
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.error(e);
     } finally {
       this.user = user;
