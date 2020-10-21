@@ -11,15 +11,16 @@ module('Acceptance | register', function(hooks) {
   setupLoggedOutUser(hooks);
 
   test('successful registration', async function(assert) {
-    const user = {
+    const user = this.server.create('user', {
       name: 'Test User',
+      username: 'test_user',
       email: faker.internet.email(),
       password: 'password123',
-    };
+    });
 
     await visit('/register');
 
-    await fillIn('[data-test-register-name]', user.name);
+    await fillIn('[data-test-register-username]', user.username);
     await fillIn('[data-test-register-email]', user.email);
     await fillIn('[data-test-register-password]', user.password);
 
@@ -27,7 +28,7 @@ module('Acceptance | register', function(hooks) {
     await settled();
 
     assert.equal(currentURL(), '/', 'URL after login is Home');
-    assert.dom('[data-test-nav-username]').hasText(user.name, 'Logged in username is shown');
+    assert.dom('[data-test-nav-username]').hasText(user.username, 'Logged in username is shown');
     assert.dom('[data-test-nav-new-post]').exists('Logged in nav is shown');
     assert.dom('[data-test-nav-sign-up]').doesNotExist('Logged out nav is not shown');
   });

@@ -45,8 +45,8 @@ export default class SessionService extends Service {
     try {
       await user.save();
       this.setToken(user.token);
-    } catch {
-      // Registration returned errors
+    } catch (e) {
+      console.error(e);
     } finally {
       this.user = user;
     }
