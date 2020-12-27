@@ -1,6 +1,7 @@
 # ![Ember.js Example App](logo.png)
 
 [![RealWorld Frontend](https://img.shields.io/badge/realworld-frontend-%23783578.svg)](http://realworld.io)
+[![This project uses GitHub Actions for continuous integration.](https://github.com/gothinkster/ember-realworld/workflows/CI/badge.svg)](https://github.com/gothinkster/ember-realworld/actions?query=workflow%3ACI)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/d113b25f-ae1c-41b1-8bff-0bfa0b9ac594/deploy-status)](https://app.netlify.com/sites/ember-realworld/deploys)
 
 # Ember RealWorld example app
