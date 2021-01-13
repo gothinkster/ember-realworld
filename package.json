@@ -22,16 +22,14 @@
   ],
   "scripts": {
     "build": "ember build --environment=production",
-    "lint:eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
-    "lint:fix": "yarn lint:js --fix",
     "lint": "npm-run-all --aggregate-output --continue-on-error --parallel lint:*",
+    "lint:eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
     "start": "ember serve",
-    "test": "npm-run-all lint:* test:*",
-    "test:ember": "ember test",
     "start:dev": "ember server --proxy https://conduit.productionready.io",
-    "test:s": "ember test --server"
+    "test": "npm-run-all lint test:*",
+    "test:ember": "ember test"
   },
   "devDependencies": {
     "@ember/optional-features": "^2.0.0",
