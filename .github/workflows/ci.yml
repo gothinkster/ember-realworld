@@ -77,4 +77,4 @@ jobs:
         if: steps.cache-dependencies.outputs.cache-hit != 'true'
 
       - name: Test
-        run: yarn test
+        run: yarn test:ember

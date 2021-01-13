@@ -28,7 +28,8 @@
     "lint:js": "eslint .",
     "start": "ember serve",
     "start:dev": "ember server --proxy https://conduit.productionready.io",
-    "test": "ember test"
+    "test": "npm-run-all lint test:*",
+    "test:ember": "ember test"
   },
   "devDependencies": {
     "@ember/optional-features": "^2.0.0",
