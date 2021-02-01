@@ -114,8 +114,8 @@ export default class SessionService extends Service {
   processLoginErrors(errors) {
     let loginErrors = [];
     let errorKeys = Object.keys(errors);
-    errorKeys.forEach(attribute => {
-      errors[attribute].forEach(message => {
+    errorKeys.forEach((attribute) => {
+      errors[attribute].forEach((message) => {
         loginErrors.push(`${attribute} ${message}`);
       });
     });

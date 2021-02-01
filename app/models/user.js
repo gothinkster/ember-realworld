@@ -18,11 +18,11 @@ export default class UserModel extends Model {
     if (!articles.length) {
       return [];
     }
-    let ids = articles.map(article => article.slug);
-    let normalizedArticles = articles.map(article =>
+    let ids = articles.map((article) => article.slug);
+    let normalizedArticles = articles.map((article) =>
       Object.assign({}, article, { id: article.slug }),
     );
     this.store.pushPayload({ articles: normalizedArticles });
-    return this.store.peekAll('article').filter(article => ids.includes(article.id));
+    return this.store.peekAll('article').filter((article) => ids.includes(article.id));
   }
 }

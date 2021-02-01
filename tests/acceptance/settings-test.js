@@ -1,47 +1,39 @@
 import { module, test } from 'qunit';
-import {
-  find,
-  fillIn,
-  visit,
-  currentURL,
-  click,
-  settled,
-  currentRouteName,
-} from '@ember/test-helpers';
+import { find, fillIn, visit, currentURL, click, currentRouteName } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 import { setupLoggedInUser, setupLoggedOutUser } from '../helpers/user';
 import { all } from 'rsvp';
 
-module('Acceptance | settings', function(hooks) {
+module('Acceptance | settings', function (hooks) {
   setupApplicationTest(hooks);
   setupMirage(hooks);
 
-  module('logged-out user', function() {
+  module('logged-out user', function () {
     setupLoggedOutUser(hooks);
 
-    test('visiting /settings redirects to login', async function(assert) {
+    test('visiting /settings redirects to login', async function (assert) {
       await visit('/settings');
 
       assert.equal(currentURL(), '/login');
     });
   });
 
-  module('logged-in user', function(hooks) {
+  module('logged-in user', function (hooks) {
     setupLoggedInUser(hooks, 'token');
 
-    hooks.beforeEach(function() {
+    hooks.beforeEach(function () {
       this.server.create('user', {
         email: 'bob@example.com',
         password: 'password123',
       });
 
-      this.server.get('/user', schema => {
+      this.server.get('/user', (schema) => {
         return schema.users.first();
       });
     });
 
-    test('can edit their settings', async function(assert) {
+    test('can edit their settings', async function (assert) {
       await visit('/settings');
 
       const newSettings = {
@@ -86,7 +78,6 @@ module('Acceptance | settings', function(hooks) {
       );
 
       await click('[data-test-settings-form-button]');
-      await settled();
 
       assert
         .dom('[data-test-settings-form-input-image]')
@@ -105,7 +96,7 @@ module('Acceptance | settings', function(hooks) {
         .hasValue(newSettings.email, 'Settings email input should be updated');
     });
 
-    test('shows settings errors from server', async function(assert) {
+    test('shows settings errors from server', async function (assert) {
       await visit('/settings');
 
       await fillIn('[data-test-settings-form-input-username]', Array(22).join('a'));

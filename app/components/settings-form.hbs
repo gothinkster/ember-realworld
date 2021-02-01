@@ -1,11 +1,11 @@
 <h1 class="text-xs-center">Your Settings</h1>
-{{#if (not this.session.user.isValid)}}
+{{#unless this.session.user.isValid}}
   <ul class="error-messages">
     {{#each this.session.user.errors as |error index|}}
       <li data-test-settings-form-error-item={{index}}>{{error.attribute}} {{error.message}}</li>
     {{/each}}
   </ul>
-{{/if}}
+{{/unless}}
 <form>
   <fieldset>
     <fieldset class="form-group">
@@ -19,14 +19,17 @@
     <fieldset class="form-group">
       <Textarea class="form-control form-control-lg" rows="8" placeholder="Short bio about you"
         @value={{this.session.user.bio}} data-test-settings-form-input-bio />
-      </fieldset>
-    <fieldset class="form-group">
-      <Input class="form-control form-control-lg" type="text" placeholder="Email" @value={{this.session.user.email}} data-test-settings-form-input-email />
     </fieldset>
     <fieldset class="form-group">
-      <Input class="form-control form-control-lg" type="password" placeholder="Password" @value={{this.session.user.password}} data-test-settings-form-input-password />
+      <Input class="form-control form-control-lg" type="text" placeholder="Email" @value={{this.session.user.email}}
+        data-test-settings-form-input-email />
     </fieldset>
-    <button class="btn btn-lg btn-primary pull-xs-right" disabled={{or (not this.session.user.hasDirtyAttributes) this.session.user.isSaving}} {{on "click" this.submit}} type="button"  data-test-settings-form-button>
+    <fieldset class="form-group">
+      <Input class="form-control form-control-lg" type="password" placeholder="Password"
+        @value={{this.session.user.password}} data-test-settings-form-input-password />
+    </fieldset>
+    <button class="btn btn-lg btn-primary pull-xs-right" disabled={{or (not this.session.user.hasDirtyAttributes)
+      this.session.user.isSaving}} {{on "click" this.submit}} type="button" data-test-settings-form-button>
       Update Settings
     </button>
   </fieldset>

@@ -1,9 +1,9 @@
 'use strict';
 
-module.exports = function(environment) {
+module.exports = function (environment) {
   const ENV = {
     modulePrefix: 'ember-realworld',
-    environment: environment,
+    environment,
     rootURL: '/',
     locationType: 'history',
     EmberENV: {

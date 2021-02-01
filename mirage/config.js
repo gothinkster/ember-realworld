@@ -85,7 +85,7 @@ export const validateArticleDescription = (description = '') => {
   return errors;
 };
 
-export default function() {
+export default function () {
   this.namespace = ''; // make this `/api`, for example, if your API is namespaced
   this.timing = 400; // delay for each request, automatically set to 0 during testing
 
@@ -164,7 +164,7 @@ export default function() {
     if (params.author) {
       const { author } = params;
 
-      return schema.articles.all().filter(article => article.author.username === author);
+      return schema.articles.all().filter((article) => article.author.username === author);
     } else if (params.favorited) {
       /**
        * TODO: Currently there is no way to identify articles favorited by different profiles.
@@ -176,7 +176,7 @@ export default function() {
 
       return schema.articles
         .all()
-        .filter(article => article.favorited && article.author.id !== favorited);
+        .filter((article) => article.favorited && article.author.id !== favorited);
     } else {
       const allArticles = schema.articles.all(),
         limit = parseInt(params.limit),
