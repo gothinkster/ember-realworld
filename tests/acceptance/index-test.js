@@ -4,12 +4,12 @@ import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 import { setupLoggedInUser, setupLoggedOutUser } from '../helpers/user';
 
-module('Acceptance | index', function(hooks) {
+module('Acceptance | index', function (hooks) {
   setupApplicationTest(hooks);
   setupMirage(hooks);
   setupLoggedOutUser(hooks);
 
-  test('visiting /', async function(assert) {
+  test('visiting /', async function (assert) {
     this.server.createList('article', 20);
 
     await visit('/');
@@ -32,7 +32,7 @@ module('Acceptance | index', function(hooks) {
       .hasClass('active', 'The active page is correct in the pagination list');
   });
 
-  test('clicking a page', async function(assert) {
+  test('clicking a page', async function (assert) {
     await this.server.createList('article', 20);
 
     await visit('/');
@@ -52,7 +52,7 @@ module('Acceptance | index', function(hooks) {
       .hasClass('active', 'The active page is correct in the pagination list');
   });
 
-  test('clicking a tag', async function(assert) {
+  test('clicking a tag', async function (assert) {
     await this.server.createList('article', 20);
 
     await visit('/');
@@ -71,13 +71,13 @@ module('Acceptance | index', function(hooks) {
     assert
       .dom('.feed-toggle a.nav-link')
       .exists({ count: 2 }, 'The correct number of feed tabs appear');
-    assert.dom('[data-test-tab="tag"').hasClass('active', 'The tag feed toggle is active');
+    assert.dom('[data-test-tab="tag"]').hasClass('active', 'The tag feed toggle is active');
     assert
-      .dom('[data-test-tab="tag"')
+      .dom('[data-test-tab="tag"]')
       .hasText('#emberjs', 'The active feed toggle has the correct tag name');
   });
 
-  test('resetting to the main list', async function(assert) {
+  test('resetting to the main list', async function (assert) {
     await this.server.createList('article', 20);
 
     await visit('/?page=2&tag=emberjs');
@@ -97,23 +97,23 @@ module('Acceptance | index', function(hooks) {
     assert.dom('[data-test-page-item="1"]').hasClass('active', 'The first page is active');
   });
 
-  module('logged in user', function(hooks) {
+  module('logged in user', function (hooks) {
     setupLoggedInUser(hooks);
 
-    hooks.beforeEach(function() {
+    hooks.beforeEach(function () {
       this.server.create('user', {
         email: 'bob@example.com',
         password: 'password123',
       });
-      this.server.get('/user', schema => {
+      this.server.get('/user', (schema) => {
         return schema.users.first();
       });
     });
 
-    test('Your feed', async function(assert) {
+    test('Your feed', async function (assert) {
       await this.server.createList('article', 20);
 
-      this.server.get('/articles/feed', schema => {
+      this.server.get('/articles/feed', (schema) => {
         return {
           articles: [schema.articles.first()],
           articlesCount: 1,
@@ -129,7 +129,9 @@ module('Acceptance | index', function(hooks) {
         .dom('[data-test-article-preview]')
         .exists({ count: 10 }, 'The correct articles are shown in the list');
       await click('[data-test-tab="your"]');
+      // eslint-disable-next-line ember/no-settled-after-test-helper
       await settled();
+
       assert.equal(currentURL(), '/?feed=your', 'Lands on the "Your feed" page');
       assert
         .dom('[data-test-article-preview]')

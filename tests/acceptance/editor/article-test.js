@@ -12,36 +12,36 @@ import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 import { setupLoggedOutUser, setupLoggedInUser } from '../../helpers/user';
 import sinon from 'sinon';
 
-module('Acceptance | editor/edit', function(hooks) {
+module('Acceptance | editor/edit', function (hooks) {
   setupApplicationTest(hooks);
   setupMirage(hooks);
 
-  hooks.before(function() {
+  hooks.before(function () {
     sinon.stub(window, 'confirm');
   });
 
-  hooks.after(function() {
+  hooks.after(function () {
     sinon.restore();
   });
 
-  module('anonymous user', function(hooks) {
+  module('anonymous user', function (hooks) {
     setupLoggedOutUser(hooks);
 
-    test('is transitioned to login', async function(assert) {
+    test('is transitioned to login', async function (assert) {
       await visit('/editor/foo');
 
       assert.equal(currentURL(), '/login');
     });
   });
 
-  module('logged-in user', function(hooks) {
+  module('logged-in user', function (hooks) {
     setupLoggedInUser(hooks);
 
     let user;
     let userProfile;
     let article;
 
-    hooks.beforeEach(function() {
+    hooks.beforeEach(function () {
       user = this.server.create('user');
       userProfile = this.server.schema.profiles.findBy({ username: user.username });
       article = this.server.create('article', {
@@ -49,7 +49,7 @@ module('Acceptance | editor/edit', function(hooks) {
       });
     });
 
-    test('can edit their own article', async function(assert) {
+    test('can edit their own article', async function (assert) {
       await visit(`/editor/${article.slug}`);
       await fillIn('[data-test-article-form-input-title]', 'Test Title');
       await fillIn('[data-test-article-form-input-description]', 'Test Description');
@@ -64,7 +64,7 @@ module('Acceptance | editor/edit', function(hooks) {
       assert.dom('[data-test-article-body]').hasText('Test Body');
     });
 
-    test('shows article errors from server', async function(assert) {
+    test('shows article errors from server', async function (assert) {
       await visit(`/editor/${article.slug}`);
 
       await fillIn('[data-test-article-form-input-title]', 'Test Title');

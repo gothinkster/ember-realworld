@@ -1,10 +1,10 @@
-{{#if (not this.article.isValid)}}
+{{#unless this.article.isValid}}
   <ul class="error-messages">
     {{#each this.article.errors as |error|}}
       <li data-test-article-form-error-item>{{error.attribute}} {{error.message}}</li>
     {{/each}}
   </ul>
-{{/if}}
+{{/unless}}
 <form>
   <fieldset>
     <fieldset class="form-group">
@@ -18,18 +18,14 @@
     <fieldset class="form-group">
       <Textarea class="form-control" rows="8" placeholder="Write your article (in markdown)"
         @value={{this.article.body}} data-test-article-form-input-body />
-      </fieldset>
+    </fieldset>
     <fieldset class="form-group">
-      <Input type="text" class="form-control" placeholder="Enter tags" @value={{this.rawTagList}} {{on "keyup" this.processTags}} data-test-article-form-input-tags />
+      <Input type="text" class="form-control" placeholder="Enter tags" @value={{this.rawTagList}} {{on "keyup"
+        this.processTags}} data-test-article-form-input-tags />
       <div class="tag-list"></div>
     </fieldset>
-    <button
-      class="btn btn-lg pull-xs-right btn-primary"
-      type="button"
-      disabled={{this.buttonIsDisabled}}
-      data-test-article-form-submit-button
-      {{on "click" this.publishArticle}}
-    >
+    <button class="btn btn-lg pull-xs-right btn-primary" type="button" disabled={{this.buttonIsDisabled}}
+      data-test-article-form-submit-button {{on "click" this.publishArticle}}>
       {{if this.isSaving "Saving" "Publish"}} Article
     </button>
   </fieldset>

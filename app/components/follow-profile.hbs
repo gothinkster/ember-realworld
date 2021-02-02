@@ -1,7 +1,6 @@
-<button class="btn btn-sm action-btn btn{{if (not @profile.following) "-outline"}}-secondary"
-  {{on "click" (fn this.followProfile (if @profile.following "unfollow" "follow"))}} data-test-follow-author-button
-  type="button">
-  <i class="ion-{{if @profile.following "minus" "plus"}}-round"></i>
+<button class="btn btn-sm action-btn btn{{unless @profile.following '-outline'}}-secondary" {{on "click" (fn
+  this.followProfile (if @profile.following "unfollow" "follow" ))}} data-test-follow-author-button type="button">
+  <i class="ion-{{if @profile.following 'minus' 'plus'}}-round"></i>
   &nbsp;
   {{if @profile.following "Unf" "F"}}ollow {{@profile.id}}
 </button>

@@ -11,7 +11,7 @@ module.exports = {
     },
   },
   plugins: ['ember', 'prettier'],
-  extends: ['eslint:recommended', 'plugin:ember/octane', 'plugin:prettier/recommended'],
+  extends: ['eslint:recommended', 'plugin:ember/recommended', 'plugin:prettier/recommended'],
   env: {
     browser: true,
   },
@@ -22,6 +22,7 @@ module.exports = {
       files: [
         '.ember-cli.js',
         '.eslintrc.js',
+        '.prettierrc.js',
         '.template-lintrc.js',
         'ember-cli-build.js',
         'testem.js',

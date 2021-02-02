@@ -2,13 +2,13 @@
 <p class="text-xs-center">
   <LinkTo @route="login" data-test-login-link>Have an account?</LinkTo>
 </p>
-{{#if (not this.user.isValid)}}
+{{#unless this.user.isValid}}
   <ul class="error-messages">
     {{#each this.user.errors as |error|}}
       <li>{{error.attribute}} {{error.message}}</li>
     {{/each}}
   </ul>
-{{/if}}
+{{/unless}}
 <form>
   <fieldset class="form-group">
     <Input class="form-control form-control-lg" type="text" placeholder="Your Username" @value={{this.username}}
@@ -22,8 +22,8 @@
     <Input class="form-control form-control-lg" type="password" placeholder="Password" @value={{this.password}}
       data-test-register-password />
   </fieldset>
-  <button class="btn btn-lg btn-primary pull-xs-right" {{on "click" this.submit}}
-    disabled={{or (not this.username) (not this.email) ( not this.password)}} type="button" data-test-register-button>
+  <button class="btn btn-lg btn-primary pull-xs-right" {{on "click" this.submit}} disabled={{or (not this.username) (not
+    this.email) ( not this.password)}} type="button" data-test-register-button>
     Sign up
   </button>
 </form>

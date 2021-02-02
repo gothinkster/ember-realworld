@@ -1,27 +1,27 @@
 import { module, test } from 'qunit';
-import { click, visit, currentURL, settled, fillIn, currentRouteName } from '@ember/test-helpers';
+import { click, visit, currentURL, fillIn, currentRouteName, settled } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 import { setupLoggedInUser } from '../helpers/user';
 
-module('Acceptance | article', function(hooks) {
+module('Acceptance | article', function (hooks) {
   setupApplicationTest(hooks);
   setupMirage(hooks);
   setupLoggedInUser(hooks);
 
   let user;
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     user = this.server.create('user', {
       email: 'bob@example.com',
       password: 'password123',
     });
-    this.server.get('/user', schema => {
+    this.server.get('/user', (schema) => {
       return schema.users.first();
     });
   });
 
-  test('visiting /articles/:slug', async function(assert) {
+  test('visiting /articles/:slug', async function (assert) {
     const profile = await this.server.create('profile');
     const article = await this.server.create('article', {
       author: profile,
@@ -32,7 +32,7 @@ module('Acceptance | article', function(hooks) {
     assert.equal(currentURL(), `/articles/${article.slug}`);
   });
 
-  test('favorite article', async function(assert) {
+  test('favorite article', async function (assert) {
     const profile = await this.server.create('profile');
     const article = await this.server.create('article', {
       author: profile,
@@ -42,15 +42,17 @@ module('Acceptance | article', function(hooks) {
     await visit(`/articles/${article.slug}`);
 
     await click('[data-test-favorite-article-button]');
+    // eslint-disable-next-line ember/no-settled-after-test-helper
     await settled();
+
     assert.ok(article.favorited, 'Expected article to be favorited');
 
     await click('[data-test-favorite-article-button]');
-    await settled();
+
     assert.notOk(article.favorited, 'Expected article to be unfavorited');
   });
 
-  test('follow author', async function(assert) {
+  test('follow author', async function (assert) {
     const profile = await this.server.create('profile', {
       following: false,
     });
@@ -62,15 +64,19 @@ module('Acceptance | article', function(hooks) {
     await visit(`/articles/${article.slug}`);
 
     await click('[data-test-follow-author-button]');
+    // eslint-disable-next-line ember/no-settled-after-test-helper
     await settled();
+
     assert.dom('[data-test-follow-author-button]').hasTextContaining('Unfollow');
 
     await click('[data-test-follow-author-button]');
+    // eslint-disable-next-line ember/no-settled-after-test-helper
     await settled();
+
     assert.dom('[data-test-follow-author-button]').hasTextContaining('Follow');
   });
 
-  test('edit article', async function(assert) {
+  test('edit article', async function (assert) {
     const userProfile = await this.server.schema.profiles.findBy({ username: user.username });
     const article = await this.server.create('article', {
       author: userProfile,
@@ -87,7 +93,7 @@ module('Acceptance | article', function(hooks) {
     assert.dom('[data-test-article-form-input-title]').hasValue(article.title);
   });
 
-  test('delete article', async function(assert) {
+  test('delete article', async function (assert) {
     assert.expect(1);
 
     const userProfile = await this.server.schema.profiles.findBy({ username: user.username });
@@ -98,7 +104,6 @@ module('Acceptance | article', function(hooks) {
     await visit(`/articles/${article.slug}`);
 
     await click('[data-test-delete-article-button]');
-    await settled();
 
     assert.equal(
       currentRouteName(),
@@ -107,7 +112,7 @@ module('Acceptance | article', function(hooks) {
     );
   });
 
-  test('post comment', async function(assert) {
+  test('post comment', async function (assert) {
     assert.expect(3);
 
     const profile = await this.server.create('profile');
@@ -127,7 +132,7 @@ module('Acceptance | article', function(hooks) {
     assert.dom('[data-test-article-comment-body]').hasText('foo!');
   });
 
-  test('delete comment', async function(assert) {
+  test('delete comment', async function (assert) {
     assert.expect(2);
 
     const profile = await this.server.create('profile');
