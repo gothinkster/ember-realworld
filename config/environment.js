@@ -22,7 +22,7 @@ module.exports = function (environment) {
     },
 
     APP: {
-      apiHost: 'https://conduit.productionready.io/api',
+      apiHost: 'https://api.realworld.io/api',
     },
 
     'ember-cli-mirage': {
