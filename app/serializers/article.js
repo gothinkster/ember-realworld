@@ -5,6 +5,7 @@ export default class ArticleSerializer extends RESTSerializer.extend(EmbeddedRec
 
   attrs = {
     author: { embedded: 'always' },
+    comments: { embedded: 'always' },
   };
 
   extractMeta(store, typeClass, payload) {
