@@ -1,4 +1,3 @@
-article favorited: {{@article.favorited}}
 <button class="btn btn-sm btn{{unless @article.favorited '-outline'}}-primary" data-test-favorite-article-button={{if
   @article.favorited "favorited" "unfavorited" }} {{on "click" (fn this.favoriteArticle (if
   @article.favorited "unfavorite" "favorite" ))}} type="button" ...attributes>
