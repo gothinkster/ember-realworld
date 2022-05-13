@@ -1,25 +1,42 @@
-<h1 class="text-xs-center">Sign in</h1>
-<p class="text-xs-center">
-  <LinkTo @route="register" data-test-register-link>Need an account?</LinkTo>
+<h1 class='text-xs-center'>Sign in</h1>
+<p class='text-xs-center'>
+  <LinkTo @route='register' data-test-register-link>Need an account?</LinkTo>
 </p>
 {{#if this.loginErrors}}
-  <ul class="error-messages">
+  <ul class='error-messages'>
     {{#each this.loginErrors as |error|}}
       <li>{{error}}</li>
     {{/each}}
   </ul>
 {{/if}}
 <form>
-  <fieldset class="form-group">
-    <Input class="form-control form-control-lg" type="text" placeholder="Email" @value={{this.email}}
-      data-test-login-email />
+  <fieldset class='form-group'>
+    <Input
+      class='form-control form-control-lg'
+      @type='text'
+      placeholder='Email'
+      aria-label='Email'
+      @value={{this.email}}
+      data-test-login-email
+    />
   </fieldset>
-  <fieldset class="form-group">
-    <Input class="form-control form-control-lg" type="password" placeholder="Password" @value={{this.password}}
-      data-test-login-password />
+  <fieldset class='form-group'>
+    <Input
+      class='form-control form-control-lg'
+      @type='password'
+      placeholder='Password'
+      aria-label='Password'
+      @value={{this.password}}
+      data-test-login-password
+    />
   </fieldset>
-  <button class="btn btn-lg btn-primary pull-xs-right" {{on "click" this.submit}}
-    disabled={{or (not this.email) ( not this.password)}} type="button" data-test-login-button>
+  <button
+    class='btn btn-lg btn-primary pull-xs-right'
+    {{on 'click' this.submit}}
+    disabled={{or (not this.email) (not this.password)}}
+    type='button'
+    data-test-login-button
+  >
     Sign in
   </button>
 </form>

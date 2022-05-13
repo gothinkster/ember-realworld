@@ -1,12 +1,16 @@
-article favorited: {{@article.favorited}}
-<button class="btn btn-sm btn{{unless @article.favorited '-outline'}}-primary" data-test-favorite-article-button={{if
-  @article.favorited "favorited" "unfavorited" }} {{on "click" (fn this.favoriteArticle (if
-  @article.favorited "unfavorite" "favorite" ))}} type="button" ...attributes>
-  <i class="ion-heart"></i>
+<button
+  class='btn btn-sm btn{{unless @article.favorited "-outline"}}-primary'
+  data-test-favorite-article-button={{if @article.favorited 'favorited' 'unfavorited'}}
+  {{on 'click' (fn this.favoriteArticle (if @article.favorited 'unfavorite' 'favorite'))}}
+  type='button'
+  ...attributes
+>
+  <i class='ion-heart'></i>
   &nbsp;
   {{#if @isIconOnly}}
     {{@article.favoritesCount}}
   {{else}}
-    {{if @article.favorited "Unf" "F"}}avorite Post <span class="counter">{{@article.favoritesCount}}</span>
+    {{if @article.favorited 'Unf' 'F'}}avorite Post
+    <span class='counter'>{{@article.favoritesCount}}</span>
   {{/if}}
 </button>

@@ -1,6 +1,6 @@
-<h1 class="text-xs-center">Your Settings</h1>
+<h1 class='text-xs-center'>Your Settings</h1>
 {{#unless this.session.user.isValid}}
-  <ul class="error-messages">
+  <ul class='error-messages'>
     {{#each this.session.user.errors as |error index|}}
       <li data-test-settings-form-error-item={{index}}>{{error.attribute}} {{error.message}}</li>
     {{/each}}
@@ -8,28 +8,63 @@
 {{/unless}}
 <form>
   <fieldset>
-    <fieldset class="form-group">
-      <Input class="form-control" type="text" placeholder="URL of profile picture" @value={{this.session.user.image}}
-        data-test-settings-form-input-image />
+    <fieldset class='form-group'>
+      <Input
+        class='form-control'
+        @type='text'
+        placeholder='URL of profile picture'
+        aria-label='URL of profile picture'
+        @value={{this.session.user.image}}
+        data-test-settings-form-input-image
+      />
     </fieldset>
-    <fieldset class="form-group">
-      <Input class="form-control form-control-lg" type="text" placeholder="Your Name"
-        @value={{this.session.user.username}} data-test-settings-form-input-username />
+    <fieldset class='form-group'>
+      <Input
+        class='form-control form-control-lg'
+        @type='text'
+        placeholder='Your Name'
+        aria-label='Your Name'
+        @value={{this.session.user.username}}
+        data-test-settings-form-input-username
+      />
     </fieldset>
-    <fieldset class="form-group">
-      <Textarea class="form-control form-control-lg" rows="8" placeholder="Short bio about you"
-        @value={{this.session.user.bio}} data-test-settings-form-input-bio />
+    <fieldset class='form-group'>
+      <Textarea
+        class='form-control form-control-lg'
+        rows='8'
+        placeholder='Short bio about you'
+        aria-label='Short bio about you'
+        @value={{this.session.user.bio}}
+        data-test-settings-form-input-bio
+      />
     </fieldset>
-    <fieldset class="form-group">
-      <Input class="form-control form-control-lg" type="text" placeholder="Email" @value={{this.session.user.email}}
-        data-test-settings-form-input-email />
+    <fieldset class='form-group'>
+      <Input
+        class='form-control form-control-lg'
+        @type='text'
+        placeholder='Email'
+        aria-label='Email'
+        @value={{this.session.user.email}}
+        data-test-settings-form-input-email
+      />
     </fieldset>
-    <fieldset class="form-group">
-      <Input class="form-control form-control-lg" type="password" placeholder="Password"
-        @value={{this.session.user.password}} data-test-settings-form-input-password />
+    <fieldset class='form-group'>
+      <Input
+        class='form-control form-control-lg'
+        @type='password'
+        placeholder='Password'
+        aria-label='Password'
+        @value={{this.session.user.password}}
+        data-test-settings-form-input-password
+      />
     </fieldset>
-    <button class="btn btn-lg btn-primary pull-xs-right" disabled={{or (not this.session.user.hasDirtyAttributes)
-      this.session.user.isSaving}} {{on "click" this.submit}} type="button" data-test-settings-form-button>
+    <button
+      class='btn btn-lg btn-primary pull-xs-right'
+      disabled={{or (not this.session.user.hasDirtyAttributes) this.session.user.isSaving}}
+      {{on 'click' this.submit}}
+      type='button'
+      data-test-settings-form-button
+    >
       Update Settings
     </button>
   </fieldset>

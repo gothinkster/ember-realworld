@@ -20,11 +20,14 @@ export default class ArticleListComponent extends Component {
     if (this.args.feed === 'your') {
       this.articles = yield this.session.user.fetchFeed(this.args.page);
     } else {
-      this.articles = yield this.store.query('article', {
+      let params = {
         limit: NUMBER_OF_ARTICLES,
         offset,
-        tag: this.args.tag,
-      });
+      };
+      if (this.args.tag) {
+        params.tag = this.args.tag;
+      }
+      this.articles = yield this.store.query('article', params);
     }
   }
 }

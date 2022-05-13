@@ -29,7 +29,7 @@ module('Acceptance | article', function (hooks) {
 
     await visit(`/articles/${article.slug}`);
 
-    assert.equal(currentURL(), `/articles/${article.slug}`);
+    assert.strictEqual(currentURL(), `/articles/${article.slug}`);
   });
 
   test('favorite article', async function (assert) {
@@ -85,7 +85,7 @@ module('Acceptance | article', function (hooks) {
     await visit(`/articles/${article.slug}`);
 
     await click('[data-test-edit-article-button]');
-    assert.equal(
+    assert.strictEqual(
       currentRouteName(),
       'editor.edit',
       'Expect to transition to `editor.article` page to edit the article',
@@ -105,7 +105,7 @@ module('Acceptance | article', function (hooks) {
 
     await click('[data-test-delete-article-button]');
 
-    assert.equal(
+    assert.strictEqual(
       currentRouteName(),
       'index',
       'Expected to transition to index when article is deleted',

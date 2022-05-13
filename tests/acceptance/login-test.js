@@ -24,7 +24,7 @@ module('Acceptance | login', function (hooks) {
     // eslint-disable-next-line ember/no-settled-after-test-helper
     await settled();
 
-    assert.equal(currentURL(), '/', 'URL after login is Home');
+    assert.strictEqual(currentURL(), '/', 'URL after login is Home');
     assert.dom('[data-test-nav-username]').hasText(user.username, 'Logged in username is shown');
     assert.dom('[data-test-nav-new-post]').exists('Logged in nav is shown');
     assert.dom('[data-test-nav-sign-up]').doesNotExist('Logged out nav is not shown');
@@ -35,6 +35,6 @@ module('Acceptance | login', function (hooks) {
 
     await click('[data-test-register-link]');
 
-    assert.equal(currentURL(), '/register', 'URL after click is Register');
+    assert.strictEqual(currentURL(), '/register', 'URL after click is Register');
   });
 });

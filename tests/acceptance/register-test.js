@@ -26,7 +26,7 @@ module('Acceptance | register', function (hooks) {
 
     await click('[data-test-register-button]');
 
-    assert.equal(currentURL(), '/', 'URL after login is Home');
+    assert.strictEqual(currentURL(), '/', 'URL after login is Home');
     assert.dom('[data-test-nav-username]').hasText(user.username, 'Logged in username is shown');
     assert.dom('[data-test-nav-new-post]').exists('Logged in nav is shown');
     assert.dom('[data-test-nav-sign-up]').doesNotExist('Logged out nav is not shown');
@@ -37,6 +37,6 @@ module('Acceptance | register', function (hooks) {
 
     await click('[data-test-login-link]');
 
-    assert.equal(currentURL(), '/login', 'URL after click is Login');
+    assert.strictEqual(currentURL(), '/login', 'URL after click is Login');
   });
 });

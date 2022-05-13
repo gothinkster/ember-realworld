@@ -14,7 +14,7 @@ module('Acceptance | index', function (hooks) {
 
     await visit('/');
 
-    assert.equal(currentURL(), '/', 'The home URL is correct');
+    assert.strictEqual(currentURL(), '/', 'The home URL is correct');
     assert
       .dom('[data-test-article-preview]')
       .exists({ count: 10 }, 'The correct number of articles appear in the list');
@@ -46,7 +46,7 @@ module('Acceptance | index', function (hooks) {
         { count: 10 },
         'After changing page the correct number of articles appear in the list',
       );
-    assert.equal(currentURL(), '/?page=2');
+    assert.strictEqual(currentURL(), '/?page=2');
     assert
       .dom('[data-test-page-item="2"]')
       .hasClass('active', 'The active page is correct in the pagination list');
@@ -67,7 +67,11 @@ module('Acceptance | index', function (hooks) {
         { count: 10 },
         'After changing page the correct number of articles appear in the list',
       );
-    assert.equal(currentURL(), '/?tag=emberjs', 'The URL has the correct tag as a query param');
+    assert.strictEqual(
+      currentURL(),
+      '/?tag=emberjs',
+      'The URL has the correct tag as a query param',
+    );
     assert
       .dom('.feed-toggle a.nav-link')
       .exists({ count: 2 }, 'The correct number of feed tabs appear');
@@ -86,7 +90,7 @@ module('Acceptance | index', function (hooks) {
       .exists({ count: 10 }, 'The correct number of articles appear in the list');
     await click('[data-test-tab="global"]');
 
-    assert.equal(currentURL(), '/');
+    assert.strictEqual(currentURL(), '/');
     assert
       .dom('[data-test-article-preview]')
       .exists(
@@ -121,7 +125,7 @@ module('Acceptance | index', function (hooks) {
       });
 
       await visit('/');
-      assert.equal(currentURL(), '/', 'Lands on the home page');
+      assert.strictEqual(currentURL(), '/', 'Lands on the home page');
       assert
         .dom('[data-test-tab="global"]')
         .hasClass('active', 'Global feed is selected by default');
@@ -132,7 +136,7 @@ module('Acceptance | index', function (hooks) {
       // eslint-disable-next-line ember/no-settled-after-test-helper
       await settled();
 
-      assert.equal(currentURL(), '/?feed=your', 'Lands on the "Your feed" page');
+      assert.strictEqual(currentURL(), '/?feed=your', 'Lands on the "Your feed" page');
       assert
         .dom('[data-test-article-preview]')
         .exists({ count: 1 }, 'One article is loaded on "Your feed"');

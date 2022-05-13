@@ -78,7 +78,7 @@ export default class SessionService extends Service {
         users: [userPayload.user],
       });
       this.setToken(userPayload.user.token);
-      this.user = this.store.peekRecord('user', userPayload.user.id);
+      this.user = this.store.peekRecord('user', userPayload.user.username);
       return this.user;
     }
   }
@@ -93,7 +93,7 @@ export default class SessionService extends Service {
     this.store.pushPayload({
       users: [user],
     });
-    this.user = this.store.peekRecord('user', user.id);
+    this.user = this.store.peekRecord('user', user.username);
     return this.user;
   }
 

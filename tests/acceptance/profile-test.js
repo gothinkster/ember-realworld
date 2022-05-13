@@ -26,7 +26,7 @@ module('Acceptance | profile', function (hooks) {
       await visit(`/profile/${profileOwner.username}`);
       await click('[data-test-follow-author-button]');
 
-      assert.equal(currentURL(), '/login');
+      assert.strictEqual(currentURL(), '/login');
     });
 
     test('sees a tab navigation to articles written by and favorited by the profile owner', async function (assert) {
@@ -51,7 +51,7 @@ module('Acceptance | profile', function (hooks) {
       await visit(`/profile/${profileOwner.username}`);
       await click('[data-test-profile-tab="favorite-articles"]');
 
-      assert.equal(currentURL(), `/profile/${profileOwner.username}/favorites`);
+      assert.strictEqual(currentURL(), `/profile/${profileOwner.username}/favorites`);
       assert
         .dom('[data-test-article-title]')
         .exists({ count: 3 }, 'Expected a list of 3 articles favorited by profile owner');
@@ -60,7 +60,7 @@ module('Acceptance | profile', function (hooks) {
       assert
         .dom('[data-test-article-title]')
         .exists({ count: 2 }, 'Expected a list of 2 articles created by profile owner');
-      assert.equal(currentURL(), `/profile/${profileOwner.username}`);
+      assert.strictEqual(currentURL(), `/profile/${profileOwner.username}`);
     });
 
     test("clicking on an article's favorite button redirects user to login page", async function (assert) {
@@ -75,7 +75,7 @@ module('Acceptance | profile', function (hooks) {
 
       await visit(`/profile/${profileOwner.username}`);
       await click('[data-test-favorite-article-button]');
-      assert.equal(currentURL(), '/login');
+      assert.strictEqual(currentURL(), '/login');
     });
   });
 
@@ -100,7 +100,7 @@ module('Acceptance | profile', function (hooks) {
       await visit(`/profile/${user.username}`);
       await click('[data-test-edit-profile-button]');
 
-      assert.equal(currentURL(), `/settings`);
+      assert.strictEqual(currentURL(), `/settings`);
     });
 
     test('visiting another user profile sees a link to follow the profile owner', async function (assert) {

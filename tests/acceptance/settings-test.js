@@ -15,7 +15,7 @@ module('Acceptance | settings', function (hooks) {
     test('visiting /settings redirects to login', async function (assert) {
       await visit('/settings');
 
-      assert.equal(currentURL(), '/login');
+      assert.strictEqual(currentURL(), '/login');
     });
   });
 
@@ -111,7 +111,7 @@ module('Acceptance | settings', function (hooks) {
         .dom('[data-test-settings-form-error-item="0"]')
         .hasText('username is too long (maximum is 20 characters)');
       assert.dom('[data-test-settings-form-error-item="1"]').hasText("email can't be blank");
-      assert.equal(
+      assert.strictEqual(
         currentRouteName(),
         'settings',
         'Should not navigate away from the page when there are errors',

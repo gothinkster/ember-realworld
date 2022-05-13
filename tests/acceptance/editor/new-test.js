@@ -30,7 +30,7 @@ module('Acceptance | editor', function (hooks) {
     test('is transitioned to login', async function (assert) {
       await visit('/editor');
 
-      assert.equal(currentURL(), '/login');
+      assert.strictEqual(currentURL(), '/login');
     });
   });
 
@@ -55,7 +55,7 @@ module('Acceptance | editor', function (hooks) {
       await triggerKeyEvent('[data-test-article-form-input-tags]', 'keydown', 'Enter');
       await click('[data-test-article-form-submit-button]');
 
-      assert.equal(currentRouteName(), 'articles.article');
+      assert.strictEqual(currentRouteName(), 'articles.article');
       assert.dom('[data-test-article-title]').hasText('Test Title');
       assert.dom('[data-test-article-body]').hasText('Test Body');
     });
@@ -72,7 +72,7 @@ module('Acceptance | editor', function (hooks) {
         .dom('[data-test-article-form-error-item]')
         .exists({ count: 1 }, 'A single error exists');
       assert.dom('[data-test-article-form-error-item]').hasText("body can't be blank");
-      assert.equal(
+      assert.strictEqual(
         currentRouteName(),
         'editor.index',
         'Should not navigate away from the page when there are errors',

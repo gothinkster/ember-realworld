@@ -1,11 +1,27 @@
-<form class="card comment-form">
-  <div class="card-block">
-    <Textarea class="form-control" placeholder="Write a comment..." rows="3" @value={{this.body}}
-      data-test-article-comment-textarea />
-    </div>
-  <div class="card-footer">
-    <img src={{this.session.user.image}} class="comment-author-img" alt={{this.session.user.username}}>
-    <button class="btn btn-sm btn-primary" disabled={{not this.body}} {{on "click" this.addComment}} type="button" data-test-article-comment-button>
+<form class='card comment-form'>
+  <div class='card-block'>
+    <Textarea
+      class='form-control'
+      placeholder='Write a comment...'
+      aria-label='Write a comment...'
+      rows='3'
+      @value={{this.body}}
+      data-test-article-comment-textarea
+    />
+  </div>
+  <div class='card-footer'>
+    <img
+      src={{this.session.user.image}}
+      class='comment-author-img'
+      alt={{this.session.user.username}}
+    />
+    <button
+      class='btn btn-sm btn-primary'
+      disabled={{not this.body}}
+      {{on 'click' this.addComment}}
+      type='button'
+      data-test-article-comment-button
+    >
       Post Comment
     </button>
   </div>
